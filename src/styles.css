@@ -1,3 +1,45 @@
 /* You can add global styles to this file, and also import other style files */
 
 @import "tailwindcss";
+
+/* Reset */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: system-ui, -apple-system, sans-serif;
+}
+
+/* ===== ANIMATED GRADIENT BACKGROUND (CRITICAL!) ===== */
+@keyframes gradient-animation {
+  0% { 
+    background-position: 0% 50%; 
+  }
+  25% {
+    background-position: 50% 75%;
+  }
+  50% { 
+    background-position: 100% 50%; 
+  }
+  75% {
+    background-position: 50% 25%;
+  }
+  100% { 
+    background-position: 0% 50%; 
+  }
+}
+
+/* Tailwind v4 gradient classes */
+.bg-linear-to-br,
+.bg-linear-to-r {
+  background-size: 400% 400% !important;
+  animation: gradient-animation 15s ease infinite;
+}
+
+/* Fallback if animation doesn't work */
+@supports not (animation: gradient-animation 15s ease infinite) {
+  .bg-linear-to-br {
+    background: linear-gradient(135deg, #581c87, #6b21a8) !important;
+  }
+}

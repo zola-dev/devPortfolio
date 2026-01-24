@@ -1,0 +1,54 @@
+/* Angular 21 AI Assistant - Custom Animations */
+
+@keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  .animate-fadeIn {
+    animation: fadeIn 0.3s ease-out;
+  }
+  
+  /* Custom scrollbar for chat messages */
+  .chat-messages::-webkit-scrollbar {
+    width: 6px;
+  }
+  
+  .chat-messages::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  
+  .chat-messages::-webkit-scrollbar-thumb {
+    background: rgba(168, 85, 247, 0.4);
+    border-radius: 3px;
+    transition: background 0.2s;
+  }
+  
+  .chat-messages::-webkit-scrollbar-thumb:hover {
+    background: rgba(168, 85, 247, 0.6);
+  }
+  
+  /* Smooth scroll behavior */
+  .chat-messages {
+    scroll-behavior: smooth;
+  }
+  
+  /* Bounce animation for typing indicator */
+  @keyframes bounce {
+    0%, 100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-10px);
+    }
+  }
+  
+  .animate-bounce {
+    animation: bounce 1.4s infinite;
+  }
