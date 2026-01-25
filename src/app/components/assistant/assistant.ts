@@ -1,4 +1,4 @@
-import { Component, signal, computed, inject, OnInit, OnDestroy, ViewChild, ElementRef } from '@angular/core';
+import { Component, signal, computed, inject, OnInit, OnDestroy, ViewChild, ElementRef, HostListener } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Chat } from '../../core/services/chat';
@@ -132,5 +132,10 @@ export class AssistantComponent implements OnInit, OnDestroy {
 
   trackByMessageId(index: number, message: ChatMessage): string {
     return message.id;
+  }
+  @HostListener('window:pagehide')
+  @HostListener('document:visibilitychange')
+  handleStopOnHide(): void {
+    this.speechService.stop();
   }
 }

@@ -134,6 +134,22 @@ export class Speech {
       console.log('⏹️ Speech stopped');
     }
   }
+  stop1(): void {
+    try {
+      this.synthesis.cancel();
+  
+      // Chrome / Safari workaround
+      setTimeout(() => {
+        this.synthesis.cancel();
+      }, 0);
+  
+      this.isSpeakingSignal.set(false);
+      this.currentUtterance = null;
+      console.log('⏹️ Speech force-stopped');
+    } catch (e) {
+      console.warn('Speech stop failed', e);
+    }
+  }
   
   /**
    * Pause speech
