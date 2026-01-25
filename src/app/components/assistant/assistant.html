@@ -9,11 +9,19 @@
           </h1>
           <p class="text-purple-100 text-sm mt-1">Powered by Angular 21 + Signals</p>
         </div>
- 
+        <div class="flex items-center gap-3">
+          <button 
+            (click)="toggleAutoSpeak()"
+            [class.bg-purple-800/60]="autoSpeak()"
+            [class.bg-gray-700/60]="!autoSpeak()"
+            class="text-sm text-white px-4 py-1.5 rounded-full shadow-lg transition-all hover:scale-105">
+            {{ autoSpeak() ? '🔊 Auto-Speak ON' : '🔇 Auto-Speak OFF' }}
+          </button>
+        </div>
       </div>
   
       <!-- Chat Messages Area (MORE PADDING!) -->
-      <div class="flex-1 overflow-y-auto px-8 py-6 space-y-4 bg-gray-900/50 chat-messages min-h-0">
+      <div #chatMessages class="flex-1 overflow-y-auto px-8 py-6 space-y-4 bg-gray-900/50 chat-messages min-h-0">
         
         @for (message of messages(); track message.id) {
         <div class="flex animate-fadeIn" 
@@ -22,15 +30,7 @@
           <div class="max-w-[70%] rounded-2xl px-5 py-3 shadow-xl" 
                [ngClass]="message.role === 'user' ? 'bg-linear-to-r from-purple-600 via-purple-500 to-pink-500 text-white shadow-purple-500/40' : 'bg-gray-800/90 text-gray-100 border border-purple-500/30 shadow-purple-500/20'">
             <p class="text-base leading-relaxed whitespace-pre-wrap wrap-break-word">{{ message.content }}</p>
-            
-            @if (message.streaming) {
-            <div class="flex gap-1 mt-2">
-              <span class="w-2 h-2 bg-purple-300 rounded-full animate-bounce shadow-lg shadow-purple-400/50"></span>
-              <span class="w-2 h-2 bg-purple-300 rounded-full animate-bounce shadow-lg shadow-purple-400/50" style="animation-delay: 0.2s"></span>
-              <span class="w-2 h-2 bg-purple-300 rounded-full animate-bounce shadow-lg shadow-purple-400/50" style="animation-delay: 0.4s"></span>
-            </div>
-            }
-            
+             
             <span class="text-xs opacity-60 mt-1 block">{{ message.timestamp | date:'HH:mm' }}</span>
           </div>
         </div>
@@ -68,7 +68,7 @@
             Send
           </button>
         </div>
-        <div class="mt-3 text-center">
+        <div *ngIf="false" class="mt-3 text-center">
           <button (click)="resetChat()" class="text-purple-300 hover:text-purple-200 text-sm transition-all hover:scale-105">
             🔄 Reset Chat
           </button>

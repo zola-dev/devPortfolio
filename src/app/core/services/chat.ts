@@ -10,7 +10,7 @@ import { Observable, catchError, map, of } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
-export class ChatService {
+export class Chat {
   
   // ========== SIGNALS (State) ==========
   private messagesSignal = signal<ChatMessage[]>([]);
@@ -48,7 +48,6 @@ export class ChatService {
       content,
       timestamp: new Date(),
       hidden,
-      streaming: false
     };
     
     this.messagesSignal.update(msgs => [...msgs, newMessage]);
@@ -121,7 +120,6 @@ export class ChatService {
       role: 'assistant',
       content: '',
       timestamp: new Date(),
-      streaming: true
     };
     
     this.messagesSignal.update(messages => [...messages, streamingMessage]);
@@ -196,16 +194,7 @@ export class ChatService {
                 );
               }
 
-              if (data.done) {
-                // Mark streaming complete
-                this.messagesSignal.update(messages => 
-                  messages.map(msg => 
-                    msg.id === streamingMessageId
-                      ? { ...msg, streaming: false }
-                      : msg
-                  )
-                );
-                
+              if (data.done) {     
                 this.isLoadingSignal.set(false);
                 onComplete(data.tokenStats);
                 return;

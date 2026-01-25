@@ -4,7 +4,6 @@ export interface Chat {
     content: string;
     timestamp: Date;
     hidden?: boolean;
-    streaming?: boolean;
   }
   
   export interface ChatMessage extends Chat {}
