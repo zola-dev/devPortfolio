@@ -1,4 +1,4 @@
-import { Component, signal, computed, inject, OnInit, OnDestroy, ViewChild, ElementRef, HostListener } from '@angular/core';
+import { Component, signal, computed, inject, OnInit, ViewChild, ElementRef, HostListener } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Chat } from '../../core/services/chat';
@@ -12,7 +12,7 @@ import { Speech } from '../../core/services/speech'; // ← NOVO
   templateUrl: './assistant.html',
   styleUrls: ['./assistant.css']
 })
-export class AssistantComponent implements OnInit, OnDestroy {
+export class AssistantComponent implements OnInit {
   @ViewChild('chatMessages') 
   private chatMessagesRef?: ElementRef<HTMLDivElement>;
   private chatService = inject(Chat);
@@ -32,20 +32,8 @@ export class AssistantComponent implements OnInit, OnDestroy {
     // this.initChat();
   }
   ngOnInit() {
-    this.speechService.stop();
-
     this.initChat();
   }
-  ngOnDestroy() {
-    this.speechService.stop();
-  }
-  // ngOnInit() {
-  //   this.initChat();
-    
-  //   // ← DODAJ OVO: Fake click nakon load-a
-  //   // this.enableAudioAutoplay();
-  // }
-
   private initChat(): void {
     const welcomeMessages = [
       'Hello! 👋 I\'m your AI assistant. How can I help you today?',
@@ -75,7 +63,10 @@ export class AssistantComponent implements OnInit, OnDestroy {
         this.scrollToBottom(); 
         console.log('🎬 Streaming started')
       },
-      (chunk: string) => {     this.scrollToBottom(); },
+      (chunk: string) => {     
+        this.scrollToBottom(); 
+      
+      },
       (stats?: any) => {
         console.log('✅ Complete', stats);
         this.scrollToBottom()
