@@ -1,5 +1,3 @@
-/* Angular 21 AI Assistant - Custom Animations */
-
 @keyframes fadeIn {
     from {
       opacity: 0;
@@ -14,8 +12,6 @@
   .animate-fadeIn {
     animation: fadeIn 0.3s ease-out;
   }
-  
-  /* Custom scrollbar for chat messages */
   .chat-messages::-webkit-scrollbar {
     width: 6px;
   }
@@ -34,12 +30,10 @@
     background: rgba(168, 85, 247, 0.6);
   }
   
-  /* Smooth scroll behavior */
   .chat-messages {
     scroll-behavior: smooth;
   }
   
-  /* Bounce animation for typing indicator */
   @keyframes bounce {
     0%, 100% {
       transform: translateY(0);
@@ -52,3 +46,132 @@
   .animate-bounce {
     animation: bounce 1.4s infinite;
   }
+
+  /*EMAIL LINK*/
+::ng-deep .chat-link-email {
+  color: #c084fc; /* purple-400 */
+  text-decoration: none;
+  font-weight: 600;
+  border-bottom: 1.5px solid #c084fc;
+  padding-bottom: 2px;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  font-family: 'Courier New', monospace;
+  
+  &:hover {
+    color: #e9d5ff;
+    border-bottom-color: #e9d5ff;
+    transform: translateY(-2px);
+    text-shadow: 0 0 8px rgba(192, 132, 252, 0.4);
+  }
+  
+  &:active {
+    transform: translateY(0);
+  }
+}
+
+/*PHONE LINK*/
+::ng-deep .chat-link-phone {
+  color: #10b981; /* green-500 */
+  text-decoration: none;
+  font-weight: 600;
+  border-bottom: 1.5px solid #10b981;
+  padding-bottom: 2px;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  font-family: 'Courier New', monospace;
+  
+  &:hover {
+    color: #6ee7b7; /* green-300 */
+    border-bottom-color: #6ee7b7;
+    transform: translateY(-2px);
+    text-shadow: 0 0 8px rgba(16, 185, 129, 0.4);
+  }
+  
+  &:active {
+    transform: translateY(0);
+  }
+}
+
+/*COPY BUTTON*/
+::ng-deep .copy-btn {
+  background: rgba(192, 132, 252, 0.15);
+  border: 1.5px solid rgba(192, 132, 252, 0.4);
+  color: #c084fc;
+  padding: 4px 10px;
+  border-radius: 8px;
+  font-size: 0.8em;
+  font-weight: 600;
+  cursor: pointer;
+  margin-left: 8px;
+  transition: all 0.3s ease;
+  white-space: nowrap;
+  
+  &:hover {
+    background: rgba(192, 132, 252, 0.25);
+    border-color: rgba(192, 132, 252, 0.6);
+    transform: translateY(-2px) scale(1.05);
+    box-shadow: 0 4px 12px rgba(192, 132, 252, 0.3);
+  }
+  
+  &:active {
+    transform: translateY(0) scale(0.98);
+  }
+  
+  /*Copied*/
+  &:has-text("✅") {
+    background: rgba(16, 185, 129, 0.2);
+    border-color: #10b981;
+    color: #10b981;
+  }
+}
+
+/*LINKEDIN LINK*/
+::ng-deep .chat-link-linkedin {
+  color: #0a66c2;
+  text-decoration: none;
+  font-weight: 600;
+  border-bottom: 2px solid #0a66c2;
+  padding-bottom: 2px;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  
+  &:hover {
+    color: #004182;
+    border-bottom-color: #004182;
+    transform: translateY(-2px);
+    box-shadow: 0 2px 8px rgba(10, 102, 194, 0.3);
+  }
+  
+  &:active {
+    transform: translateY(0);
+  }
+}
+
+/*GITHUB LINK*/
+::ng-deep .chat-link-github {
+  color: #e9d5ff;
+  text-decoration: none;
+  font-weight: 600;
+  border-bottom: 2px solid #e9d5ff;
+  padding-bottom: 2px;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  
+  &:hover {
+    color: #ffffff;
+    border-bottom-color: #ffffff;
+    transform: translateY(-2px);
+    box-shadow: 0 2px 8px rgba(255, 255, 255, 0.3);
+  }
+  
+  &:active {
+    transform: translateY(0);
+  }
+}
