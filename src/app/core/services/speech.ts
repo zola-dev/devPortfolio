@@ -1,4 +1,5 @@
 import { Injectable, signal } from '@angular/core';
+import { concatMap, Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -8,6 +9,12 @@ export class Speech {
   // ========== SIGNALS ==========
   private isSpeakingSignal = signal<boolean>(false);
   readonly isSpeaking = this.isSpeakingSignal.asReadonly();
+
+    // ========== STREAMING QUEUE ==========
+    private sentenceQueue$ = new Subject<string>();
+    private currentBuffer = '';
+    private isStreaming = false;
+  
   
   // ========== CONFIG ==========
   private synthesis: SpeechSynthesis;
@@ -22,9 +29,106 @@ export class Speech {
   constructor() {
     this.synthesis = window.speechSynthesis;
     this.loadVoices();
+    this.setupStreamingQueue();
     console.log('✅ SpeechService initialized');
   }
+  private setupStreamingQueue(): void {
+    this.sentenceQueue$.pipe(
+      concatMap(sentence => this.speakAsync(sentence))
+    ).subscribe({
+      next: () => {
+        // sentence finished, => next
+      },
+      error: (err) => {
+        console.error('❌ Speech queue error:', err);
+        this.isSpeakingSignal.set(false);
+      }
+    });
+  }
+
+  //Speak text asynchronously (returns Promise wrapped in Observable)
+ private speakAsync(text: string): Promise<void> {
+   return new Promise((resolve, reject) => {
+     if (!text.trim()) {
+       resolve();
+       return;
+     }
+     
+     const utterance = new SpeechSynthesisUtterance(text);
+     
+     if (this.defaultVoice) {
+       utterance.voice = this.defaultVoice;
+     }
+     utterance.rate = this.rate;
+     utterance.pitch = this.pitch;
+     utterance.volume = this.volume;
+     utterance.lang = 'en-US';
+     
+     utterance.onstart = () => {
+       this.isSpeakingSignal.set(true);
+       console.log(`🔊 Speaking: "${text.substring(0, 50)}..."`);
+     };
+     
+     utterance.onend = () => {
+       console.log('✅ Sentence finished');
+       resolve();
+     };
+     
+     utterance.onerror = (event) => {
+       console.error('❌ Speech error:', event);
+       reject(event);
+     };
+     
+     this.currentUtterance = utterance;
+     this.synthesis.speak(utterance);
+   });
+ }
+ startStreaming(): void {
+  this.isStreaming = true;
+  this.currentBuffer = '';
+  this.isSpeakingSignal.set(false);
+  console.log('🎙️ Streaming speech started');
+}
+addChunk(chunk: string): void {
+  if (!this.isStreaming) return;
   
+  this.currentBuffer += chunk;
+  
+  // Extract complete sentences (ending with . ! ? , or newline)
+  const sentences = this.extractCompleteSentences();
+  
+  sentences.forEach(sentence => {
+    if (sentence.trim()) {
+      this.sentenceQueue$.next(sentence);
+    }
+  });
+}
+// * Extract complete sentences from buffer
+//    * Supports: . ! ? , and \n as sentence endings
+private extractCompleteSentences(): string[] {
+  // Regex: match sentence endings (., !, ?, ,) followed by space/newline OR just newline
+  const sentencePattern = /[.!?,]\s+|\n/g;
+  
+  const sentences: string[] = [];
+  let lastIndex = 0;
+  let match;
+  
+  while ((match = sentencePattern.exec(this.currentBuffer)) !== null) {
+    const endIndex = match.index + match[0].length;
+    const sentence = this.currentBuffer.substring(lastIndex, endIndex).trim();
+    
+    if (sentence) {
+      sentences.push(sentence);
+    }
+    
+    lastIndex = endIndex;
+  }
+  
+  // Keep incomplete sentence in buffer
+  this.currentBuffer = this.currentBuffer.substring(lastIndex);
+  
+  return sentences;
+}
   /**
    * Load available voices
    */
