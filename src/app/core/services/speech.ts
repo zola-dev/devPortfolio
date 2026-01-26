@@ -1,5 +1,5 @@
 import { Injectable, signal } from '@angular/core';
-import { concatMap, Subject } from 'rxjs';
+import { concatMap, Subject, takeUntil } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -10,11 +10,11 @@ export class Speech {
   private isSpeakingSignal = signal<boolean>(false);
   readonly isSpeaking = this.isSpeakingSignal.asReadonly();
 
-    // ========== STREAMING QUEUE ==========
-    private sentenceQueue$ = new Subject<string>();
-    private currentBuffer = '';
-    private isStreaming = false;
-  
+  // ========== STREAMING QUEUE ==========
+  private sentenceQueue$ = new Subject<string>();
+  private stopQueue$ = new Subject<void>();
+  private currentBuffer = '';
+  private isStreaming = false;
   
   // ========== CONFIG ==========
   private synthesis: SpeechSynthesis;
@@ -32,103 +32,149 @@ export class Speech {
     this.setupStreamingQueue();
     console.log('✅ SpeechService initialized');
   }
+  
+  /**
+   * Setup streaming queue with concatMap and takeUntil
+   */
   private setupStreamingQueue(): void {
     this.sentenceQueue$.pipe(
+      takeUntil(this.stopQueue$),
       concatMap(sentence => this.speakAsync(sentence))
     ).subscribe({
       next: () => {
-        // sentence finished, => next
+        // Sentence finished, automatically moves to next
       },
       error: (err) => {
         console.error('❌ Speech queue error:', err);
+        this.isSpeakingSignal.set(false);
+      },
+      complete: () => {
+        console.log('🎬 Queue completed');
         this.isSpeakingSignal.set(false);
       }
     });
   }
 
-  //Speak text asynchronously (returns Promise wrapped in Observable)
- private speakAsync(text: string): Promise<void> {
-   return new Promise((resolve, reject) => {
-     if (!text.trim()) {
-       resolve();
-       return;
-     }
-     
-     const utterance = new SpeechSynthesisUtterance(text);
-     
-     if (this.defaultVoice) {
-       utterance.voice = this.defaultVoice;
-     }
-     utterance.rate = this.rate;
-     utterance.pitch = this.pitch;
-     utterance.volume = this.volume;
-     utterance.lang = 'en-US';
-     
-     utterance.onstart = () => {
-       this.isSpeakingSignal.set(true);
-       console.log(`🔊 Speaking: "${text.substring(0, 50)}..."`);
-     };
-     
-     utterance.onend = () => {
-       console.log('✅ Sentence finished');
-       resolve();
-     };
-     
-     utterance.onerror = (event) => {
-       console.error('❌ Speech error:', event);
-       reject(event);
-     };
-     
-     this.currentUtterance = utterance;
-     this.synthesis.speak(utterance);
-   });
- }
- startStreaming(): void {
-  this.isStreaming = true;
-  this.currentBuffer = '';
-  this.isSpeakingSignal.set(false);
-  console.log('🎙️ Streaming speech started');
-}
-addChunk(chunk: string): void {
-  if (!this.isStreaming) return;
-  
-  this.currentBuffer += chunk;
-  
-  // Extract complete sentences (ending with . ! ? , or newline)
-  const sentences = this.extractCompleteSentences();
-  
-  sentences.forEach(sentence => {
-    if (sentence.trim()) {
-      this.sentenceQueue$.next(sentence);
-    }
-  });
-}
-// * Extract complete sentences from buffer
-//    * Supports: . ! ? , and \n as sentence endings
-private extractCompleteSentences(): string[] {
-  // Regex: match sentence endings (., !, ?, ,) followed by space/newline OR just newline
-  const sentencePattern = /[.!?,]\s+|\n/g;
-  
-  const sentences: string[] = [];
-  let lastIndex = 0;
-  let match;
-  
-  while ((match = sentencePattern.exec(this.currentBuffer)) !== null) {
-    const endIndex = match.index + match[0].length;
-    const sentence = this.currentBuffer.substring(lastIndex, endIndex).trim();
-    
-    if (sentence) {
-      sentences.push(sentence);
-    }
-    
-    lastIndex = endIndex;
+  /**
+   * Speak text asynchronously (returns Promise)
+   */
+  private speakAsync(text: string): Promise<void> {
+    return new Promise((resolve, reject) => {
+      if (!text.trim()) {
+        resolve();
+        return;
+      }
+      
+      const utterance = new SpeechSynthesisUtterance(text);
+      
+      if (this.defaultVoice) {
+        utterance.voice = this.defaultVoice;
+      }
+      utterance.rate = this.rate;
+      utterance.pitch = this.pitch;
+      utterance.volume = this.volume;
+      utterance.lang = 'en-US';
+      
+      utterance.onstart = () => {
+        this.isSpeakingSignal.set(true);
+        console.log(`🔊 Speaking: "${text.substring(0, 50)}..."`);
+      };
+      
+      utterance.onend = () => {
+        console.log('✅ Sentence finished');
+        resolve();
+      };
+      
+      utterance.onerror = (event) => {
+        console.error('❌ Speech error:', event);
+        reject(event);
+      };
+      
+      this.currentUtterance = utterance;
+      this.synthesis.speak(utterance);
+    });
   }
   
-  // Keep incomplete sentence in buffer
-  this.currentBuffer = this.currentBuffer.substring(lastIndex);
+  /**
+   * Start streaming speech
+   */
+  startStreaming(): void {
+    // Clear everything first
+    this.stop();
+    
+    this.isStreaming = true;
+    this.currentBuffer = '';
+    this.isSpeakingSignal.set(false);
+    
+    // Recreate stop trigger and re-setup queue
+    this.stopQueue$ = new Subject<void>();
+    this.setupStreamingQueue();
+    
+    console.log('🎙️ Streaming speech started');
+  }
   
-  return sentences;
-}
+  /**
+   * Add chunk to streaming queue
+   */
+  addChunk(chunk: string): void {
+    if (!this.isStreaming) return;
+    
+    this.currentBuffer += chunk;
+    
+    // Extract complete sentences (ending with . ! ? , or newline)
+    const sentences = this.extractCompleteSentences();
+    
+    sentences.forEach(sentence => {
+      if (sentence.trim()) {
+        this.sentenceQueue$.next(sentence);
+      }
+    });
+  }
+  
+  /**
+   * Extract complete sentences from buffer
+   * Supports: . ! ? , and \n as sentence endings
+   */
+  private extractCompleteSentences(): string[] {
+    // Regex: match sentence endings (., !, ?, ,) followed by space/newline OR just newline
+    const sentencePattern = /[.!?,]\s+|\n/g;
+    
+    const sentences: string[] = [];
+    let lastIndex = 0;
+    let match;
+    
+    while ((match = sentencePattern.exec(this.currentBuffer)) !== null) {
+      const endIndex = match.index + match[0].length;
+      const sentence = this.currentBuffer.substring(lastIndex, endIndex).trim();
+      
+      if (sentence) {
+        sentences.push(sentence);
+      }
+      
+      lastIndex = endIndex;
+    }
+    
+    // Keep incomplete sentence in buffer
+    this.currentBuffer = this.currentBuffer.substring(lastIndex);
+    
+    return sentences;
+  }
+  
+  /**
+   * Finish streaming and speak remaining buffer
+   */
+  finishStreaming(): void {
+    this.isStreaming = false;
+    
+    // Speak whatever is left in buffer
+    if (this.currentBuffer.trim()) {
+      this.sentenceQueue$.next(this.currentBuffer);
+      this.currentBuffer = '';
+    }
+    
+    console.log('🎬 Streaming speech finished');
+  }
+  
   /**
    * Load available voices
    */
@@ -178,7 +224,7 @@ private extractCompleteSentences(): string[] {
   }
   
   /**
-   * Speak text aloud
+   * Speak text aloud (non-streaming mode)
    */
   speak(text: string): Promise<void> {
     return new Promise((resolve, reject) => {
@@ -228,33 +274,31 @@ private extractCompleteSentences(): string[] {
   }
   
   /**
-   * Stop current speech
+   * Stop current speech and clear queue
    */
   stop(): void {
-    if (this.synthesis.speaking) {
+    // 1. Stop streaming mode
+    this.isStreaming = false;
+    this.currentBuffer = '';
+    
+    // 2. Clear RxJS queue
+    this.stopQueue$.next();
+    
+    // 3. Cancel current speech
+    if (this.synthesis.speaking || this.synthesis.pending) {
       this.synthesis.cancel();
-      this.isSpeakingSignal.set(false);
-      this.currentUtterance = null;
-      console.log('⏹️ Speech stopped');
-    }
-  }
-  stop1(): void {
-    try {
-      this.synthesis.cancel();
-  
-      // Chrome / Safari workaround
+      
+      // Chrome/Safari workaround
       setTimeout(() => {
         this.synthesis.cancel();
       }, 0);
-  
-      this.isSpeakingSignal.set(false);
-      this.currentUtterance = null;
-      console.log('⏹️ Speech force-stopped');
-    } catch (e) {
-      console.warn('Speech stop failed', e);
     }
+    
+    this.isSpeakingSignal.set(false);
+    this.currentUtterance = null;
+    console.log('⏹️ Speech stopped & queue cleared');
   }
-  
+
   /**
    * Pause speech
    */
