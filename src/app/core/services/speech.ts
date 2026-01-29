@@ -1,5 +1,6 @@
-import { Injectable, signal } from '@angular/core';
+import { inject, Injectable, signal } from '@angular/core';
 import { concatMap, Subject, takeUntil } from 'rxjs';
+import { Chat } from '../../core/services/chat';
 
 @Injectable({
   providedIn: 'root'
@@ -27,6 +28,7 @@ export class Speech {
   private volume = 1.0;    // Glasnoća (0 - 1)
   private speechSessionId: number | null = null;
   private readonly SESSION_KEY = 'speechSessionId';
+  private chatService = inject(Chat);
   constructor() {
     this.synthesis = window.speechSynthesis;
     this.loadVoices();
@@ -102,6 +104,7 @@ export class Speech {
         console.log(`🎤 Selected fallback voice for ${baseLang}: ${similarVoice.name}`);
       } else {
         console.warn(`⚠️ No voice found for language: ${lang}, keeping current voice`);
+        this.updateSpeechSessionLanguages();
       }
     }
   }
@@ -438,5 +441,46 @@ export class Speech {
         collect();
       }
     });
+  }
+  async initSpeechSession(): Promise<void> {
+    if (this.speechSessionId) return;
+  
+    const cached = localStorage.getItem(this.SESSION_KEY);
+    if (cached) {
+      this.speechSessionId = +cached;
+      return;
+    }
+  
+    const languages = await this.getAvailableLanguages();
+  
+    this.chatService.createSpeechSession(languages)
+      .subscribe((id:any) => {
+        this.speechSessionId = id;
+        localStorage.setItem(this.SESSION_KEY, String(id));
+        console.log('🆔 Speech session created:', id);
+      });
+  }
+  async updateSpeechSessionLanguages(): Promise<void> {
+    if (!this.speechSessionId) return;
+  
+    const languages = await this.getAvailableLanguages();
+  
+    this.chatService.updateSpeechSession(
+      this.speechSessionId,
+      languages
+    ).subscribe(() => {
+      console.log('🔁 Speech session updated');
+    });
+  }
+  destroySpeechSession(): void {
+    if (!this.speechSessionId) return;
+  
+    this.chatService.deleteSpeechSession(this.speechSessionId)
+      .subscribe(() => {
+        console.log('🧹 Speech session deleted');
+      });
+  
+    localStorage.removeItem(this.SESSION_KEY);
+    this.speechSessionId = null;
   }
 }

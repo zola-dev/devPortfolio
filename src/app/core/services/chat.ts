@@ -104,7 +104,7 @@ export class Chat {
     additionalPrompt: string = '',
     onStart: () => void,
     onChunk: (chunk: string) => void,
-    onComplete: (stats?: any) => void,
+    onComplete: (stats?: any, language?: string, languageUnsupported?: boolean) => void,
     onError: (error: any) => void
   ): Promise<void> {
     this.isLoadingSignal.set(true);
@@ -241,5 +241,16 @@ export class Chat {
    */
   private generateId(): string {
     return `msg_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
+  }
+  createSpeechSession(languages: string[]): Observable<number> {
+    return this.http.post<number>(`${this.API_URL}/createSpeechSession`, { languages });
+  }
+  
+  updateSpeechSession(sessionId: number, languages: string[]): Observable<void> {
+    return this.http.post<void>(`${this.API_URL}/updateSpeechSession`, { sessionId, languages });
+  }
+  
+  deleteSpeechSession(sessionId: number): Observable<void> {
+    return this.http.post<void>(`${this.API_URL}/deleteSpeechSession`, { sessionId });
   }
 }
