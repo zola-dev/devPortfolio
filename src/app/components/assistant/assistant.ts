@@ -29,7 +29,6 @@ export class AssistantComponent implements OnInit {
   isSpeaking = this.speechService.isSpeaking; 
 
   constructor() {
-    // this.initChat();
   }
   ngOnInit() {
     this.initChat();
@@ -55,29 +54,51 @@ export class AssistantComponent implements OnInit {
 
     this.userInput.set('');
     this.speechService.stop(); 
+
+    if (this.autoSpeak()) {
+      this.speechService.startStreaming();
+    }
+
     // Always streaming - no conditional logic needed
+    let languageSet = false;
     this.chatService.sendMessageStream(
       message,
       '',
       () => {
         this.scrollToBottom(); 
-        console.log('🎬 Streaming started')
       },
       (chunk: string) => {     
         this.scrollToBottom(); 
-      
-      },
-      (stats?: any) => {
-        console.log('✅ Complete', stats);
-        this.scrollToBottom()
-        if (this.autoSpeak()) {
-          const lastMessage = this.messages()[this.messages().length - 1];
-          if (lastMessage && lastMessage.role === 'assistant') {
-            this.speechService.speak(lastMessage.content);
+        if (!languageSet) {
+          const langMatch = chunk.match(/\[LANG:(\w+-?\w*)\]/);
+          if (langMatch) {
+            const lang = langMatch[1];
+            console.log(`🗣️ Detected language early: ${lang}`);
+            this.speechService.setLanguage(lang);
+            languageSet = true;
           }
         }
+      
+        // 🔥 2. Očisti LANG marker iz govora
+        const cleanChunk = chunk.replace(/\[LANG:\w+-?\w*\]/g, '');
+        if (this.autoSpeak()) {
+          this.speechService.addChunk(cleanChunk);
+        }
       },
-      (error: any) => console.error('❌ Error:', error)
+      (stats?: any, language?: string) => {
+        console.log('✅ Complete', stats);
+        this.scrollToBottom();
+        // if (language) {
+        //   console.log(`🗣️ Updating speech language to: ${language}`);
+        //   this.speechService.setLanguage(language);
+        // }
+        if (this.autoSpeak()) {
+          this.speechService.finishStreaming();
+        }
+      },
+      (error: any) => {
+        this.speechService.stop(); 
+        console.error('❌ Error:', error)}
     );
   }
 
@@ -110,6 +131,8 @@ export class AssistantComponent implements OnInit {
     this.autoSpeak.update(v => !v);
     if (!this.autoSpeak()) {
       this.speechService.stop();
+    }else{
+      this.speechService.initSpeechSession();
     }
   }
 

@@ -18,24 +18,94 @@ export class Speech {
   
   // ========== CONFIG ==========
   private synthesis: SpeechSynthesis;
-  private currentUtterance: SpeechSynthesisUtterance | null = null;
   
   // Voice settings
   private defaultVoice: SpeechSynthesisVoice | null = null;
+  private currentLanguage: string = 'en-US'; // 🔥 NEW: Track current language
   private rate = 1.0;      // Brzina (0.1 - 10)
-  private pitch = 1.0;     // Ton (0 - 2)
+  private pitch = 1;     // Ton (0 - 2)
   private volume = 1.0;    // Glasnoća (0 - 1)
-  
+  private speechSessionId: number | null = null;
+  private readonly SESSION_KEY = 'speechSessionId';
   constructor() {
     this.synthesis = window.speechSynthesis;
     this.loadVoices();
     this.setupStreamingQueue();
+    this.logAvailableLanguages(); // 🔥 NEW: Log all available languages
     console.log('✅ SpeechService initialized');
   }
   
-  /**
-   * Setup streaming queue with concatMap and takeUntil
-   */
+  // 🔥 NEW: Log all available languages on startup
+  private logAvailableLanguages(): void {
+    if (this.synthesis.getVoices().length === 0) {
+      this.synthesis.onvoiceschanged = () => {
+        this.doLogLanguages();
+      };
+    } else {
+      this.doLogLanguages();
+    }
+  }
+  
+  private doLogLanguages(): void {
+    const voices = this.synthesis.getVoices();
+    const languages = new Set<string>();
+    
+    voices.forEach(voice => {
+      languages.add(voice.lang);
+    });
+    
+    console.log('🗣️ Available speech languages:', Array.from(languages).sort());
+    console.log('📝 Example voices per language:');
+    
+    const languageMap = new Map<string, string[]>();
+    voices.forEach(voice => {
+      if (!languageMap.has(voice.lang)) {
+        languageMap.set(voice.lang, []);
+      }
+      languageMap.get(voice.lang)!.push(voice.name);
+    });
+    
+    // Log first 2 voices per language
+    languageMap.forEach((names, lang) => {
+      console.log(`  ${lang}: ${names.slice(0, 2).join(', ')}${names.length > 2 ? '...' : ''}`);
+    });
+  }
+  
+  // 🔥 NEW: Set language dynamically from backend
+  setLanguage(lang: string): void {
+    this.currentLanguage = lang;
+    console.log(`🗣️ Language changed to: ${lang}`);
+    
+    // Update voice to match language
+    this.selectVoiceForLanguage(lang);
+  }
+  
+  // 🔥 NEW: Select voice based on detected language
+  private selectVoiceForLanguage(lang: string): void {
+    const voices = this.synthesis.getVoices();
+    
+    // Try to find voices for specific language
+    const voicesForLang = voices.filter(v => v.lang === lang);
+    
+    if (voicesForLang.length > 0) {
+      // Prefer Google voices if available
+      const googleVoice = voicesForLang.find(v => v.name.includes('Google'));
+      this.defaultVoice = googleVoice || voicesForLang[0];
+      console.log(`🎤 Selected voice for ${lang}: ${this.defaultVoice.name}`);
+    } else {
+      // Fallback: try base language (e.g., 'sr' for 'sr-RS')
+      const baseLang = lang.split('-')[0];
+      const similarVoice = voices.find(v => v.lang.startsWith(baseLang));
+      
+      if (similarVoice) {
+        this.defaultVoice = similarVoice;
+        console.log(`🎤 Selected fallback voice for ${baseLang}: ${similarVoice.name}`);
+      } else {
+        console.warn(`⚠️ No voice found for language: ${lang}, keeping current voice`);
+      }
+    }
+  }
+  
   private setupStreamingQueue(): void {
     this.sentenceQueue$.pipe(
       takeUntil(this.stopQueue$),
@@ -55,17 +125,49 @@ export class Speech {
     });
   }
 
-  /**
-   * Speak text asynchronously (returns Promise)
-   */
+  private sanitizeForSpeech(text: string): string {
+    let cleaned = text;
+    
+    // Remove markdown bold/italic
+    cleaned = cleaned.replace(/(\*\*|__)(.*?)\1/g, '$2');
+    cleaned = cleaned.replace(/(\*|_)(.*?)\1/g, '$2');
+    
+    // Remove markdown headers
+    cleaned = cleaned.replace(/^#{1,6}\s+/gm, '');
+    
+    // Remove links but keep text [text](url) -> text
+    cleaned = cleaned.replace(/\[([^\]]+)\]\([^\)]+\)/g, '$1');
+    
+    // Remove URLs
+    cleaned = cleaned.replace(/https?:\/\/[^\s]+/g, '');
+    
+    // Remove emojis
+    cleaned = cleaned.replace(/[\u{1F300}-\u{1F9FF}\u{2600}-\u{26FF}\u{2700}-\u{27BF}]/gu, '');
+    
+    // Remove special symbols
+    cleaned = cleaned.replace(/[•·→←↑↓✓✗✔✘★☆♠♣♥♦]/g, '');
+    
+    // Replace multiple punctuation
+    cleaned = cleaned.replace(/\.{2,}/g, '.');
+    cleaned = cleaned.replace(/!{2,}/g, '!');
+    cleaned = cleaned.replace(/\?{2,}/g, '?');
+    
+    // Replace multiple spaces
+    cleaned = cleaned.replace(/\s+/g, ' ');
+    
+    return cleaned.trim();
+  }
+
   private speakAsync(text: string): Promise<void> {
     return new Promise((resolve, reject) => {
-      if (!text.trim()) {
+      const cleanedText = this.sanitizeForSpeech(text);
+      
+      if (!cleanedText.trim()) {
         resolve();
         return;
       }
       
-      const utterance = new SpeechSynthesisUtterance(text);
+      const utterance = new SpeechSynthesisUtterance(cleanedText);
       
       if (this.defaultVoice) {
         utterance.voice = this.defaultVoice;
@@ -73,11 +175,11 @@ export class Speech {
       utterance.rate = this.rate;
       utterance.pitch = this.pitch;
       utterance.volume = this.volume;
-      utterance.lang = 'en-US';
+      utterance.lang = this.currentLanguage; // 🔥 Use dynamic language
       
       utterance.onstart = () => {
         this.isSpeakingSignal.set(true);
-        console.log(`🔊 Speaking: "${text.substring(0, 50)}..."`);
+        console.log(`🔊 Speaking (${this.currentLanguage}): "${cleanedText.substring(0, 50)}..."`);
       };
       
       utterance.onend = () => {
@@ -90,38 +192,28 @@ export class Speech {
         reject(event);
       };
       
-      this.currentUtterance = utterance;
       this.synthesis.speak(utterance);
     });
   }
   
-  /**
-   * Start streaming speech
-   */
   startStreaming(): void {
-    // Clear everything first
     this.stop();
     
     this.isStreaming = true;
     this.currentBuffer = '';
     this.isSpeakingSignal.set(false);
     
-    // Recreate stop trigger and re-setup queue
     this.stopQueue$ = new Subject<void>();
     this.setupStreamingQueue();
     
     console.log('🎙️ Streaming speech started');
   }
   
-  /**
-   * Add chunk to streaming queue
-   */
   addChunk(chunk: string): void {
     if (!this.isStreaming) return;
     
     this.currentBuffer += chunk;
     
-    // Extract complete sentences (ending with . ! ? , or newline)
     const sentences = this.extractCompleteSentences();
     
     sentences.forEach(sentence => {
@@ -131,12 +223,7 @@ export class Speech {
     });
   }
   
-  /**
-   * Extract complete sentences from buffer
-   * Supports: . ! ? , and \n as sentence endings
-   */
   private extractCompleteSentences(): string[] {
-    // Regex: match sentence endings (., !, ?, ,) followed by space/newline OR just newline
     const sentencePattern = /[.!?,]\s+|\n/g;
     
     const sentences: string[] = [];
@@ -154,19 +241,14 @@ export class Speech {
       lastIndex = endIndex;
     }
     
-    // Keep incomplete sentence in buffer
     this.currentBuffer = this.currentBuffer.substring(lastIndex);
     
     return sentences;
   }
   
-  /**
-   * Finish streaming and speak remaining buffer
-   */
   finishStreaming(): void {
     this.isStreaming = false;
     
-    // Speak whatever is left in buffer
     if (this.currentBuffer.trim()) {
       this.sentenceQueue$.next(this.currentBuffer);
       this.currentBuffer = '';
@@ -175,14 +257,10 @@ export class Speech {
     console.log('🎬 Streaming speech finished');
   }
   
-  /**
-   * Load available voices
-   */
   private loadVoices(): void {
     const voices = this.synthesis.getVoices();
     
     if (voices.length === 0) {
-      // Voices not loaded yet, try again
       this.synthesis.onvoiceschanged = () => {
         this.selectDefaultVoice();
       };
@@ -191,31 +269,25 @@ export class Speech {
     }
   }
   
-  /**
-   * Select best English voice
-   */
   private selectDefaultVoice(): void {
     const voices = this.synthesis.getVoices();
     
-    // Prioritet: Google UK English Male → Microsoft Mark → Bilo koji engleski
     const preferredVoices = [
-      'Google UK English Male',
-      'Google US English',
-      'Microsoft Mark - English (United States)',
-      'Alex',  // macOS
-      'Samantha' // macOS
+      'Google US English',        // Female
+      'Samantha',                 // macOS Female
+      'Microsoft Zira - English (United States)', // Female
+      'Alex'                      // macOS Male (fallback)
     ];
     
     for (const preferred of preferredVoices) {
       const voice = voices.find(v => v.name === preferred);
       if (voice) {
         this.defaultVoice = voice;
-        console.log(`🎤 Selected voice: ${voice.name}`);
+        console.log(`🎤 Selected default voice: ${voice.name}`);
         return;
       }
     }
     
-    // Fallback: Bilo koji engleski glas
     const englishVoice = voices.find(v => v.lang.startsWith('en'));
     if (englishVoice) {
       this.defaultVoice = englishVoice;
@@ -223,85 +295,66 @@ export class Speech {
     }
   }
   
-  /**
-   * Speak text aloud (non-streaming mode)
-   */
   speak(text: string): Promise<void> {
     return new Promise((resolve, reject) => {
-      // Stop any current speech
       this.stop();
       
-      if (!text.trim()) {
+      const cleanedText = this.sanitizeForSpeech(text);
+      
+      if (!cleanedText.trim()) {
         resolve();
         return;
       }
       
-      const utterance = new SpeechSynthesisUtterance(text);
+      const utterance = new SpeechSynthesisUtterance(cleanedText);
       
-      // Set voice and settings
       if (this.defaultVoice) {
         utterance.voice = this.defaultVoice;
       }
       utterance.rate = this.rate;
       utterance.pitch = this.pitch;
       utterance.volume = this.volume;
-      utterance.lang = 'en-US';
+      utterance.lang = this.currentLanguage; // 🔥 Use dynamic language
       
-      // Event handlers
       utterance.onstart = () => {
         this.isSpeakingSignal.set(true);
-        console.log('🔊 Started speaking');
+        console.log(`🔊 Started speaking (${this.currentLanguage})`);
       };
       
       utterance.onend = () => {
         this.isSpeakingSignal.set(false);
-        this.currentUtterance = null;
         console.log('✅ Finished speaking');
         resolve();
       };
       
       utterance.onerror = (event) => {
         this.isSpeakingSignal.set(false);
-        this.currentUtterance = null;
         console.error('❌ Speech error:', event);
         reject(event);
       };
       
-      // Store and speak
-      this.currentUtterance = utterance;
       this.synthesis.speak(utterance);
     });
   }
   
-  /**
-   * Stop current speech and clear queue
-   */
   stop(): void {
-    // 1. Stop streaming mode
     this.isStreaming = false;
     this.currentBuffer = '';
     
-    // 2. Clear RxJS queue
     this.stopQueue$.next();
     
-    // 3. Cancel current speech
     if (this.synthesis.speaking || this.synthesis.pending) {
       this.synthesis.cancel();
       
-      // Chrome/Safari workaround
       setTimeout(() => {
         this.synthesis.cancel();
       }, 0);
     }
     
     this.isSpeakingSignal.set(false);
-    this.currentUtterance = null;
     console.log('⏹️ Speech stopped & queue cleared');
   }
 
-  /**
-   * Pause speech
-   */
   pause(): void {
     if (this.synthesis.speaking && !this.synthesis.paused) {
       this.synthesis.pause();
@@ -309,9 +362,6 @@ export class Speech {
     }
   }
   
-  /**
-   * Resume speech
-   */
   resume(): void {
     if (this.synthesis.paused) {
       this.synthesis.resume();
@@ -319,16 +369,10 @@ export class Speech {
     }
   }
   
-  /**
-   * Get available voices
-   */
   getVoices(): SpeechSynthesisVoice[] {
     return this.synthesis.getVoices();
   }
   
-  /**
-   * Set voice by name
-   */
   setVoice(voiceName: string): void {
     const voices = this.getVoices();
     const voice = voices.find(v => v.name === voiceName);
@@ -338,24 +382,61 @@ export class Speech {
     }
   }
   
-  /**
-   * Set speech rate (0.1 - 10)
-   */
   setRate(rate: number): void {
     this.rate = Math.max(0.1, Math.min(10, rate));
   }
   
-  /**
-   * Set pitch (0 - 2)
-   */
   setPitch(pitch: number): void {
     this.pitch = Math.max(0, Math.min(2, pitch));
   }
   
-  /**
-   * Set volume (0 - 1)
-   */
   setVolume(volume: number): void {
     this.volume = Math.max(0, Math.min(1, volume));
+  }
+  logAvailableVoices(): void {
+    const log = () => {
+      const voices = this.synthesis.getVoices();
+  
+      if (!voices.length) {
+        console.warn('⚠️ No voices available');
+        return;
+      }
+  
+      console.group(`🗣️ Available voices (${voices.length})`);
+  
+      voices.forEach((v, i) => {
+        console.log(
+          `${i + 1}. ${v.name} | lang=${v.lang} | default=${v.default}`
+        );
+      });
+  
+      console.groupEnd();
+    };
+  
+    // 🔥 ako nisu još učitani
+    if (this.synthesis.getVoices().length === 0) {
+      this.synthesis.onvoiceschanged = log;
+    } else {
+      log();
+    }
+  }
+  getAvailableLanguages(): Promise<string[]> {
+    return new Promise(resolve => {
+      const collect = () => {
+        const voices = this.synthesis.getVoices();
+  
+        const langs = Array.from(
+          new Set(voices.map(v => v.lang).filter(Boolean))
+        );
+  
+        resolve(langs);
+      };
+  
+      if (this.synthesis.getVoices().length === 0) {
+        this.synthesis.onvoiceschanged = collect;
+      } else {
+        collect();
+      }
+    });
   }
 }
