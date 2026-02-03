@@ -22,18 +22,18 @@ export class Speech {
   
   // Voice settings
   private defaultVoice: SpeechSynthesisVoice | null = null;
-  private currentLanguage: string = 'en-US'; // 🔥 NEW: Track current language
+  private currentLanguage: string = 'en-US';
   private rate = 1.0;      // Brzina (0.1 - 10)
   private pitch = 1;     // Ton (0 - 2)
   private volume = 1.0;    // Glasnoća (0 - 1)
-  private speechSessionId: number | null = null;
+  public speechSessionId: number | null = null;
   private readonly SESSION_KEY = 'speechSessionId';
   private chatService = inject(Chat);
   constructor() {
     this.synthesis = window.speechSynthesis;
     this.loadVoices();
     this.setupStreamingQueue();
-    this.logAvailableLanguages(); // 🔥 NEW: Log all available languages
+    // this.logAvailableLanguages();
     console.log('✅ SpeechService initialized');
   }
   

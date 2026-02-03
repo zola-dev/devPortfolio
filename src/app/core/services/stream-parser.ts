@@ -3,15 +3,15 @@ import { Subject, Observable } from 'rxjs';
 
 /* ================= TYPES ================= */
 export interface MarkerDefinition {
-  start: string;       // '[LANG:'
-  end: string;         // ']'
-  singleUse?: boolean; // Ako true, emit samo prvi put
+  start: string;
+  end: string;
+  singleUse?: boolean;
 }
 
 export interface ParsedEvent {
   type: 'text' | 'marker';
   value: string;
-  markerType?: string; // 🔥 Npr. 'LANG', 'SYSTEM_CALL'
+  markerType?: string;
 }
 
 enum ParseState {
@@ -34,7 +34,6 @@ export class StreamParser {
   private _markers: MarkerDefinition[] = [];
 
   constructor() {
-    // 🔥 Cleanup on destroy
     this.destroyRef.onDestroy(() => {
       this.output$.complete();
     });
@@ -43,6 +42,8 @@ export class StreamParser {
   /* ========= PUBLIC API ========= */
   
   feed(chunk: string): void {
+    console.log('🔵 Parser.feed() received chunk:', JSON.stringify(chunk)); // 🔥 DEBUG
+    
     for (const char of chunk) {
       this.processChar(char);
     }
@@ -54,9 +55,11 @@ export class StreamParser {
 
   setMarkers(markers: MarkerDefinition[]): void {
     this._markers = markers;
+    console.log('🔵 Parser markers set:', markers); // 🔥 DEBUG
   }
 
   reset(): void {
+    console.log('🔵 Parser.reset()'); // 🔥 DEBUG
     this.state = ParseState.Normal;
     this.buffer = '';
     this.activeMarker = undefined;
@@ -69,6 +72,7 @@ export class StreamParser {
     switch (this.state) {
       case ParseState.Normal:
         if (char === '[') {
+          console.log('🟡 Found "[" - switching to MarkerStart'); // 🔥 DEBUG
           this.state = ParseState.MarkerStart;
           this.buffer = '[';
         } else {
@@ -78,77 +82,91 @@ export class StreamParser {
 
       case ParseState.MarkerStart:
         this.buffer += char;
+        console.log('🟡 MarkerStart buffer:', JSON.stringify(this.buffer)); // 🔥 DEBUG
         
-        // 🔥 Proveri da li buffer match-uje neki marker start
         const possible = this._markers.filter(m =>
           m.start.startsWith(this.buffer)
         );
+        
+        console.log('🟡 Possible markers:', possible.length); // 🔥 DEBUG
 
         if (!possible.length) {
-          // Nije marker - emit kao text
+          console.log('🔴 No possible markers - emitting as text'); // 🔥 DEBUG
           this.emitText(this.buffer);
           this.resetState();
         } else {
-          // 🔥 Potpuni match
           const exactMatch = possible.find(m => m.start === this.buffer);
           if (exactMatch) {
+            console.log('🟢 Exact marker match:', exactMatch.start); // 🔥 DEBUG
             this.activeMarker = exactMatch;
             this.state = ParseState.MarkerReading;
+          } else {
+            console.log('🟡 Partial match, continuing...'); // 🔥 DEBUG
           }
-          // Inače nastavi da čita (partial match)
         }
         break;
 
       case ParseState.MarkerReading:
         this.buffer += char;
+        console.log('🟣 MarkerReading buffer:', JSON.stringify(this.buffer)); // 🔥 DEBUG
         
         if (char === this.activeMarker!.end) {
-          // 🔥 Marker završen
           const value = this.buffer
             .replace(this.activeMarker!.start, '')
             .replace(this.activeMarker!.end, '');
           
           const markerKey = this.activeMarker!.start;
           
-          // 🔥 Emit ako nije singleUse ili ako nije već korišćen
+          console.log('🟢 Marker complete! Value:', JSON.stringify(value)); // 🔥 DEBUG
+          console.log('🟢 Marker key:', markerKey); // 🔥 DEBUG
+          console.log('🟢 SingleUse:', this.activeMarker!.singleUse); // 🔥 DEBUG
+          console.log('🟢 Already used:', this.usedMarkers.has(markerKey)); // 🔥 DEBUG
+          
           if (
             !this.activeMarker!.singleUse ||
             !this.usedMarkers.has(markerKey)
           ) {
-            this.output$.next({
-              type: 'marker',
+            const event = {
+              type: 'marker' as const,
               value,
               markerType: this.extractMarkerType(markerKey)
-            });
+            };
+            
+            console.log('🟢 Emitting marker event:', event); // 🔥 DEBUG
+            this.output$.next(event);
             
             if (this.activeMarker!.singleUse) {
               this.usedMarkers.add(markerKey);
+              console.log('🟢 Marked as used'); // 🔥 DEBUG
             }
+          } else {
+            console.log('🔴 Marker already used, skipping'); // 🔥 DEBUG
           }
           
           this.resetState();
         }
-        // Inače nastavi da čita
         break;
     }
   }
 
   private emitText(text: string): void {
     if (text) {
+      console.log('📝 Emitting text:', JSON.stringify(text)); // 🔥 DEBUG
       this.output$.next({ type: 'text', value: text });
     }
   }
 
   private resetState(): void {
+    console.log('🔵 resetState()'); // 🔥 DEBUG
     this.state = ParseState.Normal;
     this.buffer = '';
     this.activeMarker = undefined;
   }
 
-  // 🔥 Ekstrakcija tipa markera iz start stringa
   private extractMarkerType(start: string): string {
-    // '[LANG:' → 'LANG'
-    // '[SYSTEM_CALL:' → 'SYSTEM_CALL'
-    return start.replace('[', '').replace(':', '');
+    const type = start.replace('[', '').replace(':', '');
+    console.log('🔵 extractMarkerType:', start, '→', type); // 🔥 DEBUG
+    return type;
   }
 }
+

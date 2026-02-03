@@ -5,7 +5,8 @@ import { Chat } from '../../core/services/chat';
 import { ChatMessage } from '../../core/models/chat';
 import { Speech } from '../../core/services/speech';
 import Swal from 'sweetalert2';
-
+import { StreamParser } from '../../core/services/stream-parser';
+import { Subscription } from 'rxjs';
 @Component({
   selector: 'app-assistant',
   standalone: true,
@@ -18,6 +19,8 @@ export class AssistantComponent implements OnInit, OnDestroy {
   private chatMessagesRef?: ElementRef<HTMLDivElement>;
   private chatService = inject(Chat);
   private speechService = inject(Speech); 
+  private parser = inject(StreamParser);
+  private parserSubscription?: Subscription; 
   
   // ========== SIGNALS ==========
   userInput = signal<string>('');
@@ -33,10 +36,15 @@ export class AssistantComponent implements OnInit, OnDestroy {
   
   ngOnInit() {
     this.initChat();
+    this.parser.setMarkers([
+      { start: '[LANG:', end: ']', singleUse: true }
+    ]);
   }
   
   ngOnDestroy(): void {
     this.speechService.destroySpeechSession();
+    this.parser.reset();
+    this.parserSubscription?.unsubscribe();
   }
   
   private initChat(): void {
@@ -55,18 +63,33 @@ export class AssistantComponent implements OnInit, OnDestroy {
 
   sendMessage(): void {
     const message = this.userInput().trim();
-    
     if (!message || this.isLoading()) return;
-
     this.userInput.set('');
     this.speechService.stop(); 
-
     if (this.autoSpeak()) {
       this.speechService.startStreaming();
     }
-
     let languageSet = false;
-    
+    let unsupportedHandled = false;
+    const sessionId = this.speechService.speechSessionId;
+    this.parser.reset();
+    this.parserSubscription?.unsubscribe();
+    this.parserSubscription = this.parser.stream().subscribe(event => {
+      console.log('🔵 Parser event:', event); 
+      if (event.type === 'marker' && event.markerType === 'LANG' && !languageSet) {
+        const lang = event.value;
+        console.log(`🗣️ Detected language: ${lang}`);
+        this.speechService.setLanguage(lang);
+        languageSet = true;
+      } else if (event.type === 'text') {
+        console.log('📝 Parser emitted text, calling updateStreamingMessage');
+        this.chatService.updateStreamingMessage(event.value);
+        if (this.autoSpeak() && !unsupportedHandled) {
+          this.speechService.addChunk(event.value);
+        }
+      }
+    });
+
     this.chatService.sendMessageStream(
       message,
       '',
@@ -74,35 +97,39 @@ export class AssistantComponent implements OnInit, OnDestroy {
         this.scrollToBottom(); 
       },
       (chunk: string) => {     
+        console.log('📦 Chunk received:', JSON.stringify(chunk));
         this.scrollToBottom(); 
-        
-        if (!languageSet) {
-          const langMatch = chunk.match(/\[LANG:(\w+-?\w*)\]/);
-          if (langMatch) {
-            const lang = langMatch[1];
-            console.log(`🗣️ Detected language early: ${lang}`);
-            this.speechService.setLanguage(lang);
-            languageSet = true;
-          }
-        }
+        this.parser.feed(chunk);
+        // if (!languageSet) {
+        //   const langMatch = chunk.match(/\[LANG:(\w+-?\w*)\]/);
+        //   if (langMatch) {
+        //     const lang = langMatch[1];
+        //     console.log(`🗣️ Detected language early: ${lang}`);
+        //     this.speechService.setLanguage(lang);
+        //     languageSet = true;
+        //   }
+        // }
       
-        // Clean LANG marker from speech
-        const cleanChunk = chunk.replace(/\[LANG:\w+-?\w*\]/g, '');
-        if (this.autoSpeak()) {
-          this.speechService.addChunk(cleanChunk);
-        }
+        // // Clean LANG marker from speech
+        // const cleanChunk = chunk.replace(/\[LANG:\w+-?\w*\]/g, '');
+        // if (this.autoSpeak()) {
+        //   this.speechService.addChunk(cleanChunk);
+        // }
       },
-      (stats?: any, language?: string, languageUnsupported?: boolean) => { // 🔥 DODAJ languageUnsupported
+      (stats?: any, language?: string, languageUnsupported?: boolean) => {
         console.log('✅ Complete', stats);
+        console.log('✅ language', language);
+        console.log('✅ languageUnsupported', languageUnsupported);
         this.scrollToBottom();
         
-        // 🔥 Handle unsupported language
-        if (languageUnsupported) {
+        if (languageUnsupported&&unsupportedHandled) {
+          console.warn('already set languageUnsupported!');
+        }
+        if (languageUnsupported&&!unsupportedHandled) {
+          unsupportedHandled = true;
           console.warn('⚠️ Language not supported - disabling auto-speak');
           this.autoSpeak.set(false);
           this.speechService.stop();
-          
-          // 🔥 Show Swal alert
           this.showUnsupportedLanguageAlert(language || 'unknown');
         }
         
@@ -112,8 +139,11 @@ export class AssistantComponent implements OnInit, OnDestroy {
       },
       (error: any) => {
         this.speechService.stop(); 
+        this.parserSubscription?.unsubscribe();
+        this.parser.reset();
         console.error('❌ Error:', error);
-      }
+      },
+      sessionId
     );
   }
 
