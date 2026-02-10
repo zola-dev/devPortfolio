@@ -163,7 +163,9 @@ export class Speech {
 
   private speakAsync(text: string): Promise<void> {
     return new Promise((resolve, reject) => {
-      const cleanedText = this.sanitizeForSpeech(text);
+      // const cleanedText = this.sanitizeForSpeech(text);
+      let cleanedText = this.cleanTextForSpeech(text);
+      cleanedText = this.sanitizeForSpeech(cleanedText);
       
       if (!cleanedText.trim()) {
         resolve();
@@ -303,6 +305,8 @@ export class Speech {
       this.stop();
       
       const cleanedText = this.sanitizeForSpeech(text);
+      // let cleanedText = this.cleanTextForSpeech(text);
+      // cleanedText = this.sanitizeForSpeech(cleanedText);
       
       if (!cleanedText.trim()) {
         resolve();
@@ -483,4 +487,47 @@ export class Speech {
     localStorage.removeItem(this.SESSION_KEY);
     this.speechSessionId = null;
   }
+
+    private cleanTextForSpeech(text: string): string {
+      let cleaned = text;
+  
+      // Remove HTML tags (backup safety)
+      cleaned = cleaned.replace(/<[^>]*>/g, '');
+  
+      // Format phone numbers for natural speech
+      // +381603382202 → "plus 3 8 1, 6 0 3, 3 8 2, 2 0 2"
+      cleaned = cleaned.replace(/(\+?\d{10,})/g, (match) => {
+        return this.formatPhoneForSpeech(match);
+      });
+  
+      // Format email addresses for natural speech
+      // milos_lazovic@outlook.com → "milos lazovic at outlook dot com"
+      cleaned = cleaned.replace(/([a-zA-Z0-9._-]+)@([a-zA-Z0-9.-]+\.[a-zA-Z]{2,})/g, 
+        (match, user, domain) => {
+          const formattedUser = user.replace(/_/g, ' ').replace(/\./g, ' dot ');
+          const formattedDomain = domain.replace(/\./g, ' dot ');
+          return `${formattedUser} at ${formattedDomain}`;
+        }
+      );
+  
+      return cleaned;
+    }
+  
+    private formatPhoneForSpeech(phone: string): string {
+      // Remove + sign and format as groups
+      const digits = phone.replace(/\+/g, 'plus ');
+      
+      // Split into groups of 3 digits with pauses
+      // Example: +381603382202 → "plus 3 8 1, 6 0 3, 3 8 2, 2 0 2"
+      const digitArray = digits.replace(/plus\s*/g, '').split('');
+      const groups: string[] = [];
+      
+      for (let i = 0; i < digitArray.length; i += 3) {
+        const group = digitArray.slice(i, i + 3).join(' ');
+        groups.push(group);
+      }
+      
+      const hasPlus = phone.startsWith('+');
+      return (hasPlus ? 'plus ' : '') + groups.join(', ');
+    }
 }
