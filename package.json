@@ -6,7 +6,17 @@
     "start": "node --max-old-space-size=8192 ./node_modules/@angular/cli/bin/ng serve",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test"
+    "test": "ng test",
+
+    "bDev": "ng build --configuration development --watch",
+    "rebDev": "npm run clean && npm run bDev",
+
+    "bProd": "ng build --configuration production",
+    "rebProd": "npm run clean && npm run bProd",
+
+    "clean": "rm -rf dist .angular/cache",
+    "cleanF": "rm -rf dist .angular node_modules && npm install",
+    "serve:prod": "ng serve --configuration production"
   },
   "overrides": {
     "hono": "^4.11.7",
