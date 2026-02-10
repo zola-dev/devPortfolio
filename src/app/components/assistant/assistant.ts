@@ -1,4 +1,13 @@
-import { Component, signal, computed, inject, OnInit, ViewChild, ElementRef, HostListener, OnDestroy } from '@angular/core';
+import {
+  Component,
+  signal,
+  inject,
+  OnInit,
+  ViewChild,
+  ElementRef,
+  HostListener,
+  OnDestroy,
+} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Chat } from '../../core/services/chat';
@@ -6,24 +15,21 @@ import { ChatMessage } from '../../core/models/chat';
 import { Speech } from '../../core/services/speech';
 import Swal from 'sweetalert2';
 import { StreamParser } from '../../core/services/stream-parser';
-import { filter, take, Subscription } from 'rxjs';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { DestroyRef } from '@angular/core';
-
 @Component({
   selector: 'app-assistant',
   standalone: true,
   imports: [CommonModule, FormsModule],
   templateUrl: './assistant.html',
-  styleUrls: ['./assistant.css']
+  styleUrls: ['./assistant.css'],
 })
 export class AssistantComponent implements OnInit, OnDestroy {
-  @ViewChild('chatMessages') 
+  @ViewChild('chatMessages')
   private chatMessagesRef?: ElementRef<HTMLDivElement>;
   private chatService = inject(Chat);
-  private speechService = inject(Speech); 
+  private speechService = inject(Speech);
   private parser = inject(StreamParser);
-  private parserSubscription?: Subscription; 
   private currentMessageState = signal<{
     languageSet: boolean;
     unsupportedHandled: boolean;
@@ -31,152 +37,109 @@ export class AssistantComponent implements OnInit, OnDestroy {
     languageSet: false,
     unsupportedHandled: false,
   });
-
-  // ========== SIGNALS ==========
+  private destroyRef = inject(DestroyRef);
   userInput = signal<string>('');
   autoSpeak = signal<boolean>(false);
-  
-  // ========== COMPUTED SIGNALS from Service ==========
   messages = this.chatService.visibleMessages;
   isLoading = this.chatService.isLoading;
   hasMessages = this.chatService.hasMessages;
-  isSpeaking = this.speechService.isSpeaking; 
-
+  isSpeaking = this.speechService.isSpeaking;
   constructor() {}
-  
   ngOnInit() {
     this.initChat();
-    this.parser.setMarkers([
-      { start: '[LANG:', end: ']', singleUse: true }
-    ]);
-    this.parserSubscription = this.parser.stream().subscribe(event => {
-      // console.log('🔵 Parser event:', event);
-      if (event.type === 'marker' && event.markerType === 'LANG') {
-        if (!this.currentMessageState().languageSet) {
-          const lang = event.value;
-          // console.log(`🗣️ Detected language: ${lang}`);
-          this.speechService.setLanguage(lang);
-          this.currentMessageState.update(s => ({ ...s, languageSet: true }));
+    this.parser.setMarkers([{ start: '[LANG:', end: ']', singleUse: true }]);
+    this.parser
+      .stream()
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe((event) => {
+        if (event.type === 'marker' && event.markerType === 'LANG') {
+          if (!this.currentMessageState().languageSet) {
+            const lang = event.value;
+            this.speechService.setLanguage(lang);
+            this.currentMessageState.update((s) => ({ ...s, languageSet: true }));
+          }
+        } else if (event.type === 'text') {
+          this.chatService.updateStreamingMessage(event.value);
+          if (this.autoSpeak() && !this.currentMessageState().unsupportedHandled) {
+            this.speechService.addChunk(event.value);
+          }
         }
-      } else if (event.type === 'text') {
-        this.chatService.updateStreamingMessage(event.value);
-        if (this.autoSpeak() && !this.currentMessageState().unsupportedHandled) {
-          this.speechService.addChunk(event.value);
-        }
-      }
-    });
+      });
   }
-  
   ngOnDestroy(): void {
     this.speechService.destroySpeechSession();
     this.parser.reset();
-    this.parserSubscription?.unsubscribe();
   }
-  
   private initChat(): void {
     const welcomeMessages = [
-      'Hello! 👋 I\'m your AI assistant. How can I help you today?',
-      'Hi there! 😊 What can I help you with?',
-      'Hey! ✨ Ready to chat about your portfolio or projects?'
+      "Hi 👋 I'm Milos Lazovic's AI assistant. I can walk you through his projects, skills, experience, education. What would you like to explore?",
+      "Welcome! I'm Milos Lazovic's AI assistant. 📋 Ask me about Milos's projects, tech stack, work history.",
+      "Hey there! I'm Milos Lazovic's AI assistant. 😊 I'm here to guide you through Milos's projects, skills, experience, and education. What would you like to check out first?",
+      "Hello! I'm Milos Lazovic's AI assistant. ✨ Curious about Milos's work? I can show you his projects, tech stack, experience, or education background.",
+      "Welcome aboard 👋 I'm Milos Lazovic's AI assistant. Ask me anything about Milos's projects, technologies, professional experience, or education.",
+      "Hi! I'm Milos Lazovic's AI assistant. 💼 I can help you explore Milos's portfolio — from projects and skills to experience and education.",
+      "Hey! I'm Milos Lazovic's AI assistant. 🚀 Want a quick overview of Milos's projects, tech stack, or career journey? Just ask!",
+      "Hello and welcome 🙂 I'm Milos Lazovic's AI assistant. I'm your guide to Milos's work, skills, and professional background. What would you like to learn more about?",
+      "Hi there! I'm Milos Lazovic's AI assistant. 📋 I can walk you through Milos's projects, frontend and backend skills, experience timeline, or education details.",
+      "Nice to meet you 👋 I'm Milos Lazovic's AI assistant. Ask me about Milos's portfolio, technologies he uses, or his experience and education — I'm happy to help!"
     ];
-    
     const randomMessage = welcomeMessages[Math.floor(Math.random() * welcomeMessages.length)];
     this.chatService.addMessage('assistant', randomMessage);
     if (this.autoSpeak()) {
       this.speechService.speak(randomMessage);
     }
   }
-
   sendMessage(): void {
     const message = this.userInput().trim();
     if (!message || this.isLoading()) return;
     this.userInput.set('');
-    this.speechService.stop(); 
+    this.speechService.stop();
     if (this.autoSpeak()) {
       this.speechService.startStreaming();
     }
-    // let languageSet = false;
-    // let unsupportedHandled = false;
     const sessionId = this.speechService.speechSessionId;
     this.currentMessageState.set({
       languageSet: false,
       unsupportedHandled: false,
     });
     this.parser.reset();
-    // this.parserSubscription?.unsubscribe();
-    // this.parserSubscription = this.parser.stream().subscribe(event => {
-    //   console.log('🔵 Parser event:', event); 
-    //   if (event.type === 'marker' && event.markerType === 'LANG' && !languageSet) {
-    //     const lang = event.value;
-    //     console.log(`🗣️ Detected language: ${lang}`);
-    //     this.speechService.setLanguage(lang);
-    //     languageSet = true;
-    //   } else if (event.type === 'text') {
-    //     console.log('📝 Parser emitted text, calling updateStreamingMessage');
-    //     this.chatService.updateStreamingMessage(event.value);
-    //     if (this.autoSpeak() && !unsupportedHandled) {
-    //       this.speechService.addChunk(event.value);
-    //     }
-    //   }
-    // });
-
     this.chatService.sendMessageStream(
       message,
       '',
       () => {
-        this.scrollToBottom(); 
+        this.scrollToBottom();
       },
-      (chunk: string) => {     
+      (chunk: string) => {
         console.log('📦 Chunk received:', JSON.stringify(chunk));
-        this.scrollToBottom(); 
+        this.scrollToBottom();
         this.parser.feed(chunk);
-        // if (!languageSet) {
-        //   const langMatch = chunk.match(/\[LANG:(\w+-?\w*)\]/);
-        //   if (langMatch) {
-        //     const lang = langMatch[1];
-        //     console.log(`🗣️ Detected language early: ${lang}`);
-        //     this.speechService.setLanguage(lang);
-        //     languageSet = true;
-        //   }
-        // }
-      
-        // // Clean LANG marker from speech
-        // const cleanChunk = chunk.replace(/\[LANG:\w+-?\w*\]/g, '');
-        // if (this.autoSpeak()) {
-        //   this.speechService.addChunk(cleanChunk);
-        // }
       },
       (stats?: any, language?: string, languageUnsupported?: boolean) => {
         console.log('✅ Complete', stats);
-        // console.log('✅ language', language);
-        // console.log('✅ languageUnsupported', languageUnsupported);
         this.scrollToBottom();
-        
-        if (languageUnsupported&&!this.currentMessageState().unsupportedHandled) {
+        if (languageUnsupported && !this.currentMessageState().unsupportedHandled) {
           console.warn('already set languageUnsupported!');
         }
         if (languageUnsupported && !this.currentMessageState().unsupportedHandled) {
-          this.currentMessageState.update(s => ({ ...s, unsupportedHandled: true }));
+          this.currentMessageState.update((s) => ({ ...s, unsupportedHandled: true }));
           console.warn('⚠️ Language not supported - disabling auto-speak');
           this.autoSpeak.set(false);
           this.speechService.stop();
           this.showUnsupportedLanguageAlert(language || 'unknown');
+          this.speechService.updateSpeechSessionLanguages();
         }
-        
         if (this.autoSpeak()) {
           this.speechService.finishStreaming();
         }
       },
       (error: any) => {
-        this.speechService.stop(); 
-        this.parserSubscription?.unsubscribe()
+        this.speechService.stop();
         this.parser.reset();
         console.error('❌ Error:', error);
       },
       sessionId
     );
   }
-
   private showUnsupportedLanguageAlert(lang: string): void {
     Swal.fire({
       icon: 'warning',
@@ -186,40 +149,35 @@ export class AssistantComponent implements OnInit, OnDestroy {
         <p>Auto-speak has been disabled.</p>
       `,
       confirmButtonText: 'Got it',
-      confirmButtonColor: '#8b5cf6'
+      confirmButtonColor: '#8b5cf6',
     });
   }
-
   onKeyPress(event: KeyboardEvent): void {
     if (event.key === 'Enter' && !event.shiftKey) {
       event.preventDefault();
       this.sendMessage();
     }
   }
-
   private scrollToBottom(): void {
     const el = this.chatMessagesRef?.nativeElement;
     if (el) {
       el.scrollTop = el.scrollHeight;
     }
   }
-
   resetChat(): void {
     this.chatService.reset();
     this.userInput.set('');
-    this.speechService.stop(); 
+    this.speechService.stop();
     this.initChat();
   }
-
   toggleAutoSpeak(): void {
-    this.autoSpeak.update(v => !v);
+    this.autoSpeak.update((v) => !v);
     if (!this.autoSpeak()) {
       this.speechService.stop();
     } else {
       this.speechService.initSpeechSession();
     }
   }
-
   speakMessage(message: ChatMessage): void {
     if (this.isSpeaking()) {
       this.speechService.stop();
@@ -227,11 +185,9 @@ export class AssistantComponent implements OnInit, OnDestroy {
       this.speechService.speak(message.content);
     }
   }
-
   trackByMessageId(index: number, message: ChatMessage): string {
     return message.id;
   }
-  
   @HostListener('window:pagehide')
   @HostListener('document:visibilitychange')
   handleStopOnHide(): void {
