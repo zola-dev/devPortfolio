@@ -7,6 +7,7 @@ import {
   ElementRef,
   HostListener,
   OnDestroy,
+  effect,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -15,12 +16,14 @@ import { ChatMessage } from '../../core/models/chat';
 import { Speech } from '../../core/services/speech';
 import Swal from 'sweetalert2';
 import { StreamParser } from '../../core/services/stream-parser';
+import { BackgroundMusic as BackgroundMusicService } from '../../core/services/background-music';
+import { BackgroundMusic } from '../background-music/background-music';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { DestroyRef } from '@angular/core';
 @Component({
   selector: 'app-assistant',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, BackgroundMusic],
   templateUrl: './assistant.html',
   styleUrls: ['./assistant.css'],
 })
@@ -30,6 +33,7 @@ export class AssistantComponent implements OnInit, OnDestroy {
   private chatService = inject(Chat);
   private speechService = inject(Speech);
   private parser = inject(StreamParser);
+  private backgroundMusicService = inject(BackgroundMusicService);
   private currentMessageState = signal<{
     languageSet: boolean;
     unsupportedHandled: boolean;
@@ -44,7 +48,18 @@ export class AssistantComponent implements OnInit, OnDestroy {
   isLoading = this.chatService.isLoading;
   hasMessages = this.chatService.hasMessages;
   isSpeaking = this.speechService.isSpeaking;
-  constructor() {}
+  musicPlaying = this.backgroundMusicService.isPlaying;
+  musicDucked = this.backgroundMusicService.isDucked;
+  constructor() {
+    effect(() => {
+      const speaking = this.isSpeaking();
+      if (speaking) {
+        this.backgroundMusicService.duck(); 
+      } else {
+        this.backgroundMusicService.unduck();
+      }
+    });
+  }
   ngOnInit() {
     this.initChat();
     this.parser.setMarkers([{ start: '[LANG:', end: ']', singleUse: true }]);
