@@ -42,7 +42,7 @@ export class StreamParser {
   /* ========= PUBLIC API ========= */
   
   feed(chunk: string): void {
-    console.log('🔵 Parser.feed() received chunk:', JSON.stringify(chunk)); 
+    //console.log('🔵 Parser.feed() received chunk:', JSON.stringify(chunk)); 
     
     for (const char of chunk) {
       this.processChar(char);
@@ -55,11 +55,11 @@ export class StreamParser {
 
   setMarkers(markers: MarkerDefinition[]): void {
     this._markers = markers;
-    console.log('🔵 Parser markers set:', markers); 
+    //console.log('🔵 Parser markers set:', markers); 
   }
 
   reset(): void {
-    console.log('🔵 Parser.reset()'); 
+    //console.log('🔵 Parser.reset()'); 
     this.state = ParseState.Normal;
     this.buffer = '';
     this.activeMarker = undefined;
@@ -72,7 +72,7 @@ export class StreamParser {
     switch (this.state) {
       case ParseState.Normal:
         if (char === '[') {
-          console.log('🟡 Found "[" - switching to MarkerStart');
+          //console.log('🟡 Found "[" - switching to MarkerStart');
           this.state = ParseState.MarkerStart;
           this.buffer = '[';
         } else {
@@ -82,33 +82,33 @@ export class StreamParser {
 
       case ParseState.MarkerStart:
         this.buffer += char;
-        console.log('🟡 MarkerStart buffer:', JSON.stringify(this.buffer)); 
+        // //console.log('🟡 MarkerStart buffer:', JSON.stringify(this.buffer)); 
         
         const possible = this._markers.filter(m =>
           m.start.startsWith(this.buffer)
         );
         
-        console.log('🟡 Possible markers:', possible.length); 
+        // //console.log('🟡 Possible markers:', possible.length); 
 
         if (!possible.length) {
-          console.log('🔴 No possible markers - emitting as text'); 
+          // //console.log('🔴 No possible markers - emitting as text'); 
           this.emitText(this.buffer);
           this.resetState();
         } else {
           const exactMatch = possible.find(m => m.start === this.buffer);
           if (exactMatch) {
-            console.log('🟢 Exact marker match:', exactMatch.start); 
+            //console.log('🟢 Exact marker match:', exactMatch.start); 
             this.activeMarker = exactMatch;
             this.state = ParseState.MarkerReading;
           } else {
-            console.log('🟡 Partial match, continuing...'); 
+            // //console.log('🟡 Partial match, continuing...'); 
           }
         }
         break;
 
       case ParseState.MarkerReading:
         this.buffer += char;
-        console.log('🟣 MarkerReading buffer:', JSON.stringify(this.buffer)); 
+        // //console.log('🟣 MarkerReading buffer:', JSON.stringify(this.buffer)); 
         
         if (char === this.activeMarker!.end) {
           const value = this.buffer
@@ -117,10 +117,10 @@ export class StreamParser {
           
           const markerKey = this.activeMarker!.start;
           
-          console.log('🟢 Marker complete! Value:', JSON.stringify(value)); 
-          console.log('🟢 Marker key:', markerKey); 
-          console.log('🟢 SingleUse:', this.activeMarker!.singleUse); 
-          console.log('🟢 Already used:', this.usedMarkers.has(markerKey)); 
+          //console.log('🟢 Marker complete! Value:', JSON.stringify(value)); 
+          //console.log('🟢 Marker key:', markerKey); 
+          //console.log('🟢 SingleUse:', this.activeMarker!.singleUse); 
+          //console.log('🟢 Already used:', this.usedMarkers.has(markerKey)); 
           
           if (
             !this.activeMarker!.singleUse ||
@@ -132,15 +132,15 @@ export class StreamParser {
               markerType: this.extractMarkerType(markerKey)
             };
             
-            console.log('🟢 Emitting marker event:', event); 
+            ////console.log('🟢 Emitting marker event:', event); 
             this.output$.next(event);
             
             if (this.activeMarker!.singleUse) {
               this.usedMarkers.add(markerKey);
-              console.log('🟢 Marked as used'); 
+              //console.log('🟢 Marked as used'); 
             }
           } else {
-            console.log('🔴 Marker already used, skipping'); 
+              // //console.log('🔴 Marker already used, skipping'); 
           }
           
           this.resetState();
@@ -151,13 +151,13 @@ export class StreamParser {
 
   private emitText(text: string): void {
     if (text) {
-      console.log('📝 Emitting text:', JSON.stringify(text)); 
+        //console.log('📝 Emitting text:', JSON.stringify(text)); 
       this.output$.next({ type: 'text', value: text });
     }
   }
 
   private resetState(): void {
-    console.log('🔵 resetState()'); 
+    //console.log('🔵 resetState()'); 
     this.state = ParseState.Normal;
     this.buffer = '';
     this.activeMarker = undefined;
@@ -165,7 +165,7 @@ export class StreamParser {
 
   private extractMarkerType(start: string): string {
     const type = start.replace('[', '').replace(':', '');
-    console.log('🔵 extractMarkerType:', start, '→', type); 
+    //console.log('🔵 extractMarkerType:', start, '→', type); 
     return type;
   }
 }

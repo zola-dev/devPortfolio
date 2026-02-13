@@ -35,7 +35,7 @@ export class Chat {
   private streamingMessageId: string | null = null;
 
   constructor(private http: HttpClient) {
-    console.log('✅ ChatService initialized with Signals');
+    //console.log('✅ ChatService initialized with Signals');
   }
   
   /**
@@ -190,15 +190,7 @@ export class Chat {
               }
 
               if (data.content) {
-                console.log('🚨 BACKEND SENT CONTENT:', JSON.stringify(data.content));
-                // this.messagesSignal.update(messages => 
-                //   messages.map(msg => 
-                //     msg.id === streamingMessageId
-                //       ? { ...msg, content: msg.content + data.content }
-                //       : msg
-                //   )
-                // );
-                
+                //console.log('🚨 BACKEND SENT CONTENT:', JSON.stringify(data.content));              
                 onChunk(data.content);
                 await new Promise((resolve) =>
                   requestAnimationFrame(() => resolve(undefined))
@@ -208,7 +200,7 @@ export class Chat {
               if (data.done) {     
                 this.streamingMessageId = null;
                 this.isLoadingSignal.set(false);
-                console.log("done data: ", data);
+                // console.log("done data: ", data);
                 onComplete(data.tokenStats);
                 // onComplete(
                 //   data.tokenStats,
@@ -275,14 +267,14 @@ export class Chat {
   }
   updateStreamingMessage(content: string): void {
     if (!this.streamingMessageId) {
-      console.warn('⚠️ updateStreamingMessage called but streamingMessageId is null!');
+      //console.warn('⚠️ updateStreamingMessage called but streamingMessageId is null!');
       return;
     }
-    console.log('📝 updateStreamingMessage called:', {
-      messageId: this.streamingMessageId,
-      content: JSON.stringify(content),
-      contentLength: content.length
-    });
+    // console.log('📝 updateStreamingMessage called:', {
+    //   messageId: this.streamingMessageId,
+    //   content: JSON.stringify(content),
+    //   contentLength: content.length
+    // });
     this.messagesSignal.update(messages => 
       messages.map(msg => 
         msg.id === this.streamingMessageId
