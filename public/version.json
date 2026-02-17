@@ -1,23 +1,23 @@
 {
   "version": "0.0.0",
-  "buildDate": "2026-02-17T21:36:15.634Z",
+  "buildDate": "2026-02-17T21:37:31.415Z",
   "environment": "development",
   "commit": {
-    "hash": "72eb1872c01f29ecd6f8b70d7ded17dcc4b101f2",
-    "shortHash": "72eb187",
-    "message": "removed logVersionInfo",
-    "body": "-logs on devtools",
+    "hash": "068baa8174d0067b72e87fcaef6ca66defde1757",
+    "shortHash": "068baa8",
+    "message": "randomDelay to 7-15sec",
+    "body": null,
     "author": "Milos",
     "email": "miloslazoviczola@gmail.com",
-    "date": "2026-02-17T22:34:08+01:00",
+    "date": "2026-02-17T22:37:18+01:00",
     "branch": "master",
     "tag": null,
-    "totalCommits": 30,
+    "totalCommits": 31,
     "changedFiles": [
       "public/version.json",
-      "src/app/app.ts"
+      "src/app/core/services/update-app.ts"
     ],
-    "stats": "2 files changed, 15 insertions(+), 19 deletions(-)",
+    "stats": "2 files changed, 11 insertions(+), 14 deletions(-)",
     "coAuthors": []
   }
 }
