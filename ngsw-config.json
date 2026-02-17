@@ -26,5 +26,17 @@
         ]
       }
     }
+  ],
+  "navigationUrls": [
+    "/**",
+    "!/**/*.*",
+    "!/**/*__*",
+    "!/**/*__*/**",
+    "!https://www.youtube.com/**",
+    "!https://*.youtube.com/**",
+    "!https://*.googlevideo.com/**",
+    "!https://*.ytimg.com/**",
+    "!https://googleads.g.doubleclick.net/**",
+    "!https://*.doubleclick.net/**"
   ]
 }

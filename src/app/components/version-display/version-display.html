@@ -1,0 +1,16 @@
+<div class="version-container" [class.clickable]="canCheckUpdates" (click)="onVersionClick()">
+    <div class="version-info">
+      <span class="version-label">v</span>
+      <span class="version-number">{{ version }}</span>
+      @if (commitHash) {
+        <span class="commit-hash">{{ commitHash }}</span>
+      }
+    </div>
+    
+    @if (canCheckUpdates) {
+      <div class="update-hint">
+        <span class="hint-icon">🔄</span>
+        <span class="hint-text">Click to check for updates</span>
+      </div>
+    }
+  </div>
