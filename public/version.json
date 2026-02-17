@@ -1,29 +1,44 @@
 {
   "version": "0.0.0",
-  "buildDate": "2026-02-17T22:47:55.495Z",
+  "buildDate": "2026-02-17T22:57:01.677Z",
   "environment": "development",
   "commit": {
-    "hash": "0a044902c0ce9cc533eb4e316d854c7aff860096",
-    "shortHash": "0a04490",
-    "message": "getCommitHistory",
-    "body": "-10 latest commits",
+    "hash": "d004151eae86b703efa336cd9b804642d7fc6072",
+    "shortHash": "d004151",
+    "message": "html and css moved to files",
+    "body": null,
     "author": "Milos",
     "email": "miloslazoviczola@gmail.com",
-    "date": "2026-02-17T23:47:48+01:00",
+    "date": "2026-02-17T23:56:48+01:00",
     "branch": "master",
     "tag": null,
-    "totalCommits": 35,
+    "totalCommits": 36,
     "changedFiles": [
       "public/version.json",
-      "scripts/generate-version.js",
-      "src/app/components/version-display/version-display.ts",
-      "src/app/core/services/version.ts",
-      "src/assets/version.json"
+      "src/app/components/version-display/version-display.css",
+      "src/app/components/version-display/version-display.html",
+      "src/app/components/version-display/version-display.ts"
     ],
-    "stats": "5 files changed, 629 insertions(+), 49 deletions(-)",
+    "stats": "4 files changed, 362 insertions(+), 440 deletions(-)",
     "coAuthors": []
   },
   "history": [
+    {
+      "hash": "d004151eae86b703efa336cd9b804642d7fc6072",
+      "shortHash": "d004151",
+      "message": "html and css moved to files",
+      "body": null,
+      "author": "Milos",
+      "email": "miloslazoviczola@gmail.com",
+      "date": "2026-02-17T23:56:48+01:00",
+      "stats": "4 files changed, 362 insertions(+), 440 deletions(-)",
+      "changedFiles": [
+        "public/version.json",
+        "src/app/components/version-display/version-display.css",
+        "src/app/components/version-display/version-display.html",
+        "src/app/components/version-display/version-display.ts"
+      ]
+    },
     {
       "hash": "0a044902c0ce9cc533eb4e316d854c7aff860096",
       "shortHash": "0a04490",
@@ -43,13 +58,12 @@
       "shortHash": "Milos",
       "message": "miloslazoviczola@gmail.com",
       "body": "2026-02-17T23:47:48+01:00",
-      "stats": "5 files changed, 629 insertions(+), 49 deletions(-)",
+      "stats": "4 files changed, 362 insertions(+), 440 deletions(-)",
       "changedFiles": [
         "public/version.json",
-        "scripts/generate-version.js",
-        "src/app/components/version-display/version-display.ts",
-        "src/app/core/services/version.ts",
-        "src/assets/version.json"
+        "src/app/components/version-display/version-display.css",
+        "src/app/components/version-display/version-display.html",
+        "src/app/components/version-display/version-display.ts"
       ]
     },
     {
@@ -69,13 +83,12 @@
       "shortHash": "Milos",
       "message": "miloslazoviczola@gmail.com",
       "body": "2026-02-17T23:38:50+01:00",
-      "stats": "5 files changed, 629 insertions(+), 49 deletions(-)",
+      "stats": "4 files changed, 362 insertions(+), 440 deletions(-)",
       "changedFiles": [
         "public/version.json",
-        "scripts/generate-version.js",
-        "src/app/components/version-display/version-display.ts",
-        "src/app/core/services/version.ts",
-        "src/assets/version.json"
+        "src/app/components/version-display/version-display.css",
+        "src/app/components/version-display/version-display.html",
+        "src/app/components/version-display/version-display.ts"
       ]
     },
     {
@@ -105,8 +118,28 @@
     {
       "hash": "-2",
       "body": null,
-      "stats": "5 files changed, 629 insertions(+), 49 deletions(-)\n 3 files changed, 13 insertions(+), 10 deletions(-)",
+      "stats": "4 files changed, 362 insertions(+), 440 deletions(-)\n 5 files changed, 629 insertions(+), 49 deletions(-)",
       "changedFiles": [
+        "public/version.json",
+        "src/app/components/version-display/version-display.css",
+        "src/app/components/version-display/version-display.html",
+        "src/app/components/version-display/version-display.ts",
+        "public/version.json",
+        "scripts/generate-version.js",
+        "src/app/components/version-display/version-display.ts",
+        "src/app/core/services/version.ts",
+        "src/assets/version.json"
+      ]
+    },
+    {
+      "hash": "-3",
+      "body": null,
+      "stats": "4 files changed, 362 insertions(+), 440 deletions(-)\n 5 files changed, 629 insertions(+), 49 deletions(-)\n 3 files changed, 13 insertions(+), 10 deletions(-)",
+      "changedFiles": [
+        "public/version.json",
+        "src/app/components/version-display/version-display.css",
+        "src/app/components/version-display/version-display.html",
+        "src/app/components/version-display/version-display.ts",
         "public/version.json",
         "scripts/generate-version.js",
         "src/app/components/version-display/version-display.ts",
@@ -118,34 +151,16 @@
       ]
     },
     {
-      "hash": "-3",
-      "body": null,
-      "stats": "5 files changed, 629 insertions(+), 49 deletions(-)\n 3 files changed, 13 insertions(+), 10 deletions(-)\n 2 files changed, 10 insertions(+), 11 deletions(-)",
-      "changedFiles": [
-        "public/version.json",
-        "scripts/generate-version.js",
-        "src/app/components/version-display/version-display.ts",
-        "src/app/core/services/version.ts",
-        "src/assets/version.json",
-        "public/version.json",
-        "src/app/components/assistant/assistant.html",
-        "src/app/components/assistant/assistant.ts",
-        "public/version.json",
-        "src/app/core/services/update-app.ts"
-      ]
-    },
-    {
       "hash": "",
       "shortHash": "Milos",
       "message": "miloslazoviczola@gmail.com",
       "body": "2026-02-17T22:38:26+01:00",
-      "stats": "5 files changed, 629 insertions(+), 49 deletions(-)",
+      "stats": "4 files changed, 362 insertions(+), 440 deletions(-)",
       "changedFiles": [
         "public/version.json",
-        "scripts/generate-version.js",
-        "src/app/components/version-display/version-display.ts",
-        "src/app/core/services/version.ts",
-        "src/assets/version.json"
+        "src/app/components/version-display/version-display.css",
+        "src/app/components/version-display/version-display.html",
+        "src/app/components/version-display/version-display.ts"
       ]
     },
     {
@@ -178,13 +193,12 @@
       "shortHash": "Milos",
       "message": "miloslazoviczola@gmail.com",
       "body": "2026-02-17T22:34:08+01:00",
-      "stats": "5 files changed, 629 insertions(+), 49 deletions(-)",
+      "stats": "4 files changed, 362 insertions(+), 440 deletions(-)",
       "changedFiles": [
         "public/version.json",
-        "scripts/generate-version.js",
-        "src/app/components/version-display/version-display.ts",
-        "src/app/core/services/version.ts",
-        "src/assets/version.json"
+        "src/app/components/version-display/version-display.css",
+        "src/app/components/version-display/version-display.html",
+        "src/app/components/version-display/version-display.ts"
       ]
     },
     {
@@ -225,13 +239,12 @@
       "shortHash": "Milos",
       "message": "miloslazoviczola@gmail.com",
       "body": "2026-02-17T22:12:47+01:00",
-      "stats": "5 files changed, 629 insertions(+), 49 deletions(-)",
+      "stats": "4 files changed, 362 insertions(+), 440 deletions(-)",
       "changedFiles": [
         "public/version.json",
-        "scripts/generate-version.js",
-        "src/app/components/version-display/version-display.ts",
-        "src/app/core/services/version.ts",
-        "src/assets/version.json"
+        "src/app/components/version-display/version-display.css",
+        "src/app/components/version-display/version-display.html",
+        "src/app/components/version-display/version-display.ts"
       ]
     },
     {
@@ -251,13 +264,12 @@
       "shortHash": "Milos",
       "message": "miloslazoviczola@gmail.com",
       "body": "2026-02-17T22:02:38+01:00",
-      "stats": "5 files changed, 629 insertions(+), 49 deletions(-)",
+      "stats": "4 files changed, 362 insertions(+), 440 deletions(-)",
       "changedFiles": [
         "public/version.json",
-        "scripts/generate-version.js",
-        "src/app/components/version-display/version-display.ts",
-        "src/app/core/services/version.ts",
-        "src/assets/version.json"
+        "src/app/components/version-display/version-display.css",
+        "src/app/components/version-display/version-display.html",
+        "src/app/components/version-display/version-display.ts"
       ]
     },
     {
@@ -279,21 +291,6 @@
         "src/app/core/services/version.ts",
         "src/assets/version.json",
         "src/styles.css"
-      ]
-    },
-    {
-      "hash": "2a85dc78c6b151d6ced90e0f6351e4edf17bd457",
-      "shortHash": "2a85dc7",
-      "message": "youtube wokring in all env",
-      "body": null,
-      "author": "Milos",
-      "email": "miloslazoviczola@gmail.com",
-      "date": "2026-02-17T14:49:07+01:00",
-      "stats": "3 files changed, 437 insertions(+), 63 deletions(-)",
-      "changedFiles": [
-        "package-lock.json",
-        "package.json",
-        "src/app/components/background-music/background-music.ts"
       ]
     }
   ]
