@@ -18,12 +18,13 @@ import Swal from 'sweetalert2';
 import { StreamParser } from '../../core/services/stream-parser';
 import { BackgroundMusic as BackgroundMusicService } from '../../core/services/background-music';
 import { BackgroundMusic } from '../background-music/background-music';
+import { VersionDisplay } from '../version-display/version-display';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { DestroyRef } from '@angular/core';
 @Component({
   selector: 'app-assistant',
   standalone: true,
-  imports: [CommonModule, FormsModule, BackgroundMusic],
+  imports: [CommonModule, FormsModule, BackgroundMusic, VersionDisplay],
   templateUrl: './assistant.html',
   styleUrls: ['./assistant.css'],
 })
