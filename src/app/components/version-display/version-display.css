@@ -1,92 +1,235 @@
 .version-container {
-    display: inline-flex;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 4px;
-    padding: 8px 16px;
-    background: rgba(139, 92, 246, 0.1);
-    border: 1px solid rgba(139, 92, 246, 0.2);
-    border-radius: 8px;
-    font-family: 'Courier New', monospace;
-    transition: all 0.3s ease;
-  }
+  padding: 8px 16px;
+  background: rgba(139, 92, 246, 0.1);
+  border: 1px solid rgba(139, 92, 246, 0.2);
+  border-radius: 8px;
+  font-family: 'Courier New', monospace;
+  transition: all 0.3s ease;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+}
 
-  .version-container.clickable {
-    cursor: pointer;
-  }
+.version-container.clickable {
+  cursor: pointer;
+}
 
-  .version-container.clickable:hover {
-    background: rgba(139, 92, 246, 0.2);
-    border-color: rgba(139, 92, 246, 0.4);
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(139, 92, 246, 0.3);
-  }
+.version-container.clickable:hover {
+  background: rgba(139, 92, 246, 0.2);
+  border-color: rgba(139, 92, 246, 0.4);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(139, 92, 246, 0.3);
+}
 
-  .version-info {
-    display: flex;
-    align-items: baseline;
-    gap: 6px;
-  }
+.version-info {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+}
 
-  .version-label {
-    font-size: 12px;
-    color: #a78bfa;
-    font-weight: 600;
-  }
+.version-label {
+  font-size: 12px;
+  color: #a78bfa;
+  font-weight: 600;
+}
 
+.version-number {
+  font-size: 14px;
+  color: #e5e7eb;
+  font-weight: 700;
+}
+
+.commit-hash {
+  font-size: 11px;
+  color: #9ca3af;
+  background: rgba(255, 255, 255, 0.05);
+  padding: 2px 6px;
+  border-radius: 4px;
+}
+
+.history-icon {
+  font-size: 14px;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.history-icon:hover {
+  transform: scale(1.2);
+}
+
+.update-hint {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 11px;
+  color: #9ca3af;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.version-container.clickable:hover .update-hint {
+  opacity: 1;
+}
+
+.hint-icon {
+  font-size: 12px;
+  animation: rotate 2s linear infinite;
+}
+
+@keyframes rotate {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.hint-text {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+}
+
+/* History Dropdown */
+.history-dropdown {
+  position: absolute;
+  bottom: 100%;
+  right: 0;
+  width: 400px;
+  max-height: 500px;
+  background: #1f2937;
+  border: 1px solid #8b5cf6;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+  z-index: 1000;
+  margin-bottom: 8px;
+}
+
+.history-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 16px;
+  background: rgba(139, 92, 246, 0.2);
+  border-bottom: 1px solid rgba(139, 92, 246, 0.3);
+}
+
+.history-header h4 {
+  margin: 0;
+  color: #e5e7eb;
+  font-size: 14px;
+}
+
+.history-header button {
+  background: none;
+  border: none;
+  color: #e5e7eb;
+  font-size: 18px;
+  cursor: pointer;
+  padding: 0;
+  width: 24px;
+  height: 24px;
+}
+
+.history-list {
+  max-height: 450px;
+  overflow-y: auto;
+  padding: 12px;
+}
+
+.commit-item {
+  padding: 12px;
+  margin-bottom: 8px;
+  background: rgba(139, 92, 246, 0.1);
+  border-left: 3px solid #8b5cf6;
+  border-radius: 4px;
+}
+
+.commit-header-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.commit-hash-item {
+  font-size: 11px;
+  color: #a78bfa;
+  background: rgba(255, 255, 255, 0.05);
+  padding: 2px 8px;
+  border-radius: 4px;
+}
+
+.commit-date {
+  font-size: 10px;
+  color: #9ca3af;
+}
+
+.commit-message {
+  font-weight: 600;
+  margin: 8px 0;
+  color: #e5e7eb;
+  font-size: 13px;
+}
+
+.commit-body {
+  font-size: 11px;
+  color: #9ca3af;
+  white-space: pre-wrap;
+  margin: 4px 0;
+}
+
+.commit-meta {
+  display: flex;
+  gap: 12px;
+  font-size: 11px;
+  color: #9ca3af;
+  margin-top: 8px;
+}
+
+.commit-author,
+.commit-stats {
+  font-size: 10px;
+}
+
+.changed-files {
+  margin-top: 8px;
+  font-size: 11px;
+  color: #9ca3af;
+}
+
+.changed-files summary {
+  cursor: pointer;
+  user-select: none;
+}
+
+.changed-files ul {
+  list-style: none;
+  padding-left: 12px;
+  margin: 4px 0;
+}
+
+.changed-files li {
+  font-family: monospace;
+  color: #6ee7b7;
+  font-size: 10px;
+  padding: 2px 0;
+}
+
+/* Responsive */
+@media (max-width: 640px) {
+  .version-container {
+    padding: 6px 12px;
+  }
+  
   .version-number {
-    font-size: 14px;
-    color: #e5e7eb;
-    font-weight: 700;
-  }
-
-  .commit-hash {
-    font-size: 11px;
-    color: #9ca3af;
-    background: rgba(255, 255, 255, 0.05);
-    padding: 2px 6px;
-    border-radius: 4px;
-  }
-
-  .update-hint {
-    display: flex;
-    align-items: center;
-    gap: 4px;
-    font-size: 11px;
-    color: #9ca3af;
-    opacity: 0;
-    transition: opacity 0.3s ease;
-  }
-
-  .version-container.clickable:hover .update-hint {
-    opacity: 1;
-  }
-
-  .hint-icon {
     font-size: 12px;
-    animation: rotate 2s linear infinite;
   }
-
-  @keyframes rotate {
-    from { transform: rotate(0deg); }
-    to { transform: rotate(360deg); }
-  }
-
+  
   .hint-text {
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    display: none;
   }
 
-  /* Responsive */
-  @media (max-width: 640px) {
-    .version-container {
-      padding: 6px 12px;
-    }
-    
-    .version-number {
-      font-size: 12px;
-    }
-    
-    .hint-text {
-      display: none;
-    }
+  .history-dropdown {
+    width: 90vw;
+    right: auto;
+    left: 50%;
+    transform: translateX(-50%);
   }
+}
