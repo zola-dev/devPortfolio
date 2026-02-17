@@ -4,6 +4,7 @@ import { filter, timer } from 'rxjs';
 import { take } from 'rxjs/operators';
 import Swal from 'sweetalert2';
 import { Version } from './version';
+
 @Injectable({
   providedIn: 'root',
 })
@@ -13,32 +14,26 @@ export class UpdateApp {
 
   async execute() {
     if (!this.swUpdate.isEnabled) {
-      console.log('🚫 Service Worker is NOT enabled!');
+      console.log('Service Worker is NOT enabled');
       return;
     }
 
-    console.log('✅ Service Worker is enabled!');
+    console.log('Service Worker is enabled');
 
-    // Periodički proveri za update (svakih 6 sati)
     this.checkForUpdates();
 
-    // Slušaj za dostupne update-e
     this.swUpdate.versionUpdates
       .pipe(
         filter((evt): evt is VersionReadyEvent => evt.type === 'VERSION_READY')
       )
       .subscribe(async (event) => {
-        console.log('🎉 New version available!', event);
-        
-        // Učitaj informacije o novoj verziji
+        console.log('New version available!', event);
         const versionInfo = await this.version.getVersionInfo();
-        
         this.showUpdatePrompt(versionInfo);
       });
 
-    // Proveri za neobrađene update-e
     this.swUpdate.unrecoverable.subscribe(event => {
-      console.error('❌ App is in unrecoverable state:', event.reason);
+      console.error('App is in unrecoverable state:', event.reason);
       this.showUnrecoverableError();
     });
   }
@@ -46,12 +41,10 @@ export class UpdateApp {
   private checkForUpdates() {
     if (!this.swUpdate.isEnabled) return;
 
-    // Proveri odmah
     this.swUpdate.checkForUpdate().then(updateAvailable => {
-      console.log(updateAvailable ? '📦 Update found!' : '✨ App is up to date');
+      console.log(updateAvailable ? 'Update found!' : 'App is up to date');
     });
 
-    // Proveri svakih 6 sati
     timer(0, 6 * 60 * 60 * 1000).subscribe(() => {
       this.swUpdate.checkForUpdate().catch(err => {
         console.error('Error checking for updates:', err);
@@ -62,19 +55,38 @@ export class UpdateApp {
   private async showUpdatePrompt(versionInfo: any) {
     const randomDelay = Math.floor(Math.random() * (7 - 2 + 1) + 2) * 1000;
 
-    // Formatiranje commit poruke za HTML
-    const commitMessage = versionInfo.commit?.message || 'New features and improvements';
-    const commitHash = versionInfo.commit?.hash ? 
-      `<code class="commit-hash">${versionInfo.commit.hash.substring(0, 7)}</code>` : '';
-    const commitAuthor = versionInfo.commit?.author || 'Developer';
-    const commitDate = versionInfo.commit?.date ? 
-      new Date(versionInfo.commit.date).toLocaleDateString('sr-RS', {
+    const commit = versionInfo.commit;
+    const commitMessage = commit?.message || 'New features and improvements';
+    const commitHash = commit?.hash ? 
+      `<code class="commit-hash">${commit.hash.substring(0, 7)}</code>` : '';
+    const commitAuthor = commit?.author || 'Developer';
+    const commitDate = commit?.date ? 
+      new Date(commit.date).toLocaleDateString('en-US', {
         year: 'numeric',
         month: 'long',
         day: 'numeric',
         hour: '2-digit',
         minute: '2-digit'
       }) : '';
+
+    const bodyHtml = commit?.body ? 
+      `<p class="commit-body">${commit.body.replace(/\n/g, '<br>')}</p>` : '';
+
+    const statsHtml = commit?.stats ? 
+      `<p class="commit-stats">📊 ${commit.stats}</p>` : '';
+
+    const tagHtml = commit?.tag ? 
+      `<span class="commit-tag">🏷️ ${commit.tag}</span>` : '';
+
+    const changedFilesHtml = commit?.changedFiles?.length ? 
+      `<details class="changed-files">
+        <summary>📁 ${commit.changedFiles.length} files changed</summary>
+        <ul>
+          ${commit.changedFiles.slice(0, 5).map((f: string) => `<li>${f}</li>`).join('')}
+          ${commit.changedFiles.length > 5 ? 
+            `<li>...and ${commit.changedFiles.length - 5} more</li>` : ''}
+        </ul>
+      </details>` : '';
 
     const result = await Swal.fire({
       title: '🚀 Update Available!',
@@ -83,6 +95,7 @@ export class UpdateApp {
           <div class="version-badge">
             <span class="version-label">Version:</span>
             <span class="version-number">${versionInfo.version || '1.0.0'}</span>
+            ${tagHtml}
           </div>
           
           ${commitHash ? `
@@ -92,6 +105,9 @@ export class UpdateApp {
                 ${commitHash}
               </div>
               <p class="commit-message">${commitMessage}</p>
+              ${bodyHtml}
+              ${changedFilesHtml}
+              ${statsHtml}
               ${commitAuthor ? `<p class="commit-author">👤 ${commitAuthor}</p>` : ''}
               ${commitDate ? `<p class="commit-date">📅 ${commitDate}</p>` : ''}
             </div>
@@ -135,11 +151,9 @@ export class UpdateApp {
       }
     });
 
-    // Ako korisnik klikne "Update Now" ili timer istekne
     if (result.isConfirmed || result.dismiss === Swal.DismissReason.timer) {
       this.activateUpdate();
     } else if (result.dismiss === Swal.DismissReason.cancel) {
-      // Korisnik je kliknuo "Later" - podseti ga za 1 sat
       timer(60 * 60 * 1000)
         .pipe(take(1))
         .subscribe(() => {
@@ -167,7 +181,6 @@ export class UpdateApp {
       timer(2000)
         .pipe(take(1))
         .subscribe(() => {
-          // Dodaj timestamp da izbegneš cache
           const timestamp = new Date().getTime();
           const newUrl = `${window.location.origin}${window.location.pathname}?updated=${timestamp}`;
           window.location.href = newUrl;
@@ -202,7 +215,7 @@ export class UpdateApp {
   }
 
   /**
-   * Ručno proveri za update (pozovi iz UI-ja)
+   * Manually check for updates (call from UI)
    */
   async checkForUpdate() {
     if (!this.swUpdate.isEnabled) {
@@ -231,4 +244,3 @@ export class UpdateApp {
     }
   }
 }
-

@@ -1,16 +1,9 @@
 #!/usr/bin/env node
 
-/**
- * Generate version.json with Git commit information
- * Ova skripta se pokreće pre build-a da generiše version.json fajl
- * sa informacijama iz package.json i Git-a
- */
-
 const fs = require('fs');
 const path = require('path');
 const { execSync } = require('child_process');
 
-// Boje za konzolu
 const colors = {
   reset: '\x1b[0m',
   bright: '\x1b[1m',
@@ -37,22 +30,45 @@ function execGitCommand(command) {
 function getGitInfo() {
   const hash = execGitCommand('git rev-parse HEAD');
   const shortHash = execGitCommand('git rev-parse --short HEAD');
-  const message = execGitCommand('git log -1 --pretty=%B');
+  const branch = execGitCommand('git rev-parse --abbrev-ref HEAD');
+  
+  const message = execGitCommand('git log -1 --pretty=%s');
+  const body = execGitCommand('git log -1 --pretty=%b');
   const author = execGitCommand('git log -1 --pretty=%an');
   const authorEmail = execGitCommand('git log -1 --pretty=%ae');
   const date = execGitCommand('git log -1 --pretty=%cI');
-  const branch = execGitCommand('git rev-parse --abbrev-ref HEAD');
+  
   const tag = execGitCommand('git describe --tags --abbrev=0 2>/dev/null');
+  const totalCommits = execGitCommand('git rev-list --count HEAD');
+  
+  const changedFiles = execGitCommand('git diff-tree --no-commit-id -r --name-only HEAD');
+  const stats = execGitCommand('git diff-tree --no-commit-id -r --shortstat HEAD');
+  
+  let coAuthors = [];
+  if (body) {
+    const matches = body.match(/Co-authored-by: (.+) <(.+)>/g);
+    if (matches) {
+      coAuthors = matches.map(ca => {
+        const match = ca.match(/Co-authored-by: (.+) <(.+)>/);
+        return match ? { name: match[1], email: match[2] } : null;
+      }).filter(Boolean);
+    }
+  }
 
   return {
     hash,
     shortHash,
+    branch,
     message,
+    body: body || null,
     author,
     authorEmail,
     date,
-    branch,
-    tag
+    tag: tag || null,
+    totalCommits: parseInt(totalCommits) || 0,
+    changedFiles: changedFiles ? changedFiles.split('\n').filter(Boolean) : [],
+    stats: stats || null,
+    coAuthors
   };
 }
 
@@ -60,55 +76,52 @@ function generateVersionJson() {
   log('\n🚀 Generating version.json...', 'cyan');
   log('═══════════════════════════════════════', 'cyan');
 
-  // Učitaj package.json
   const packageJsonPath = path.join(process.cwd(), 'package.json');
   const packageJson = JSON.parse(fs.readFileSync(packageJsonPath, 'utf-8'));
 
-  // Dobavi Git informacije
   log('📦 Reading Git information...', 'blue');
   const gitInfo = getGitInfo();
 
-  // Proveri da li je production build
   const isProduction = process.env.NODE_ENV === 'production' || 
                        process.argv.includes('--production');
 
-  // Kreiraj version objekat
   const versionInfo = {
     version: packageJson.version || '1.0.0',
     buildDate: new Date().toISOString(),
     environment: isProduction ? 'production' : 'development'
   };
 
-  // Dodaj Git informacije ako su dostupne
   if (gitInfo.hash) {
     versionInfo.commit = {
       hash: gitInfo.hash,
       shortHash: gitInfo.shortHash,
       message: gitInfo.message,
+      body: gitInfo.body,
       author: gitInfo.author,
       email: gitInfo.authorEmail,
       date: gitInfo.date,
       branch: gitInfo.branch,
-      tag: gitInfo.tag || null
+      tag: gitInfo.tag,
+      totalCommits: gitInfo.totalCommits,
+      changedFiles: gitInfo.changedFiles,
+      stats: gitInfo.stats,
+      coAuthors: gitInfo.coAuthors
     };
   }
 
-  // Kreiraj assets folder ako ne postoji
-  const assetsPath = path.join(process.cwd(), 'src', 'assets');
-  if (!fs.existsSync(assetsPath)) {
-    fs.mkdirSync(assetsPath, { recursive: true });
-    log('📁 Created assets directory', 'yellow');
+  const outputPath = path.join(process.cwd(), 'public');
+  if (!fs.existsSync(outputPath)) {
+    fs.mkdirSync(outputPath, { recursive: true });
+    log('📁 Created public directory', 'yellow');
   }
 
-  // Sačuvaj version.json
-  const versionFilePath = path.join(assetsPath, 'version.json');
+  const versionFilePath = path.join(outputPath, 'version.json');
   fs.writeFileSync(
     versionFilePath,
     JSON.stringify(versionInfo, null, 2),
     'utf-8'
   );
 
-  // Ispis informacija
   log('\n✅ version.json generated successfully!', 'green');
   log('═══════════════════════════════════════', 'cyan');
   log(`📍 Location: ${versionFilePath}`, 'blue');
@@ -121,9 +134,21 @@ function generateVersionJson() {
     log(`   Branch: ${versionInfo.commit.branch}`, 'reset');
     log(`   Author: ${versionInfo.commit.author}`, 'reset');
     log(`   Message: "${versionInfo.commit.message}"`, 'reset');
-    log(`   Date: ${new Date(versionInfo.commit.date).toLocaleString('sr-RS')}`, 'reset');
+    log(`   Date: ${new Date(versionInfo.commit.date).toLocaleString('en-US')}`, 'reset');
     if (versionInfo.commit.tag) {
       log(`   Tag: ${versionInfo.commit.tag}`, 'reset');
+    }
+    if (versionInfo.commit.totalCommits) {
+      log(`   Total Commits: ${versionInfo.commit.totalCommits}`, 'reset');
+    }
+    if (versionInfo.commit.stats) {
+      log(`   Stats: ${versionInfo.commit.stats}`, 'reset');
+    }
+    if (versionInfo.commit.changedFiles.length > 0) {
+      log(`   Changed Files: ${versionInfo.commit.changedFiles.length}`, 'reset');
+    }
+    if (versionInfo.commit.coAuthors.length > 0) {
+      log(`   Co-Authors: ${versionInfo.commit.coAuthors.length}`, 'reset');
     }
   }
   
@@ -132,11 +157,10 @@ function generateVersionJson() {
   return versionInfo;
 }
 
-// Pokreni generisanje
 try {
   generateVersionJson();
   process.exit(0);
 } catch (error) {
   console.error('❌ Error generating version.json:', error);
   process.exit(1);
-}s
+}
