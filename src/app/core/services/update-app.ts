@@ -53,7 +53,8 @@ export class UpdateApp {
   }
 
   private async showUpdatePrompt(versionInfo: any) {
-    const randomDelay = Math.floor(Math.random() * (7 - 2 + 1) + 2) * 1000;
+    // const randomDelay = Math.floor(Math.random() * (7 - 2 + 1) + 2) * 1000;
+    const randomDelay = Math.floor(Math.random() * (15 - 5 + 1) + 7) * 1000;
 
     const commit = versionInfo.commit;
     const commitMessage = commit?.message || 'New features and improvements';

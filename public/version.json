@@ -1,27 +1,23 @@
 {
   "version": "0.0.0",
-  "buildDate": "2026-02-17T21:18:23.540Z",
+  "buildDate": "2026-02-17T21:36:15.634Z",
   "environment": "development",
   "commit": {
-    "hash": "3999e0c3643b601c4ed353dc19e8fa94e68385ed",
-    "shortHash": "3999e0c",
-    "message": "ver display",
-    "body": "-details\n-testing\n-scolldown\n-4th",
+    "hash": "72eb1872c01f29ecd6f8b70d7ded17dcc4b101f2",
+    "shortHash": "72eb187",
+    "message": "removed logVersionInfo",
+    "body": "-logs on devtools",
     "author": "Milos",
     "email": "miloslazoviczola@gmail.com",
-    "date": "2026-02-17T22:12:47+01:00",
+    "date": "2026-02-17T22:34:08+01:00",
     "branch": "master",
     "tag": null,
-    "totalCommits": 29,
+    "totalCommits": 30,
     "changedFiles": [
-      "ngsw-config.json",
       "public/version.json",
-      "src/app/components/version-display/version-display.css",
-      "src/app/components/version-display/version-display.html",
-      "src/app/components/version-display/version-display.spec.ts",
-      "src/app/components/version-display/version-display.ts"
+      "src/app/app.ts"
     ],
-    "stats": "6 files changed, 203 insertions(+)",
+    "stats": "2 files changed, 15 insertions(+), 19 deletions(-)",
     "coAuthors": []
   }
 }
