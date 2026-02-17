@@ -1,23 +1,266 @@
 {
   "version": "0.0.0",
-  "buildDate": "2026-02-17T21:40:01.387Z",
+  "buildDate": "2026-02-17T22:47:10.517Z",
   "environment": "development",
   "commit": {
-    "hash": "a44cdfde77b309869f377b98017a1f3b7f9dd193",
-    "shortHash": "a44cdfd",
-    "message": "adjuting timer on update",
-    "body": null,
+    "hash": "6956e98fae0b26e03e73097032ba0538a00d5dbf",
+    "shortHash": "6956e98",
+    "message": "VersionDisplay added",
+    "body": "-test",
     "author": "Milos",
     "email": "miloslazoviczola@gmail.com",
-    "date": "2026-02-17T22:39:47+01:00",
+    "date": "2026-02-17T23:38:50+01:00",
     "branch": "master",
     "tag": null,
-    "totalCommits": 33,
+    "totalCommits": 34,
     "changedFiles": [
       "public/version.json",
-      "src/app/core/services/update-app.ts"
+      "src/app/components/assistant/assistant.html",
+      "src/app/components/assistant/assistant.ts"
     ],
-    "stats": "2 files changed, 10 insertions(+), 11 deletions(-)",
+    "stats": "3 files changed, 13 insertions(+), 10 deletions(-)",
     "coAuthors": []
-  }
+  },
+  "history": [
+    {
+      "hash": "6956e98fae0b26e03e73097032ba0538a00d5dbf",
+      "shortHash": "6956e98",
+      "message": "VersionDisplay added",
+      "body": "-test",
+      "stats": "3 files changed, 13 insertions(+), 10 deletions(-)",
+      "changedFiles": [
+        "public/version.json",
+        "src/app/components/assistant/assistant.html",
+        "src/app/components/assistant/assistant.ts"
+      ]
+    },
+    {
+      "hash": "",
+      "shortHash": "Milos",
+      "message": "miloslazoviczola@gmail.com",
+      "body": "2026-02-17T23:38:50+01:00",
+      "stats": "3 files changed, 13 insertions(+), 10 deletions(-)",
+      "changedFiles": [
+        "public/version.json",
+        "src/app/components/assistant/assistant.html",
+        "src/app/components/assistant/assistant.ts"
+      ]
+    },
+    {
+      "hash": "a44cdfde77b309869f377b98017a1f3b7f9dd193",
+      "shortHash": "a44cdfd",
+      "message": "adjuting timer on update",
+      "body": null,
+      "author": "Milos",
+      "email": "miloslazoviczola@gmail.com",
+      "date": "2026-02-17T22:39:47+01:00",
+      "stats": "2 files changed, 10 insertions(+), 11 deletions(-)",
+      "changedFiles": [
+        "public/version.json",
+        "src/app/core/services/update-app.ts"
+      ]
+    },
+    {
+      "hash": "3950d073ec47ba1d78c08001deba50856c7f22c7",
+      "shortHash": "3950d07",
+      "message": "testing",
+      "body": "-1",
+      "stats": "1 file changed, 9 insertions(+), 9 deletions(-)",
+      "changedFiles": [
+        "public/version.json"
+      ]
+    },
+    {
+      "hash": "-2",
+      "body": null,
+      "stats": "3 files changed, 13 insertions(+), 10 deletions(-)\n 2 files changed, 10 insertions(+), 11 deletions(-)",
+      "changedFiles": [
+        "public/version.json",
+        "src/app/components/assistant/assistant.html",
+        "src/app/components/assistant/assistant.ts",
+        "public/version.json",
+        "src/app/core/services/update-app.ts"
+      ]
+    },
+    {
+      "hash": "-3",
+      "body": null,
+      "stats": "3 files changed, 13 insertions(+), 10 deletions(-)\n 2 files changed, 10 insertions(+), 11 deletions(-)\n 1 file changed, 9 insertions(+), 9 deletions(-)",
+      "changedFiles": [
+        "public/version.json",
+        "src/app/components/assistant/assistant.html",
+        "src/app/components/assistant/assistant.ts",
+        "public/version.json",
+        "src/app/core/services/update-app.ts",
+        "public/version.json"
+      ]
+    },
+    {
+      "hash": "",
+      "shortHash": "Milos",
+      "message": "miloslazoviczola@gmail.com",
+      "body": "2026-02-17T22:38:26+01:00",
+      "stats": "3 files changed, 13 insertions(+), 10 deletions(-)",
+      "changedFiles": [
+        "public/version.json",
+        "src/app/components/assistant/assistant.html",
+        "src/app/components/assistant/assistant.ts"
+      ]
+    },
+    {
+      "hash": "068baa8174d0067b72e87fcaef6ca66defde1757",
+      "shortHash": "068baa8",
+      "message": "randomDelay to 7-15sec",
+      "body": null,
+      "author": "Milos",
+      "email": "miloslazoviczola@gmail.com",
+      "date": "2026-02-17T22:37:18+01:00",
+      "stats": "2 files changed, 11 insertions(+), 14 deletions(-)",
+      "changedFiles": [
+        "public/version.json",
+        "src/app/core/services/update-app.ts"
+      ]
+    },
+    {
+      "hash": "72eb1872c01f29ecd6f8b70d7ded17dcc4b101f2",
+      "shortHash": "72eb187",
+      "message": "removed logVersionInfo",
+      "body": "-logs on devtools",
+      "stats": "2 files changed, 15 insertions(+), 19 deletions(-)",
+      "changedFiles": [
+        "public/version.json",
+        "src/app/app.ts"
+      ]
+    },
+    {
+      "hash": "",
+      "shortHash": "Milos",
+      "message": "miloslazoviczola@gmail.com",
+      "body": "2026-02-17T22:34:08+01:00",
+      "stats": "3 files changed, 13 insertions(+), 10 deletions(-)",
+      "changedFiles": [
+        "public/version.json",
+        "src/app/components/assistant/assistant.html",
+        "src/app/components/assistant/assistant.ts"
+      ]
+    },
+    {
+      "hash": "3999e0c3643b601c4ed353dc19e8fa94e68385ed",
+      "shortHash": "3999e0c",
+      "message": "ver display",
+      "body": "-details",
+      "stats": "6 files changed, 203 insertions(+)",
+      "changedFiles": [
+        "ngsw-config.json",
+        "public/version.json",
+        "src/app/components/version-display/version-display.css",
+        "src/app/components/version-display/version-display.html",
+        "src/app/components/version-display/version-display.spec.ts",
+        "src/app/components/version-display/version-display.ts"
+      ]
+    },
+    {
+      "hash": "-testing",
+      "body": null,
+      "stats": null,
+      "changedFiles": []
+    },
+    {
+      "hash": "-scolldown",
+      "body": null,
+      "stats": null,
+      "changedFiles": []
+    },
+    {
+      "hash": "-4th",
+      "body": null,
+      "stats": null,
+      "changedFiles": []
+    },
+    {
+      "hash": "",
+      "shortHash": "Milos",
+      "message": "miloslazoviczola@gmail.com",
+      "body": "2026-02-17T22:12:47+01:00",
+      "stats": "3 files changed, 13 insertions(+), 10 deletions(-)",
+      "changedFiles": [
+        "public/version.json",
+        "src/app/components/assistant/assistant.html",
+        "src/app/components/assistant/assistant.ts"
+      ]
+    },
+    {
+      "hash": "f8e04ce54afbfd477759b9138ace79666a09cead",
+      "shortHash": "f8e04ce",
+      "message": "progress update app",
+      "body": "-ts, js, service",
+      "stats": "3 files changed, 138 insertions(+), 76 deletions(-)",
+      "changedFiles": [
+        "scripts/generate-version.js",
+        "src/app/core/services/update-app.ts",
+        "src/app/core/services/version.ts"
+      ]
+    },
+    {
+      "hash": "",
+      "shortHash": "Milos",
+      "message": "miloslazoviczola@gmail.com",
+      "body": "2026-02-17T22:02:38+01:00",
+      "stats": "3 files changed, 13 insertions(+), 10 deletions(-)",
+      "changedFiles": [
+        "public/version.json",
+        "src/app/components/assistant/assistant.html",
+        "src/app/components/assistant/assistant.ts"
+      ]
+    },
+    {
+      "hash": "daec8a652d90fb7f45a54a677754a547417bb1b7",
+      "shortHash": "daec8a6",
+      "message": "versions porgress",
+      "body": null,
+      "author": "Milos",
+      "email": "miloslazoviczola@gmail.com",
+      "date": "2026-02-17T21:51:30+01:00",
+      "stats": "9 files changed, 498 insertions(+), 4 deletions(-)",
+      "changedFiles": [
+        "angular.json",
+        "scripts/generate-version.js",
+        "src/app/app.ts",
+        "src/app/components/background-music/background-music.ts",
+        "src/app/core/services/update-app.spec.ts",
+        "src/app/core/services/version.spec.ts",
+        "src/app/core/services/version.ts",
+        "src/assets/version.json",
+        "src/styles.css"
+      ]
+    },
+    {
+      "hash": "2a85dc78c6b151d6ced90e0f6351e4edf17bd457",
+      "shortHash": "2a85dc7",
+      "message": "youtube wokring in all env",
+      "body": null,
+      "author": "Milos",
+      "email": "miloslazoviczola@gmail.com",
+      "date": "2026-02-17T14:49:07+01:00",
+      "stats": "3 files changed, 437 insertions(+), 63 deletions(-)",
+      "changedFiles": [
+        "package-lock.json",
+        "package.json",
+        "src/app/components/background-music/background-music.ts"
+      ]
+    },
+    {
+      "hash": "bf78ff4ea0531fab24ae60670c486d0cbf7af5f6",
+      "shortHash": "bf78ff4",
+      "message": "adjusting yt compoenet",
+      "body": null,
+      "author": "Milos",
+      "email": "miloslazoviczola@gmail.com",
+      "date": "2026-02-17T14:06:22+01:00",
+      "stats": "1 file changed, 74 insertions(+), 25 deletions(-)",
+      "changedFiles": [
+        "src/app/components/background-music/background-music.ts"
+      ]
+    }
+  ]
 }

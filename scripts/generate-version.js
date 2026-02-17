@@ -88,7 +88,9 @@ function generateVersionJson() {
   const versionInfo = {
     version: packageJson.version || '1.0.0',
     buildDate: new Date().toISOString(),
-    environment: isProduction ? 'production' : 'development'
+    environment: isProduction ? 'production' : 'development',
+    commit: gitInfo.hash ? { /* ... */ } : null,
+    history: getCommitHistory(10)
   };
 
   if (gitInfo.hash) {
@@ -156,6 +158,33 @@ function generateVersionJson() {
 
   return versionInfo;
 }
+
+function getCommitHistory(count = 10) {
+    const format = '%H|%h|%s|%b|%an|%ae|%cI';
+    const logCommand = `git log -${count} --pretty=format:"${format}"`;
+    
+    const log = execGitCommand(logCommand);
+    if (!log) return [];
+  
+    return log.split('\n').map(line => {
+      const [hash, shortHash, subject, body, author, email, date] = line.split('|');
+      
+      const stats = execGitCommand(`git show ${hash} --shortstat --format=""`);
+      const files = execGitCommand(`git show ${hash} --name-only --format=""`);
+      
+      return {
+        hash,
+        shortHash,
+        message: subject,
+        body: body || null,
+        author,
+        email,
+        date,
+        stats: stats || null,
+        changedFiles: files ? files.split('\n').filter(Boolean) : []
+      };
+    });
+  }
 
 try {
   generateVersionJson();

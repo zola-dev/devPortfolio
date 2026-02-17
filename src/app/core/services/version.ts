@@ -23,6 +23,7 @@ export interface VersionInfo {
   buildDate: string;
   commit?: CommitInfo;
   environment: 'production' | 'development';
+  history?: CommitInfo[];
 }
 
 @Injectable({
