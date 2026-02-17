@@ -43,3 +43,174 @@ body {
     background: linear-gradient(135deg, #581c87, #6b21a8) !important;
   }
 }
+
+/* ============================================
+   PWA UPDATE POPUP STYLES
+   ============================================ */
+
+/* SweetAlert2 Custom Styles za PWA Update */
+.pwa-update-popup {
+  border-radius: 16px !important;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5) !important;
+}
+
+.pwa-confirm-btn {
+  background: linear-gradient(135deg, #8b5cf6 0%, #6366f1 100%) !important;
+  border: none !important;
+  padding: 12px 32px !important;
+  border-radius: 8px !important;
+  font-weight: 600 !important;
+  transition: all 0.3s ease !important;
+  box-shadow: 0 4px 14px 0 rgba(139, 92, 246, 0.4) !important;
+}
+
+.pwa-confirm-btn:hover {
+  transform: translateY(-2px) !important;
+  box-shadow: 0 6px 20px 0 rgba(139, 92, 246, 0.6) !important;
+}
+
+.pwa-cancel-btn {
+  background: rgba(255, 255, 255, 0.1) !important;
+  border: 1px solid rgba(255, 255, 255, 0.2) !important;
+  padding: 12px 32px !important;
+  border-radius: 8px !important;
+  font-weight: 600 !important;
+  transition: all 0.3s ease !important;
+}
+
+.pwa-cancel-btn:hover {
+  background: rgba(255, 255, 255, 0.15) !important;
+  border-color: rgba(255, 255, 255, 0.3) !important;
+}
+
+/* Update Info Container */
+.update-info {
+  padding: 16px 0;
+  text-align: left;
+}
+
+/* Version Badge */
+.version-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: linear-gradient(135deg, #8b5cf6 0%, #6366f1 100%);
+  padding: 8px 16px;
+  border-radius: 20px;
+  margin-bottom: 20px;
+  font-weight: 600;
+  box-shadow: 0 4px 12px rgba(139, 92, 246, 0.3);
+}
+
+.version-label {
+  font-size: 12px;
+  opacity: 0.9;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.version-number {
+  font-size: 16px;
+  font-weight: 700;
+}
+
+/* Commit Section */
+.commit-section {
+  background: rgba(139, 92, 246, 0.1);
+  border-left: 4px solid #8b5cf6;
+  padding: 16px;
+  border-radius: 8px;
+  margin: 16px 0;
+}
+
+.commit-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 12px;
+  font-weight: 600;
+}
+
+.commit-icon {
+  font-size: 18px;
+}
+
+.commit-hash {
+  background: rgba(255, 255, 255, 0.1);
+  padding: 4px 12px;
+  border-radius: 6px;
+  font-family: 'Courier New', monospace;
+  font-size: 13px;
+  color: #a78bfa;
+  border: 1px solid rgba(167, 139, 250, 0.3);
+}
+
+.commit-message {
+  font-size: 15px;
+  line-height: 1.6;
+  margin: 12px 0;
+  color: #e5e7eb;
+  font-style: italic;
+}
+
+.commit-author,
+.commit-date {
+  font-size: 13px;
+  margin: 6px 0;
+  opacity: 0.8;
+  color: #d1d5db;
+}
+
+/* Update Message (fallback) */
+.update-message {
+  font-size: 15px;
+  line-height: 1.6;
+  margin: 16px 0;
+  color: #e5e7eb;
+}
+
+/* Update Timer */
+.update-timer {
+  margin-top: 24px;
+  padding-top: 16px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  font-size: 14px;
+  color: #d1d5db;
+}
+
+.update-timer b {
+  color: #8b5cf6;
+  font-size: 18px;
+  font-weight: 700;
+}
+
+/* Responsive Design */
+@media (max-width: 640px) {
+  .version-badge {
+    font-size: 14px;
+  }
+  
+  .commit-section {
+    padding: 12px;
+  }
+  
+  .commit-message {
+    font-size: 14px;
+  }
+}
+
+/* Animation */
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.pwa-update-popup {
+  animation: slideIn 0.3s ease-out;
+}

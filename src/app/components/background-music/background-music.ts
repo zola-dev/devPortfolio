@@ -68,7 +68,7 @@ export class BackgroundMusic implements OnInit, OnDestroy {
   @HostListener('document:click')
   @HostListener('document:keydown')
   @HostListener('document:touchstart')
-  @HostListener('document:touchmove')
+// @HostListener('document:touchmove')
 // @HostListener('document:mousemove')
 // @HostListener('document:mousedown')
 // @HostListener('document:scroll')

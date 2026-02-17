@@ -1,0 +1,15 @@
+{
+  "version": "0.0.0",
+  "buildDate": "2026-02-17T19:46:18.471Z",
+  "environment": "development",
+  "commit": {
+    "hash": "2a85dc78c6b151d6ced90e0f6351e4edf17bd457",
+    "shortHash": "2a85dc7",
+    "message": "youtube wokring in all env",
+    "author": "Milos",
+    "email": "miloslazoviczola@gmail.com",
+    "date": "2026-02-17T14:49:07+01:00",
+    "branch": "master",
+    "tag": null
+  }
+}
