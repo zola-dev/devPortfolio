@@ -12,15 +12,8 @@ export class App implements OnInit {
   protected readonly title = signal('devPortfolio');
   private readonly updateApp = inject(UpdateApp);
   private readonly version = inject(Version);
-  // constructor(
-  //   // private updateApp: UpdateApp,
-  //   // private version: Version
-  // ) {
-  //   // this.updateApp.execute();
-  //   // this.version.logVersionInfo();
-  // }
   ngOnInit(): void {
     this.updateApp.execute();
-    this.version.logVersionInfo();
+    // this.version.logVersionInfo();
   }
 }
