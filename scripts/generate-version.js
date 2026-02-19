@@ -72,6 +72,57 @@ function getGitInfo() {
   };
 }
 
+function getCommitHistory(count = 10) {
+  // Koristimo jedinstveni separator koji neće biti u commit porukama
+  const COMMIT_SEP = '---COMMIT_SEP---';
+  const FIELD_SEP = '---FIELD_SEP---';
+
+  // %s = subject (prva linija), %b = body, %an = author name, %ae = email, %cI = date
+  // Ne mešamo body sa ostalim poljima - koristimo poseban format
+  const format = `%H${FIELD_SEP}%h${FIELD_SEP}%s${FIELD_SEP}%an${FIELD_SEP}%ae${FIELD_SEP}%cI${FIELD_SEP}%b${COMMIT_SEP}`;
+
+  const raw = execGitCommand(
+    `git log -${count} --pretty=format:"${format}"`
+  );
+
+  if (!raw) return [];
+
+  // Split po commit separatoru
+  const commits = raw
+    .split(COMMIT_SEP)
+    .map(s => s.trim())
+    .filter(Boolean);
+
+  return commits.map(commitRaw => {
+    const [hash, shortHash, subject, author, email, date, ...bodyParts] = commitRaw.split(FIELD_SEP);
+
+    // Body je sve što ostane nakon 6 polja
+    const body = bodyParts.join(FIELD_SEP).trim() || null;
+
+    if (!hash || !shortHash) return null;
+
+    // Stats i changed files po commitu - koristimo diff-tree (brže od git show)
+    const statsRaw = execGitCommand(
+      `git diff-tree --no-commit-id -r --shortstat ${hash}`
+    );
+    const filesRaw = execGitCommand(
+      `git diff-tree --no-commit-id -r --name-only ${hash}`
+    );
+
+    return {
+      hash: hash.trim(),
+      shortHash: shortHash.trim(),
+      message: subject ? subject.trim() : null,
+      body: body || null,
+      author: author ? author.trim() : null,
+      email: email ? email.trim() : null,
+      date: date ? date.trim() : null,
+      stats: statsRaw ? statsRaw.trim() : null,
+      changedFiles: filesRaw ? filesRaw.split('\n').filter(Boolean) : []
+    };
+  }).filter(Boolean);
+}
+
 function generateVersionJson() {
   log('\n🚀 Generating version.json...', 'cyan');
   log('═══════════════════════════════════════', 'cyan');
@@ -89,7 +140,7 @@ function generateVersionJson() {
     version: packageJson.version || '1.0.0',
     buildDate: new Date().toISOString(),
     environment: isProduction ? 'production' : 'development',
-    commit: gitInfo.hash ? { /* ... */ } : null,
+    commit: null,
     history: getCommitHistory(10)
   };
 
@@ -158,33 +209,6 @@ function generateVersionJson() {
 
   return versionInfo;
 }
-
-function getCommitHistory(count = 10) {
-    const format = '%H|%h|%s|%b|%an|%ae|%cI';
-    const logCommand = `git log -${count} --pretty=format:"${format}"`;
-    
-    const log = execGitCommand(logCommand);
-    if (!log) return [];
-  
-    return log.split('\n').map(line => {
-      const [hash, shortHash, subject, body, author, email, date] = line.split('|');
-      
-      const stats = execGitCommand(`git show ${hash} --shortstat --format=""`);
-      const files = execGitCommand(`git show ${hash} --name-only --format=""`);
-      
-      return {
-        hash,
-        shortHash,
-        message: subject,
-        body: body || null,
-        author,
-        email,
-        date,
-        stats: stats || null,
-        changedFiles: files ? files.split('\n').filter(Boolean) : []
-      };
-    });
-  }
 
 try {
   generateVersionJson();
