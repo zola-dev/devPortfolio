@@ -91,7 +91,7 @@ export class StreamParser {
         // //console.log('🟡 Possible markers:', possible.length); 
 
         if (!possible.length) {
-          // //console.log('🔴 No possible markers - emitting as text'); 
+          // //console.log('No possible markers - emitting as text'); 
           this.emitText(this.buffer);
           this.resetState();
         } else {
@@ -140,7 +140,7 @@ export class StreamParser {
               //console.log('🟢 Marked as used'); 
             }
           } else {
-              // //console.log('🔴 Marker already used, skipping'); 
+              // //console.log(' Marker already used, skipping'); 
           }
           
           this.resetState();

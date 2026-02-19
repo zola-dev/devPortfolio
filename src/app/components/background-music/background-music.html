@@ -1,1 +1,8 @@
-<p>background-music works!</p>
+<youtube-player
+[videoId]="videoId"
+[height]="1"
+[width]="1"
+[playerVars]="playerConfig"
+(ready)="onPlayerReady($event)"
+(stateChange)="onStateChange($event)"
+/>

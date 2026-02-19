@@ -1,0 +1,8 @@
+youtube-player {
+  pointer-events: none;
+  opacity: 0;
+  user-select: none;
+  position: absolute;
+  height: 0;
+  width: 0;
+}

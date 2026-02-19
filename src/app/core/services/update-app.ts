@@ -189,7 +189,7 @@ export class UpdateApp {
     }).catch(err => {
       console.error('Error activating update:', err);
       Swal.fire({
-        title: '❌ Update Failed',
+        title: 'Update Failed',
         text: 'Unable to update the app. Please refresh manually.',
         icon: 'error',
         background: '#1f2937',

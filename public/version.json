@@ -1,62 +1,72 @@
 {
   "version": "0.0.0",
-  "buildDate": "2026-02-18T08:41:49.174Z",
+  "buildDate": "2026-02-19T10:53:02.890Z",
   "environment": "development",
   "commit": {
-    "hash": "968d572af17f8f0a6c6ca2bd8c7ba27f7837d86b",
-    "shortHash": "968d572",
-    "message": "test",
-    "body": "-1\n-2\n-3",
+    "hash": "23dc6f0be11601a7fdfdf46c9de283eb696af14b",
+    "shortHash": "23dc6f0",
+    "message": "gen ver udpate",
+    "body": "-testing",
     "author": "Milos",
     "email": "miloslazoviczola@gmail.com",
-    "date": "2026-02-18T09:41:38+01:00",
+    "date": "2026-02-19T11:52:50+01:00",
     "branch": "master",
     "tag": null,
-    "totalCommits": 38,
+    "totalCommits": 41,
     "changedFiles": [
-      "public/version.json"
+      "scripts/generate-version.js"
     ],
-    "stats": "1 file changed, 76 insertions(+), 75 deletions(-)",
+    "stats": "1 file changed, 52 insertions(+), 28 deletions(-)",
     "coAuthors": []
   },
   "history": [
     {
+      "hash": "23dc6f0be11601a7fdfdf46c9de283eb696af14b",
+      "shortHash": "23dc6f0",
+      "message": "gen ver udpate",
+      "body": "-testing",
+      "author": "Milos",
+      "email": "miloslazoviczola@gmail.com",
+      "date": "2026-02-19T11:52:50+01:00",
+      "stats": "1 file changed, 52 insertions(+), 28 deletions(-)",
+      "changedFiles": [
+        "scripts/generate-version.js"
+      ]
+    },
+    {
+      "hash": "a57b76dafc87e09b8f90c1ea45d14fc5db6d2f0d",
+      "shortHash": "a57b76d",
+      "message": "changed name of Assistant",
+      "body": "-testing pwa update on http local and cludefalre",
+      "author": "Milos",
+      "email": "miloslazoviczola@gmail.com",
+      "date": "2026-02-19T11:22:25+01:00",
+      "stats": "1 file changed, 1 insertion(+), 1 deletion(-)",
+      "changedFiles": [
+        "src/app/components/assistant/assistant.html"
+      ]
+    },
+    {
+      "hash": "f382a4c87255dfe0a62673a033dbe093044feb13",
+      "shortHash": "f382a4c",
+      "message": "test",
+      "body": "-1\n-2\n-3",
+      "author": "Milos",
+      "email": "miloslazoviczola@gmail.com",
+      "date": "2026-02-19T02:30:45+01:00",
+      "stats": "1 file changed, 65 insertions(+), 59 deletions(-)",
+      "changedFiles": [
+        "public/version.json"
+      ]
+    },
+    {
       "hash": "968d572af17f8f0a6c6ca2bd8c7ba27f7837d86b",
       "shortHash": "968d572",
       "message": "test",
-      "body": "-1",
-      "stats": "1 file changed, 76 insertions(+), 75 deletions(-)",
-      "changedFiles": [
-        "public/version.json"
-      ]
-    },
-    {
-      "hash": "-2",
-      "body": null,
-      "stats": "1 file changed, 76 insertions(+), 75 deletions(-)\n 1 file changed, 63 insertions(+), 66 deletions(-)",
-      "changedFiles": [
-        "public/version.json",
-        "public/version.json"
-      ]
-    },
-    {
-      "hash": "-3",
-      "body": null,
-      "stats": "1 file changed, 76 insertions(+), 75 deletions(-)\n 1 file changed, 63 insertions(+), 66 deletions(-)\n 4 files changed, 362 insertions(+), 440 deletions(-)",
-      "changedFiles": [
-        "public/version.json",
-        "public/version.json",
-        "public/version.json",
-        "src/app/components/version-display/version-display.css",
-        "src/app/components/version-display/version-display.html",
-        "src/app/components/version-display/version-display.ts"
-      ]
-    },
-    {
-      "hash": "",
-      "shortHash": "Milos",
-      "message": "miloslazoviczola@gmail.com",
-      "body": "2026-02-18T09:41:38+01:00",
+      "body": "-1\n-2\n-3",
+      "author": "Milos",
+      "email": "miloslazoviczola@gmail.com",
+      "date": "2026-02-18T09:41:38+01:00",
       "stats": "1 file changed, 76 insertions(+), 75 deletions(-)",
       "changedFiles": [
         "public/version.json"
@@ -66,40 +76,11 @@
       "hash": "6129deba760d6e0affde0c8d0c8c4c3268170f87",
       "shortHash": "6129deb",
       "message": "test commit",
-      "body": "-1",
+      "body": "-1\n-2\n-3",
+      "author": "Milos",
+      "email": "miloslazoviczola@gmail.com",
+      "date": "2026-02-18T00:01:54+01:00",
       "stats": "1 file changed, 63 insertions(+), 66 deletions(-)",
-      "changedFiles": [
-        "public/version.json"
-      ]
-    },
-    {
-      "hash": "-2",
-      "body": null,
-      "stats": "1 file changed, 76 insertions(+), 75 deletions(-)\n 1 file changed, 63 insertions(+), 66 deletions(-)",
-      "changedFiles": [
-        "public/version.json",
-        "public/version.json"
-      ]
-    },
-    {
-      "hash": "-3",
-      "body": null,
-      "stats": "1 file changed, 76 insertions(+), 75 deletions(-)\n 1 file changed, 63 insertions(+), 66 deletions(-)\n 4 files changed, 362 insertions(+), 440 deletions(-)",
-      "changedFiles": [
-        "public/version.json",
-        "public/version.json",
-        "public/version.json",
-        "src/app/components/version-display/version-display.css",
-        "src/app/components/version-display/version-display.html",
-        "src/app/components/version-display/version-display.ts"
-      ]
-    },
-    {
-      "hash": "",
-      "shortHash": "Milos",
-      "message": "miloslazoviczola@gmail.com",
-      "body": "2026-02-18T00:01:54+01:00",
-      "stats": "1 file changed, 76 insertions(+), 75 deletions(-)",
       "changedFiles": [
         "public/version.json"
       ]
@@ -125,6 +106,9 @@
       "shortHash": "0a04490",
       "message": "getCommitHistory",
       "body": "-10 latest commits",
+      "author": "Milos",
+      "email": "miloslazoviczola@gmail.com",
+      "date": "2026-02-17T23:47:48+01:00",
       "stats": "5 files changed, 629 insertions(+), 49 deletions(-)",
       "changedFiles": [
         "public/version.json",
@@ -135,35 +119,18 @@
       ]
     },
     {
-      "hash": "",
-      "shortHash": "Milos",
-      "message": "miloslazoviczola@gmail.com",
-      "body": "2026-02-17T23:47:48+01:00",
-      "stats": "1 file changed, 76 insertions(+), 75 deletions(-)",
-      "changedFiles": [
-        "public/version.json"
-      ]
-    },
-    {
       "hash": "6956e98fae0b26e03e73097032ba0538a00d5dbf",
       "shortHash": "6956e98",
       "message": "VersionDisplay added",
       "body": "-test",
+      "author": "Milos",
+      "email": "miloslazoviczola@gmail.com",
+      "date": "2026-02-17T23:38:50+01:00",
       "stats": "3 files changed, 13 insertions(+), 10 deletions(-)",
       "changedFiles": [
         "public/version.json",
         "src/app/components/assistant/assistant.html",
         "src/app/components/assistant/assistant.ts"
-      ]
-    },
-    {
-      "hash": "",
-      "shortHash": "Milos",
-      "message": "miloslazoviczola@gmail.com",
-      "body": "2026-02-17T23:38:50+01:00",
-      "stats": "1 file changed, 76 insertions(+), 75 deletions(-)",
-      "changedFiles": [
-        "public/version.json"
       ]
     },
     {
@@ -184,118 +151,11 @@
       "hash": "3950d073ec47ba1d78c08001deba50856c7f22c7",
       "shortHash": "3950d07",
       "message": "testing",
-      "body": "-1",
-      "stats": "1 file changed, 9 insertions(+), 9 deletions(-)",
-      "changedFiles": [
-        "public/version.json"
-      ]
-    },
-    {
-      "hash": "-2",
-      "body": null,
-      "stats": "1 file changed, 76 insertions(+), 75 deletions(-)\n 1 file changed, 63 insertions(+), 66 deletions(-)",
-      "changedFiles": [
-        "public/version.json",
-        "public/version.json"
-      ]
-    },
-    {
-      "hash": "-3",
-      "body": null,
-      "stats": "1 file changed, 76 insertions(+), 75 deletions(-)\n 1 file changed, 63 insertions(+), 66 deletions(-)\n 4 files changed, 362 insertions(+), 440 deletions(-)",
-      "changedFiles": [
-        "public/version.json",
-        "public/version.json",
-        "public/version.json",
-        "src/app/components/version-display/version-display.css",
-        "src/app/components/version-display/version-display.html",
-        "src/app/components/version-display/version-display.ts"
-      ]
-    },
-    {
-      "hash": "",
-      "shortHash": "Milos",
-      "message": "miloslazoviczola@gmail.com",
-      "body": "2026-02-17T22:38:26+01:00",
-      "stats": "1 file changed, 76 insertions(+), 75 deletions(-)",
-      "changedFiles": [
-        "public/version.json"
-      ]
-    },
-    {
-      "hash": "068baa8174d0067b72e87fcaef6ca66defde1757",
-      "shortHash": "068baa8",
-      "message": "randomDelay to 7-15sec",
-      "body": null,
+      "body": "-1\n-2\n-3",
       "author": "Milos",
       "email": "miloslazoviczola@gmail.com",
-      "date": "2026-02-17T22:37:18+01:00",
-      "stats": "2 files changed, 11 insertions(+), 14 deletions(-)",
-      "changedFiles": [
-        "public/version.json",
-        "src/app/core/services/update-app.ts"
-      ]
-    },
-    {
-      "hash": "72eb1872c01f29ecd6f8b70d7ded17dcc4b101f2",
-      "shortHash": "72eb187",
-      "message": "removed logVersionInfo",
-      "body": "-logs on devtools",
-      "stats": "2 files changed, 15 insertions(+), 19 deletions(-)",
-      "changedFiles": [
-        "public/version.json",
-        "src/app/app.ts"
-      ]
-    },
-    {
-      "hash": "",
-      "shortHash": "Milos",
-      "message": "miloslazoviczola@gmail.com",
-      "body": "2026-02-17T22:34:08+01:00",
-      "stats": "1 file changed, 76 insertions(+), 75 deletions(-)",
-      "changedFiles": [
-        "public/version.json"
-      ]
-    },
-    {
-      "hash": "3999e0c3643b601c4ed353dc19e8fa94e68385ed",
-      "shortHash": "3999e0c",
-      "message": "ver display",
-      "body": "-details",
-      "stats": "6 files changed, 203 insertions(+)",
-      "changedFiles": [
-        "ngsw-config.json",
-        "public/version.json",
-        "src/app/components/version-display/version-display.css",
-        "src/app/components/version-display/version-display.html",
-        "src/app/components/version-display/version-display.spec.ts",
-        "src/app/components/version-display/version-display.ts"
-      ]
-    },
-    {
-      "hash": "-testing",
-      "body": null,
-      "stats": null,
-      "changedFiles": []
-    },
-    {
-      "hash": "-scolldown",
-      "body": null,
-      "stats": null,
-      "changedFiles": []
-    },
-    {
-      "hash": "-4th",
-      "body": null,
-      "stats": null,
-      "changedFiles": []
-    },
-    {
-      "hash": "",
-      "shortHash": "Milos",
-      "message": "miloslazoviczola@gmail.com",
-      "body": "2026-02-17T22:12:47+01:00",
-      "stats": "1 file changed, 76 insertions(+), 75 deletions(-)",
+      "date": "2026-02-17T22:38:26+01:00",
+      "stats": "1 file changed, 9 insertions(+), 9 deletions(-)",
       "changedFiles": [
         "public/version.json"
       ]

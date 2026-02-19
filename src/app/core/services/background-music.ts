@@ -1,9 +1,11 @@
 import { Injectable, signal } from '@angular/core';
+
 export interface MusicConfig {
   videoId: string;
   normalVolume: number; // 0-100
   duckingVolume: number; // 0-100 (volume when speech is active)
 }
+
 @Injectable({
   providedIn: 'root'
 })
@@ -20,11 +22,9 @@ export class BackgroundMusic {
     duckingVolume: 5 
   };
 
-  constructor() {}
-
   /**
-   * Inicijalizuje YouTube player
-   * Pozovi ovo kada je player komponenta spremna
+   * Initializes the YouTube player
+   * Call this when the player component is ready
    */
   initPlayer(playerInstance: any): void {
     this.player = playerInstance;
@@ -33,7 +33,7 @@ export class BackgroundMusic {
   }
 
   /**
-   * Pokreće muziku
+   * Starts the music
    */
   play(): void {
     if (!this.player || !this.playerReady()) {
@@ -47,7 +47,7 @@ export class BackgroundMusic {
   }
 
   /**
-   * Pauzira muziku
+   * Pauses the music
    */
   pause(): void {
     if (!this.player || !this.playerReady()) return;
@@ -58,7 +58,7 @@ export class BackgroundMusic {
   }
 
   /**
-   * Smanjuje zvuk kada AI počne da priča
+   * Lowers the volume when AI starts speaking
    */
   duck(): void {
     if (!this.player || !this.playerReady()) return;
@@ -69,7 +69,7 @@ export class BackgroundMusic {
   }
 
   /**
-   * Vraća zvuk na normalnu jačinu kada AI završi
+   * Restores the volume to normal when AI finishes speaking
    */
   unduck(): void {
     if (!this.player || !this.playerReady()) return;
@@ -80,7 +80,7 @@ export class BackgroundMusic {
   }
 
   /**
-   * Postavlja jačinu zvuka
+   * Sets the volume
    */
   private setVolume(volume: number): void {
     if (!this.player || !this.playerReady()) return;
@@ -88,7 +88,7 @@ export class BackgroundMusic {
   }
 
   /**
-   * Menja video (za različite lofi stream-ove)
+   * Changes the video (for different lofi streams)
    */
   changeVideo(videoId: string): void {
     this.config.videoId = videoId;
@@ -98,7 +98,7 @@ export class BackgroundMusic {
   }
 
   /**
-   * Ažurira podešavanja jačine zvuka
+   * Updates the volume settings
    */
   updateVolumes(normal: number, ducking: number): void {
     this.config.normalVolume = normal;
@@ -112,7 +112,7 @@ export class BackgroundMusic {
   }
 
   /**
-   * Getter za config
+   * Getter for config
    */
   getConfig(): MusicConfig {
     return { ...this.config };

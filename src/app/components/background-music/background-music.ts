@@ -17,17 +17,8 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
   selector: 'app-background-music',
   standalone: true,
   imports: [YouTubePlayer],
-  template: `
-    <youtube-player
-      [videoId]="videoId"
-      [height]="1"
-      [width]="1"
-      [playerVars]="playerConfig"
-      (ready)="onPlayerReady($event)"
-      (stateChange)="onStateChange($event)"
-      style="position:absolute; pointer-events:none; opacity:0;"
-    />
-  `
+  templateUrl: './background-music.html',
+  styleUrls: ['./background-music.css'],
 })
 export class BackgroundMusic implements OnInit, OnDestroy {
   private readonly musicService = inject(BackgroundMusicService);
@@ -68,11 +59,6 @@ export class BackgroundMusic implements OnInit, OnDestroy {
   @HostListener('document:click')
   @HostListener('document:keydown')
   @HostListener('document:touchstart')
-// @HostListener('document:touchmove')
-// @HostListener('document:mousemove')
-// @HostListener('document:mousedown')
-// @HostListener('document:scroll')
-// @HostListener('document:wheel')
   onFirstInteraction(): void {
     if (!this.userInteracted()) {
       console.log('[BackgroundMusic] First user interaction detected');
