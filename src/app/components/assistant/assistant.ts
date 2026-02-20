@@ -134,9 +134,6 @@ export class AssistantComponent implements OnInit, OnDestroy {
         console.log('✅ Complete', stats);
         this.scrollToBottom();
         if (languageUnsupported && !this.currentMessageState().unsupportedHandled) {
-          console.warn('already set languageUnsupported!');
-        }
-        if (languageUnsupported && !this.currentMessageState().unsupportedHandled) {
           this.currentMessageState.update((s) => ({ ...s, unsupportedHandled: true }));
           console.warn('⚠️ Language not supported - disabling auto-speak');
           this.autoSpeak.set(false);
