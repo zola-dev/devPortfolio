@@ -37,7 +37,6 @@ export class Speech {
     console.log('✅ SpeechService initialized');
   }
   
-  // 🔥 NEW: Log all available languages on startup
   private logAvailableLanguages(): void {
     if (this.synthesis.getVoices().length === 0) {
       this.synthesis.onvoiceschanged = () => {
@@ -73,7 +72,6 @@ export class Speech {
     });
   }
   
-  // 🔥 NEW: Set language dynamically from backend
   setLanguage(lang: string): void {
     this.currentLanguage = lang;
     console.log(`🗣️ Language changed to: ${lang}`);
@@ -82,7 +80,6 @@ export class Speech {
     this.selectVoiceForLanguage(lang);
   }
   
-  // 🔥 NEW: Select voice based on detected language
   private selectVoiceForLanguage(lang: string): void {
     const voices = this.synthesis.getVoices();
     
@@ -420,7 +417,6 @@ export class Speech {
       console.groupEnd();
     };
   
-    // 🔥 ako nisu još učitani
     if (this.synthesis.getVoices().length === 0) {
       this.synthesis.onvoiceschanged = log;
     } else {
