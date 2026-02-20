@@ -87,7 +87,7 @@ export class AssistantComponent implements OnInit, OnDestroy {
     this.parser.reset();
   }
   private initChat(): void {
-    const welcomeMessages = [
+    const WELCOME_MESSAGES = [
       "Hi 👋 I'm Milos Lazovic's AI assistant. I can walk you through his projects, skills, experience, education. What would you like to explore?",
       "Welcome! I'm Milos Lazovic's AI assistant. 📋 Ask me about Milos's projects, tech stack, work history.",
       "Hey there! I'm Milos Lazovic's AI assistant. 😊 I'm here to guide you through Milos's projects, skills, experience, and education. What would you like to check out first?",
@@ -98,8 +98,8 @@ export class AssistantComponent implements OnInit, OnDestroy {
       "Hello and welcome 🙂 I'm Milos Lazovic's AI assistant. I'm your guide to Milos's work, skills, and professional background. What would you like to learn more about?",
       "Hi there! I'm Milos Lazovic's AI assistant. 📋 I can walk you through Milos's projects, frontend and backend skills, experience timeline, or education details.",
       "Nice to meet you 👋 I'm Milos Lazovic's AI assistant. Ask me about Milos's portfolio, technologies he uses, or his experience and education — I'm happy to help!"
-    ];
-    const randomMessage = welcomeMessages[Math.floor(Math.random() * welcomeMessages.length)];
+    ] as const satisfies readonly string[];
+    const randomMessage = WELCOME_MESSAGES[Math.floor(Math.random() * WELCOME_MESSAGES.length)];
     this.chatService.addMessage('assistant', randomMessage);
     if (this.autoSpeak()) {
       this.speechService.speak(randomMessage);

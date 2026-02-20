@@ -1,25 +1,40 @@
 {
   "version": "0.0.0",
-  "buildDate": "2026-02-20T11:05:08.223Z",
+  "buildDate": "2026-02-20T11:14:22.643Z",
   "environment": "development",
   "commit": {
-    "hash": "9adb7549cd8e4bb3a834b2c1912a7bbdaad9c3c1",
-    "shortHash": "9adb754",
-    "message": "update-app: added desc on execute()",
+    "hash": "a8ef9717d1aa515c9af450f084fb136209fb5a28",
+    "shortHash": "a8ef971",
+    "message": "speach.ts: fixed duck on  background music so it gets unducked",
     "body": null,
     "author": "Milos",
     "email": "miloslazoviczola@gmail.com",
-    "date": "2026-02-20T12:04:47+01:00",
+    "date": "2026-02-20T12:14:11+01:00",
     "branch": "master",
     "tag": null,
-    "totalCommits": 52,
+    "totalCommits": 53,
     "changedFiles": [
-      "src/app/core/services/update-app.ts"
+      "public/version.json",
+      "src/app/core/services/speech.ts"
     ],
-    "stats": "1 file changed, 6 insertions(+), 1 deletion(-)",
+    "stats": "2 files changed, 79 insertions(+), 98 deletions(-)",
     "coAuthors": []
   },
   "history": [
+    {
+      "hash": "a8ef9717d1aa515c9af450f084fb136209fb5a28",
+      "shortHash": "a8ef971",
+      "message": "speach.ts: fixed duck on  background music so it gets unducked",
+      "body": null,
+      "author": "Milos",
+      "email": "miloslazoviczola@gmail.com",
+      "date": "2026-02-20T12:14:11+01:00",
+      "stats": "2 files changed, 79 insertions(+), 98 deletions(-)",
+      "changedFiles": [
+        "public/version.json",
+        "src/app/core/services/speech.ts"
+      ]
+    },
     {
       "hash": "9adb7549cd8e4bb3a834b2c1912a7bbdaad9c3c1",
       "shortHash": "9adb754",
@@ -135,19 +150,6 @@
       "stats": "1 file changed, 1 insertion(+), 2 deletions(-)",
       "changedFiles": [
         "src/app/components/background-music/background-music.ts"
-      ]
-    },
-    {
-      "hash": "286aaaa01d975e1196469ce9ea940a01516a19e5",
-      "shortHash": "286aaaa",
-      "message": "assistant removed debug logs",
-      "body": null,
-      "author": "Milos",
-      "email": "miloslazoviczola@gmail.com",
-      "date": "2026-02-20T11:43:41+01:00",
-      "stats": "1 file changed, 3 deletions(-)",
-      "changedFiles": [
-        "src/app/components/assistant/assistant.ts"
       ]
     }
   ]

@@ -171,48 +171,42 @@ export class Chat {
         buffer = lines.pop() || '';
 
         for (const line of lines) {
-          if (line.startsWith('data: ')) {
-            try {
-              const jsonStr = line.slice(6).trim();
-              if (!jsonStr) continue;
+          if (!line.startsWith('data: ')) {
+            continue;
+          }
+          const jsonStr = line.slice(6).trim();
+          if (!jsonStr) continue;
 
-              const data = JSON.parse(jsonStr);
-              // console.log("data: ", data);
+          try {
+            const raw: unknown = JSON.parse(jsonStr);
+            const data = this.parseStreamChunk(raw);
 
-              if (data.languageUnsupported) {
-                console.warn('⚠️ Language unsupported flag received!');
-                onComplete(
-                  undefined, // stats
-                  data.language,
-                  true // languageUnsupported
-                );
-                // Ne return - nastavi da primaš content
-              }
-
-              if (data.content) {
-                //console.log('🚨 BACKEND SENT CONTENT:', JSON.stringify(data.content));              
-                onChunk(data.content);
-                await new Promise((resolve) =>
-                  requestAnimationFrame(() => resolve(undefined))
-                );
-              }
-
-              if (data.done) {     
-                this.streamingMessageId = null;
-                this.isLoadingSignal.set(false);
-                // console.log("done data: ", data);
-                onComplete(data.tokenStats);
-                // onComplete(
-                //   data.tokenStats,
-                //   data.language,
-                //   data.languageUnsupported
-                // )
-                return;
-              }
-            } catch (parseError) {
-              this.streamingMessageId = null;
-              console.error('Parse error:', parseError, 'Line:', line);
+            if (data.languageUnsupported) {
+              console.warn('⚠️ Language unsupported flag received!');
+              onComplete(
+                undefined, // stats
+                data.language,
+                true // languageUnsupported
+              );
+              // Do not return – we still want to stream content if any
             }
+
+            if (data.content) {
+              onChunk(data.content);
+              await new Promise((resolve) =>
+                requestAnimationFrame(() => resolve(undefined))
+              );
+            }
+
+            if (data.done) {
+              this.streamingMessageId = null;
+              this.isLoadingSignal.set(false);
+              onComplete(data.tokenStats);
+              return;
+            }
+          } catch (parseError) {
+            this.streamingMessageId = null;
+            console.error('Parse error:', parseError, 'Line:', line);
           }
         }
       }
@@ -252,7 +246,7 @@ export class Chat {
    * Generate unique ID
    */
   private generateId(): string {
-    return `msg_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
+    return `msg_${Date.now()}_${Math.random().toString(36).slice(2, 11)}`;
   }
   createSpeechSession(languages: string[]): Observable<number> {
     return this.http.post<number>(`https://shebs-braids.area36000.com/api/ai/createSpeechSession`, { languages });
@@ -282,5 +276,45 @@ export class Chat {
           : msg
       )
     );
+  }
+
+  // Use `unknown` + narrowing for streamed chunks
+  private parseStreamChunk(raw: unknown): {
+    content?: string;
+    done?: boolean;
+    tokenStats?: unknown;
+    language?: string;
+    languageUnsupported?: boolean;
+  } {
+    if (typeof raw !== 'object' || raw === null) {
+      return {};
+    }
+
+    const obj = raw as Record<string, unknown>;
+    const result: {
+      content?: string;
+      done?: boolean;
+      tokenStats?: unknown;
+      language?: string;
+      languageUnsupported?: boolean;
+    } = {};
+
+    if (typeof obj['content'] === 'string') {
+      result.content = obj['content'];
+    }
+    if (typeof obj['done'] === 'boolean') {
+      result.done = obj['done'];
+    }
+    if ('tokenStats' in obj) {
+      result.tokenStats = obj['tokenStats'];
+    }
+    if (typeof obj['language'] === 'string') {
+      result.language = obj['language'];
+    }
+    if (typeof obj['languageUnsupported'] === 'boolean') {
+      result.languageUnsupported = obj['languageUnsupported'];
+    }
+
+    return result;
   }
 }
