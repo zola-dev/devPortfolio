@@ -12,9 +12,11 @@ export interface MusicConfig {
 export class BackgroundMusic {
   private player: any = null;
   private playerReady = signal<boolean>(false);
-  
-  isPlaying = signal<boolean>(false);
-  isDucked = signal<boolean>(false);
+  private isPlayingSignal = signal<boolean>(false);
+  private isDuckedSignal = signal<boolean>(false);
+
+  readonly isPlaying = this.isPlayingSignal.asReadonly();
+  readonly isDucked = this.isDuckedSignal.asReadonly();
   
   private config: MusicConfig = {
     videoId: 'jfKfPfyJRdk',
@@ -42,7 +44,7 @@ export class BackgroundMusic {
     }
     
     this.player.playVideo();
-    this.isPlaying.set(true);
+    this.isPlayingSignal.set(true);
     console.log('🎵 Music started');
   }
 
@@ -53,7 +55,7 @@ export class BackgroundMusic {
     if (!this.player || !this.playerReady()) return;
     
     this.player.pauseVideo();
-    this.isPlaying.set(false);
+    this.isPlayingSignal.set(false);
     console.log('🎵 Music paused');
   }
 
@@ -63,7 +65,7 @@ export class BackgroundMusic {
   duck(): void {
     if (!this.player || !this.playerReady()) return;
     
-    this.isDucked.set(true);
+    this.isDuckedSignal.set(true);
     this.setVolume(this.config.duckingVolume);
     console.log(`🔉 Music ducked to ${this.config.duckingVolume}%`);
   }
@@ -74,7 +76,7 @@ export class BackgroundMusic {
   unduck(): void {
     if (!this.player || !this.playerReady()) return;
     
-    this.isDucked.set(false);
+    this.isDuckedSignal.set(false);
     this.setVolume(this.config.normalVolume);
     console.log(`🔊 Music restored to ${this.config.normalVolume}%`);
   }
@@ -104,7 +106,7 @@ export class BackgroundMusic {
     this.config.normalVolume = normal;
     this.config.duckingVolume = ducking;
     
-    if (this.isDucked()) {
+    if (this.isDuckedSignal()) {
       this.setVolume(ducking);
     } else {
       this.setVolume(normal);
@@ -125,5 +127,7 @@ export class BackgroundMusic {
     this.pause();
     this.player = null;
     this.playerReady.set(false);
+    this.isPlayingSignal.set(false);
+    this.isDuckedSignal.set(false);
   }
 }
