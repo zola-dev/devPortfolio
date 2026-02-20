@@ -45,7 +45,7 @@ export class UpdateApp {
       console.log(updateAvailable ? 'Update found!' : 'App is up to date');
     });
 
-    timer(0, 6 * 60 * 60 * 1000).subscribe(() => {
+    timer(6 * 60 * 60 * 1000, 6 * 60 * 60 * 1000).subscribe(() => {
       this.swUpdate.checkForUpdate().catch(err => {
         console.error('Error checking for updates:', err);
       });
@@ -89,6 +89,7 @@ export class UpdateApp {
         </ul>
       </details>` : '';
 
+    let timerIntervalId: ReturnType<typeof setInterval> | undefined;
     const result = await Swal.fire({
       title: '🚀 Update Available!',
       html: `
@@ -140,14 +141,19 @@ export class UpdateApp {
       didOpen: () => {
         const content = Swal.getHtmlContainer();
         const b = content?.querySelector('b');
-        
         if (b) {
-          setInterval(() => {
+          timerIntervalId = setInterval(() => {
             const timeLeft = Swal.getTimerLeft();
-            if (b && timeLeft) {
+            if (b && timeLeft !== undefined) {
               b.textContent = Math.ceil(timeLeft / 1000).toString();
             }
           }, 100);
+        }
+      },
+      didClose: () => {
+        if (timerIntervalId !== undefined) {
+          clearInterval(timerIntervalId);
+          timerIntervalId = undefined;
         }
       }
     });
