@@ -83,7 +83,7 @@ export class Version {
       tableData['Total Commits'] = info.commit.totalCommits;
       if (info.commit.tag) tableData['Tag'] = info.commit.tag;
       if (info.commit.stats) tableData['Stats'] = info.commit.stats;
-      if (info.commit.changedFiles.length > 0) {
+      if (info.commit.changedFiles?.length) {
         tableData['Changed Files'] = info.commit.changedFiles.length;
       }
     }
