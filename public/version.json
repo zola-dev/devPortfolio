@@ -1,177 +1,153 @@
 {
   "version": "0.0.0",
-  "buildDate": "2026-02-19T23:09:56.935Z",
+  "buildDate": "2026-02-20T11:05:08.223Z",
   "environment": "development",
   "commit": {
-    "hash": "ead4985e7a08b186a45db9f513a8d3dfcd30b234",
-    "shortHash": "ead4985",
-    "message": "ckeanuo test",
-    "body": "-tags visible",
+    "hash": "9adb7549cd8e4bb3a834b2c1912a7bbdaad9c3c1",
+    "shortHash": "9adb754",
+    "message": "update-app: added desc on execute()",
+    "body": null,
     "author": "Milos",
     "email": "miloslazoviczola@gmail.com",
-    "date": "2026-02-20T00:09:46+01:00",
+    "date": "2026-02-20T12:04:47+01:00",
     "branch": "master",
     "tag": null,
-    "totalCommits": 42,
+    "totalCommits": 52,
     "changedFiles": [
-      "public/version.json",
-      "src/app/components/assistant/assistant.html",
-      "src/app/components/background-music/background-music.css",
-      "src/app/components/background-music/background-music.html",
-      "src/app/components/background-music/background-music.ts",
-      "src/app/core/services/background-music.ts",
-      "src/app/core/services/stream-parser.ts",
       "src/app/core/services/update-app.ts"
     ],
-    "stats": "8 files changed, 90 insertions(+), 231 deletions(-)",
+    "stats": "1 file changed, 6 insertions(+), 1 deletion(-)",
     "coAuthors": []
   },
   "history": [
     {
-      "hash": "ead4985e7a08b186a45db9f513a8d3dfcd30b234",
-      "shortHash": "ead4985",
-      "message": "ckeanuo test",
-      "body": "-tags visible",
+      "hash": "9adb7549cd8e4bb3a834b2c1912a7bbdaad9c3c1",
+      "shortHash": "9adb754",
+      "message": "update-app: added desc on execute()",
+      "body": null,
       "author": "Milos",
       "email": "miloslazoviczola@gmail.com",
-      "date": "2026-02-20T00:09:46+01:00",
-      "stats": "8 files changed, 90 insertions(+), 231 deletions(-)",
+      "date": "2026-02-20T12:04:47+01:00",
+      "stats": "1 file changed, 6 insertions(+), 1 deletion(-)",
       "changedFiles": [
-        "public/version.json",
-        "src/app/components/assistant/assistant.html",
-        "src/app/components/background-music/background-music.css",
-        "src/app/components/background-music/background-music.html",
-        "src/app/components/background-music/background-music.ts",
-        "src/app/core/services/background-music.ts",
-        "src/app/core/services/stream-parser.ts",
         "src/app/core/services/update-app.ts"
       ]
     },
     {
-      "hash": "23dc6f0be11601a7fdfdf46c9de283eb696af14b",
-      "shortHash": "23dc6f0",
-      "message": "gen ver udpate",
-      "body": "-testing",
+      "hash": "50295acb8f7979157d276690a6fdc36924bdb11c",
+      "shortHash": "50295ac",
+      "message": "apdate-app.ts: adjusted timer on udpate so that users have time to read udpate info to 15-20 sec",
+      "body": null,
       "author": "Milos",
       "email": "miloslazoviczola@gmail.com",
-      "date": "2026-02-19T11:52:50+01:00",
-      "stats": "1 file changed, 52 insertions(+), 28 deletions(-)",
+      "date": "2026-02-20T12:02:13+01:00",
+      "stats": "1 file changed, 1 deletion(-)",
       "changedFiles": [
-        "scripts/generate-version.js"
+        "src/app/core/services/update-app.ts"
       ]
     },
     {
-      "hash": "a57b76dafc87e09b8f90c1ea45d14fc5db6d2f0d",
-      "shortHash": "a57b76d",
-      "message": "changed name of Assistant",
-      "body": "-testing pwa update on http local and cludefalre",
+      "hash": "283d4b1c94595ac481fd5397c025bf6a164d4e6d",
+      "shortHash": "283d4b1",
+      "message": "app.ts: removed dev logVersionInfo for debugging",
+      "body": null,
       "author": "Milos",
       "email": "miloslazoviczola@gmail.com",
-      "date": "2026-02-19T11:22:25+01:00",
+      "date": "2026-02-20T12:00:55+01:00",
+      "stats": "1 file changed, 3 deletions(-)",
+      "changedFiles": [
+        "src/app/app.ts"
+      ]
+    },
+    {
+      "hash": "19f028b1739a15a3fd9181a88a1ac45eb5209092",
+      "shortHash": "19f028b",
+      "message": "version update",
+      "body": null,
+      "author": "Milos",
+      "email": "miloslazoviczola@gmail.com",
+      "date": "2026-02-20T11:58:14+01:00",
+      "stats": "1 file changed, 36 insertions(+), 22 deletions(-)",
+      "changedFiles": [
+        "public/version.json"
+      ]
+    },
+    {
+      "hash": "76417f5a4850e68eed0b8e776fbb5c973f8b9429",
+      "shortHash": "76417f5",
+      "message": "app.ts: simplified if condition",
+      "body": null,
+      "author": "Milos",
+      "email": "miloslazoviczola@gmail.com",
+      "date": "2026-02-20T11:58:02+01:00",
       "stats": "1 file changed, 1 insertion(+), 1 deletion(-)",
       "changedFiles": [
-        "src/app/components/assistant/assistant.html"
+        "src/app/core/services/version.ts"
       ]
     },
     {
-      "hash": "f382a4c87255dfe0a62673a033dbe093044feb13",
-      "shortHash": "f382a4c",
-      "message": "test",
-      "body": "-1\n-2\n-3",
-      "author": "Milos",
-      "email": "miloslazoviczola@gmail.com",
-      "date": "2026-02-19T02:30:45+01:00",
-      "stats": "1 file changed, 65 insertions(+), 59 deletions(-)",
-      "changedFiles": [
-        "public/version.json"
-      ]
-    },
-    {
-      "hash": "968d572af17f8f0a6c6ca2bd8c7ba27f7837d86b",
-      "shortHash": "968d572",
-      "message": "test",
-      "body": "-1\n-2\n-3",
-      "author": "Milos",
-      "email": "miloslazoviczola@gmail.com",
-      "date": "2026-02-18T09:41:38+01:00",
-      "stats": "1 file changed, 76 insertions(+), 75 deletions(-)",
-      "changedFiles": [
-        "public/version.json"
-      ]
-    },
-    {
-      "hash": "6129deba760d6e0affde0c8d0c8c4c3268170f87",
-      "shortHash": "6129deb",
-      "message": "test commit",
-      "body": "-1\n-2\n-3",
-      "author": "Milos",
-      "email": "miloslazoviczola@gmail.com",
-      "date": "2026-02-18T00:01:54+01:00",
-      "stats": "1 file changed, 63 insertions(+), 66 deletions(-)",
-      "changedFiles": [
-        "public/version.json"
-      ]
-    },
-    {
-      "hash": "d004151eae86b703efa336cd9b804642d7fc6072",
-      "shortHash": "d004151",
-      "message": "html and css moved to files",
+      "hash": "13c5dda59e83c42aba727feb40dc895bce2b2a3b",
+      "shortHash": "13c5dda",
+      "message": "update-app: handled timer leak on Swal message and  avoid duplicate update check on startup",
       "body": null,
       "author": "Milos",
       "email": "miloslazoviczola@gmail.com",
-      "date": "2026-02-17T23:56:48+01:00",
-      "stats": "4 files changed, 362 insertions(+), 440 deletions(-)",
+      "date": "2026-02-20T11:56:42+01:00",
+      "stats": "1 file changed, 10 insertions(+), 4 deletions(-)",
       "changedFiles": [
-        "public/version.json",
-        "src/app/components/version-display/version-display.css",
-        "src/app/components/version-display/version-display.html",
-        "src/app/components/version-display/version-display.ts"
-      ]
-    },
-    {
-      "hash": "0a044902c0ce9cc533eb4e316d854c7aff860096",
-      "shortHash": "0a04490",
-      "message": "getCommitHistory",
-      "body": "-10 latest commits",
-      "author": "Milos",
-      "email": "miloslazoviczola@gmail.com",
-      "date": "2026-02-17T23:47:48+01:00",
-      "stats": "5 files changed, 629 insertions(+), 49 deletions(-)",
-      "changedFiles": [
-        "public/version.json",
-        "scripts/generate-version.js",
-        "src/app/components/version-display/version-display.ts",
-        "src/app/core/services/version.ts",
-        "src/assets/version.json"
-      ]
-    },
-    {
-      "hash": "6956e98fae0b26e03e73097032ba0538a00d5dbf",
-      "shortHash": "6956e98",
-      "message": "VersionDisplay added",
-      "body": "-test",
-      "author": "Milos",
-      "email": "miloslazoviczola@gmail.com",
-      "date": "2026-02-17T23:38:50+01:00",
-      "stats": "3 files changed, 13 insertions(+), 10 deletions(-)",
-      "changedFiles": [
-        "public/version.json",
-        "src/app/components/assistant/assistant.html",
-        "src/app/components/assistant/assistant.ts"
-      ]
-    },
-    {
-      "hash": "a44cdfde77b309869f377b98017a1f3b7f9dd193",
-      "shortHash": "a44cdfd",
-      "message": "adjuting timer on update",
-      "body": null,
-      "author": "Milos",
-      "email": "miloslazoviczola@gmail.com",
-      "date": "2026-02-17T22:39:47+01:00",
-      "stats": "2 files changed, 10 insertions(+), 11 deletions(-)",
-      "changedFiles": [
-        "public/version.json",
         "src/app/core/services/update-app.ts"
+      ]
+    },
+    {
+      "hash": "699f7667c8fe2bb71ead6889901c1cd84b2aaeaf",
+      "shortHash": "699f766",
+      "message": "sepach.ts: clean up",
+      "body": null,
+      "author": "Milos",
+      "email": "miloslazoviczola@gmail.com",
+      "date": "2026-02-20T11:52:58+01:00",
+      "stats": "1 file changed, 4 deletions(-)",
+      "changedFiles": [
+        "src/app/core/services/speech.ts"
+      ]
+    },
+    {
+      "hash": "51b7be8724c252d2647931586f2163de456968e8",
+      "shortHash": "51b7be8",
+      "message": "BackgroundMusic: moved music controls to readonly",
+      "body": null,
+      "author": "Milos",
+      "email": "miloslazoviczola@gmail.com",
+      "date": "2026-02-20T11:52:35+01:00",
+      "stats": "1 file changed, 12 insertions(+), 8 deletions(-)",
+      "changedFiles": [
+        "src/app/core/services/background-music.ts"
+      ]
+    },
+    {
+      "hash": "966a107977417049cf2ed283e56f61ffab98a63f",
+      "shortHash": "966a107",
+      "message": "removed unnecessary set of signals, service already setting signals internally on play",
+      "body": null,
+      "author": "Milos",
+      "email": "miloslazoviczola@gmail.com",
+      "date": "2026-02-20T11:51:01+01:00",
+      "stats": "1 file changed, 1 insertion(+), 2 deletions(-)",
+      "changedFiles": [
+        "src/app/components/background-music/background-music.ts"
+      ]
+    },
+    {
+      "hash": "286aaaa01d975e1196469ce9ea940a01516a19e5",
+      "shortHash": "286aaaa",
+      "message": "assistant removed debug logs",
+      "body": null,
+      "author": "Milos",
+      "email": "miloslazoviczola@gmail.com",
+      "date": "2026-02-20T11:43:41+01:00",
+      "stats": "1 file changed, 3 deletions(-)",
+      "changedFiles": [
+        "src/app/components/assistant/assistant.ts"
       ]
     }
   ]

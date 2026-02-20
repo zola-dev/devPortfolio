@@ -186,6 +186,11 @@ export class Speech {
       
       utterance.onend = () => {
         console.log('✅ Sentence finished');
+        // When streaming has finished (no more chunks, buffer empty),
+        // mark speaking=false so background music unducks.
+        if (!this.isStreaming && !this.currentBuffer.trim()) {
+          this.isSpeakingSignal.set(false);
+        }
         resolve();
       };
       
