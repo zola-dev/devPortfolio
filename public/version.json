@@ -1,25 +1,52 @@
 {
   "version": "0.0.0",
-  "buildDate": "2026-02-19T10:53:02.890Z",
+  "buildDate": "2026-02-19T23:09:56.935Z",
   "environment": "development",
   "commit": {
-    "hash": "23dc6f0be11601a7fdfdf46c9de283eb696af14b",
-    "shortHash": "23dc6f0",
-    "message": "gen ver udpate",
-    "body": "-testing",
+    "hash": "ead4985e7a08b186a45db9f513a8d3dfcd30b234",
+    "shortHash": "ead4985",
+    "message": "ckeanuo test",
+    "body": "-tags visible",
     "author": "Milos",
     "email": "miloslazoviczola@gmail.com",
-    "date": "2026-02-19T11:52:50+01:00",
+    "date": "2026-02-20T00:09:46+01:00",
     "branch": "master",
     "tag": null,
-    "totalCommits": 41,
+    "totalCommits": 42,
     "changedFiles": [
-      "scripts/generate-version.js"
+      "public/version.json",
+      "src/app/components/assistant/assistant.html",
+      "src/app/components/background-music/background-music.css",
+      "src/app/components/background-music/background-music.html",
+      "src/app/components/background-music/background-music.ts",
+      "src/app/core/services/background-music.ts",
+      "src/app/core/services/stream-parser.ts",
+      "src/app/core/services/update-app.ts"
     ],
-    "stats": "1 file changed, 52 insertions(+), 28 deletions(-)",
+    "stats": "8 files changed, 90 insertions(+), 231 deletions(-)",
     "coAuthors": []
   },
   "history": [
+    {
+      "hash": "ead4985e7a08b186a45db9f513a8d3dfcd30b234",
+      "shortHash": "ead4985",
+      "message": "ckeanuo test",
+      "body": "-tags visible",
+      "author": "Milos",
+      "email": "miloslazoviczola@gmail.com",
+      "date": "2026-02-20T00:09:46+01:00",
+      "stats": "8 files changed, 90 insertions(+), 231 deletions(-)",
+      "changedFiles": [
+        "public/version.json",
+        "src/app/components/assistant/assistant.html",
+        "src/app/components/background-music/background-music.css",
+        "src/app/components/background-music/background-music.html",
+        "src/app/components/background-music/background-music.ts",
+        "src/app/core/services/background-music.ts",
+        "src/app/core/services/stream-parser.ts",
+        "src/app/core/services/update-app.ts"
+      ]
+    },
     {
       "hash": "23dc6f0be11601a7fdfdf46c9de283eb696af14b",
       "shortHash": "23dc6f0",
@@ -145,19 +172,6 @@
       "changedFiles": [
         "public/version.json",
         "src/app/core/services/update-app.ts"
-      ]
-    },
-    {
-      "hash": "3950d073ec47ba1d78c08001deba50856c7f22c7",
-      "shortHash": "3950d07",
-      "message": "testing",
-      "body": "-1\n-2\n-3",
-      "author": "Milos",
-      "email": "miloslazoviczola@gmail.com",
-      "date": "2026-02-17T22:38:26+01:00",
-      "stats": "1 file changed, 9 insertions(+), 9 deletions(-)",
-      "changedFiles": [
-        "public/version.json"
       ]
     }
   ]
