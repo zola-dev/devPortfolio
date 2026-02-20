@@ -11,7 +11,12 @@ import { Version } from './version';
 export class UpdateApp {
   private swUpdate = inject(SwUpdate);
   private version = inject(Version);
-
+/**
+ * Initializes the service worker update lifecycle.
+ * Checks for updates immediately on startup, then polls every 6 hours.
+ * Listens for new version events and prompts the user to update.
+ * Also handles unrecoverable service worker states by prompting a reload.
+ */
   async execute() {
     if (!this.swUpdate.isEnabled) {
       console.log('Service Worker is NOT enabled');
