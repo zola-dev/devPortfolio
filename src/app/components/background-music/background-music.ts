@@ -121,8 +121,7 @@ export class BackgroundMusic implements OnInit, OnDestroy {
         break;
       case 1:
         console.log('[BackgroundMusic] Playing!');
-        this.musicService.isPlaying.set(true);
-        break;
+        break;  
       case 3:
         console.log('[BackgroundMusic] Buffering...');
         break;
