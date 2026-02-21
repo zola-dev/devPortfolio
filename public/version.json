@@ -1,29 +1,52 @@
 {
-  "version": "0.0.3",
-  "buildDate": "2026-02-21T15:01:47.024Z",
+  "version": "0.0.4",
+  "buildDate": "2026-02-21T16:47:47.576Z",
   "environment": "development",
   "commit": {
-    "hash": "2b78a464d06ba0221ad4de9f2d00a11d8f076a6a",
-    "shortHash": "2b78a46",
-    "message": "moved init chat to chatService",
+    "hash": "9e649206972ac96cba7dc12bbbc5e8705cd2b34e",
+    "shortHash": "9e64920",
+    "message": "refactored scripts order of execution",
     "body": null,
     "author": "Milos",
     "email": "miloslazoviczola@gmail.com",
-    "date": "2026-02-21T15:50:21+01:00",
+    "date": "2026-02-21T17:47:42+01:00",
     "branch": "master",
     "tag": null,
-    "totalCommits": 58,
+    "totalCommits": 60,
     "changedFiles": [
-      "package.json",
-      "public/version.json",
-      "src/app/components/assistant/assistant.ts",
-      "src/app/core/services/chat.ts",
-      "src/app/core/services/speech.ts"
+      "package.json"
     ],
-    "stats": "5 files changed, 183 insertions(+), 309 deletions(-)",
+    "stats": "1 file changed, 3 insertions(+), 3 deletions(-)",
     "coAuthors": []
   },
   "history": [
+    {
+      "hash": "9e649206972ac96cba7dc12bbbc5e8705cd2b34e",
+      "shortHash": "9e64920",
+      "message": "refactored scripts order of execution",
+      "body": null,
+      "author": "Milos",
+      "email": "miloslazoviczola@gmail.com",
+      "date": "2026-02-21T17:47:42+01:00",
+      "stats": "1 file changed, 3 insertions(+), 3 deletions(-)",
+      "changedFiles": [
+        "package.json"
+      ]
+    },
+    {
+      "hash": "5f9e3185607f6c3ee44e7234e6fdf6752a5ef5e2",
+      "shortHash": "5f9e318",
+      "message": "removed tags",
+      "body": null,
+      "author": "Milos",
+      "email": "miloslazoviczola@gmail.com",
+      "date": "2026-02-21T16:02:14+01:00",
+      "stats": "2 files changed, 29 insertions(+), 26 deletions(-)",
+      "changedFiles": [
+        "package.json",
+        "public/version.json"
+      ]
+    },
     {
       "hash": "2b78a464d06ba0221ad4de9f2d00a11d8f076a6a",
       "shortHash": "2b78a46",
@@ -141,32 +164,6 @@
       "stats": "1 file changed, 1 deletion(-)",
       "changedFiles": [
         "src/app/core/services/update-app.ts"
-      ]
-    },
-    {
-      "hash": "283d4b1c94595ac481fd5397c025bf6a164d4e6d",
-      "shortHash": "283d4b1",
-      "message": "app.ts: removed dev logVersionInfo for debugging",
-      "body": null,
-      "author": "Milos",
-      "email": "miloslazoviczola@gmail.com",
-      "date": "2026-02-20T12:00:55+01:00",
-      "stats": "1 file changed, 3 deletions(-)",
-      "changedFiles": [
-        "src/app/app.ts"
-      ]
-    },
-    {
-      "hash": "19f028b1739a15a3fd9181a88a1ac45eb5209092",
-      "shortHash": "19f028b",
-      "message": "version update",
-      "body": null,
-      "author": "Milos",
-      "email": "miloslazoviczola@gmail.com",
-      "date": "2026-02-20T11:58:14+01:00",
-      "stats": "1 file changed, 36 insertions(+), 22 deletions(-)",
-      "changedFiles": [
-        "public/version.json"
       ]
     }
   ]
