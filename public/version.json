@@ -1,30 +1,46 @@
 {
-  "version": "0.0.2",
-  "buildDate": "2026-02-21T14:49:26.160Z",
+  "version": "0.0.3",
+  "buildDate": "2026-02-21T15:01:47.024Z",
   "environment": "development",
   "commit": {
-    "hash": "711dc306a70e2bc82bb713b2eca8c3b358b3ccc3",
-    "shortHash": "711dc30",
-    "message": "created post-build-commit.js",
+    "hash": "2b78a464d06ba0221ad4de9f2d00a11d8f076a6a",
+    "shortHash": "2b78a46",
+    "message": "moved init chat to chatService",
     "body": null,
     "author": "Milos",
     "email": "miloslazoviczola@gmail.com",
-    "date": "2026-02-21T14:29:41+01:00",
+    "date": "2026-02-21T15:50:21+01:00",
     "branch": "master",
     "tag": null,
-    "totalCommits": 57,
+    "totalCommits": 58,
     "changedFiles": [
       "package.json",
       "public/version.json",
-      "scripts/bump-version.js",
-      "scripts/post-build-commit.js",
-      "src/app/components/assistant/assistant.html",
-      "src/app/core/models/types.ts"
+      "src/app/components/assistant/assistant.ts",
+      "src/app/core/services/chat.ts",
+      "src/app/core/services/speech.ts"
     ],
-    "stats": "6 files changed, 472 insertions(+), 120 deletions(-)",
+    "stats": "5 files changed, 183 insertions(+), 309 deletions(-)",
     "coAuthors": []
   },
   "history": [
+    {
+      "hash": "2b78a464d06ba0221ad4de9f2d00a11d8f076a6a",
+      "shortHash": "2b78a46",
+      "message": "moved init chat to chatService",
+      "body": null,
+      "author": "Milos",
+      "email": "miloslazoviczola@gmail.com",
+      "date": "2026-02-21T15:50:21+01:00",
+      "stats": "5 files changed, 183 insertions(+), 309 deletions(-)",
+      "changedFiles": [
+        "package.json",
+        "public/version.json",
+        "src/app/components/assistant/assistant.ts",
+        "src/app/core/services/chat.ts",
+        "src/app/core/services/speech.ts"
+      ]
+    },
     {
       "hash": "711dc306a70e2bc82bb713b2eca8c3b358b3ccc3",
       "shortHash": "711dc30",
@@ -151,19 +167,6 @@
       "stats": "1 file changed, 36 insertions(+), 22 deletions(-)",
       "changedFiles": [
         "public/version.json"
-      ]
-    },
-    {
-      "hash": "76417f5a4850e68eed0b8e776fbb5c973f8b9429",
-      "shortHash": "76417f5",
-      "message": "app.ts: simplified if condition",
-      "body": null,
-      "author": "Milos",
-      "email": "miloslazoviczola@gmail.com",
-      "date": "2026-02-20T11:58:02+01:00",
-      "stats": "1 file changed, 1 insertion(+), 1 deletion(-)",
-      "changedFiles": [
-        "src/app/core/services/version.ts"
       ]
     }
   ]
