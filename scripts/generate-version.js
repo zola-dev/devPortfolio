@@ -95,20 +95,14 @@ function getCommitHistory(count = 10) {
 
   return commits.map(commitRaw => {
     const [hash, shortHash, subject, author, email, date, ...bodyParts] = commitRaw.split(FIELD_SEP);
-
-    // Body je sve što ostane nakon 6 polja
     const body = bodyParts.join(FIELD_SEP).trim() || null;
-
     if (!hash || !shortHash) return null;
-
-    // Stats i changed files po commitu - koristimo diff-tree (brže od git show)
     const statsRaw = execGitCommand(
       `git diff-tree --no-commit-id -r --shortstat ${hash}`
     );
     const filesRaw = execGitCommand(
       `git diff-tree --no-commit-id -r --name-only ${hash}`
     );
-
     return {
       hash: hash.trim(),
       shortHash: shortHash.trim(),
@@ -122,20 +116,14 @@ function getCommitHistory(count = 10) {
     };
   }).filter(Boolean);
 }
-
 function generateVersionJson() {
-  log('\n🚀 Generating version.json...', 'cyan');
+  log('\n Generating version.json...', 'cyan');
   log('═══════════════════════════════════════', 'cyan');
-
   const packageJsonPath = path.join(process.cwd(), 'package.json');
   const packageJson = JSON.parse(fs.readFileSync(packageJsonPath, 'utf-8'));
-
-  log('📦 Reading Git information...', 'blue');
+  log(' Reading Git information...', 'blue');
   const gitInfo = getGitInfo();
-
-  const isProduction = process.env.NODE_ENV === 'production' || 
-                       process.argv.includes('--production');
-
+  const isProduction = process.env.NODE_ENV === 'production' || process.argv.includes('--production');
   const versionInfo = {
     version: packageJson.version || '1.0.0',
     buildDate: new Date().toISOString(),
@@ -165,7 +153,7 @@ function generateVersionJson() {
   const outputPath = path.join(process.cwd(), 'public');
   if (!fs.existsSync(outputPath)) {
     fs.mkdirSync(outputPath, { recursive: true });
-    log('📁 Created public directory', 'yellow');
+    log('Created public directory', 'yellow');
   }
 
   const versionFilePath = path.join(outputPath, 'version.json');
@@ -175,14 +163,14 @@ function generateVersionJson() {
     'utf-8'
   );
 
-  log('\n✅ version.json generated successfully!', 'green');
+  log('\nversion.json generated successfully!', 'green');
   log('═══════════════════════════════════════', 'cyan');
-  log(`📍 Location: ${versionFilePath}`, 'blue');
-  log(`📌 Version: ${colors.bright}${versionInfo.version}${colors.reset}`, 'reset');
-  log(`🌍 Environment: ${colors.bright}${versionInfo.environment}${colors.reset}`, 'reset');
+  log(`Location: ${versionFilePath}`, 'blue');
+  log(`Version: ${colors.bright}${versionInfo.version}${colors.reset}`, 'reset');
+  log(`Environment: ${colors.bright}${versionInfo.environment}${colors.reset}`, 'reset');
   
   if (versionInfo.commit) {
-    log('\n📝 Commit Information:', 'magenta');
+    log('\nCommit Information:', 'magenta');
     log(`   Hash: ${versionInfo.commit.shortHash}`, 'reset');
     log(`   Branch: ${versionInfo.commit.branch}`, 'reset');
     log(`   Author: ${versionInfo.commit.author}`, 'reset');
@@ -214,6 +202,6 @@ try {
   generateVersionJson();
   process.exit(0);
 } catch (error) {
-  console.error('❌ Error generating version.json:', error);
+  console.error('Error generating version.json:', error);
   process.exit(1);
 }

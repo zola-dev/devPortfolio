@@ -50,7 +50,7 @@ function main() {
   const packageJsonPath = path.join(process.cwd(), 'package.json');
 
   if (!fs.existsSync(packageJsonPath)) {
-    log('❌ package.json not found!', 'red');
+    log('package.json not found!', 'red');
     process.exit(1);
   }
 
@@ -63,7 +63,7 @@ function main() {
   fs.writeFileSync(packageJsonPath, JSON.stringify(packageJson, null, 2) + '\n', 'utf-8');
 
   log('', 'reset');
-  log('🔖 Version Bumped', 'cyan');
+  log('Version Bumped', 'cyan');
   log('═══════════════════════════════════════', 'cyan');
   log(`   ${colors.yellow}${oldVersion}${colors.reset}  →  ${colors.bright}${colors.green}${newVersion}${colors.reset}`);
   log('═══════════════════════════════════════', 'cyan');
@@ -74,6 +74,6 @@ try {
   main();
   process.exit(0);
 } catch (error) {
-  console.error('❌ Error bumping version:', error.message);
+  console.error('Error bumping version:', error.message);
   process.exit(1);
 }

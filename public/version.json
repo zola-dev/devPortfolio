@@ -1,28 +1,42 @@
 {
-  "version": "0.0.5",
-  "buildDate": "2026-02-21T17:15:54.706Z",
+  "version": "0.0.6",
+  "buildDate": "2026-02-21T17:16:53.928Z",
   "environment": "development",
   "commit": {
-    "hash": "aed1c8c08015742c6e56760340a86fc41f49276a",
-    "shortHash": "aed1c8c",
+    "hash": "5233d90bc623a820d84f9cb209da34702c5f0303",
+    "shortHash": "5233d90",
     "message": "fix: prevent youtube player reset on mobile",
     "body": null,
     "author": "Milos",
     "email": "miloslazoviczola@gmail.com",
-    "date": "2026-02-21T18:15:47+01:00",
+    "date": "2026-02-21T18:16:48+01:00",
     "branch": "master",
     "tag": null,
-    "totalCommits": 61,
+    "totalCommits": 62,
     "changedFiles": [
       "package.json",
       "public/version.json",
-      "src/app/components/background-music/background-music.css",
       "src/app/components/background-music/background-music.ts"
     ],
-    "stats": "4 files changed, 43 insertions(+), 45 deletions(-)",
+    "stats": "3 files changed, 30 insertions(+), 24 deletions(-)",
     "coAuthors": []
   },
   "history": [
+    {
+      "hash": "5233d90bc623a820d84f9cb209da34702c5f0303",
+      "shortHash": "5233d90",
+      "message": "fix: prevent youtube player reset on mobile",
+      "body": null,
+      "author": "Milos",
+      "email": "miloslazoviczola@gmail.com",
+      "date": "2026-02-21T18:16:48+01:00",
+      "stats": "3 files changed, 30 insertions(+), 24 deletions(-)",
+      "changedFiles": [
+        "package.json",
+        "public/version.json",
+        "src/app/components/background-music/background-music.ts"
+      ]
+    },
     {
       "hash": "aed1c8c08015742c6e56760340a86fc41f49276a",
       "shortHash": "aed1c8c",
@@ -157,19 +171,6 @@
       "changedFiles": [
         "public/version.json",
         "src/app/core/services/speech.ts"
-      ]
-    },
-    {
-      "hash": "9adb7549cd8e4bb3a834b2c1912a7bbdaad9c3c1",
-      "shortHash": "9adb754",
-      "message": "update-app: added desc on execute()",
-      "body": null,
-      "author": "Milos",
-      "email": "miloslazoviczola@gmail.com",
-      "date": "2026-02-20T12:04:47+01:00",
-      "stats": "1 file changed, 6 insertions(+), 1 deletion(-)",
-      "changedFiles": [
-        "src/app/core/services/update-app.ts"
       ]
     }
   ]
