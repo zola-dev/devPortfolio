@@ -28,7 +28,7 @@ export class BackgroundMusic implements OnInit, OnDestroy {
 
   readonly playerConfig = {
     autoplay: 1,
-    playsinline: 1
+    playsinline: 1,
     controls: 0,
     loop: 1,
     playlist: 'jfKfPfyJRdk',
