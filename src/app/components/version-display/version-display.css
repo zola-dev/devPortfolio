@@ -31,6 +31,9 @@
   font-size: 12px;
   color: #a78bfa;
   font-weight: 600;
+  opacity: 0.9;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
 }
 
 .version-number {
@@ -40,11 +43,15 @@
 }
 
 .commit-hash {
-  font-size: 11px;
-  color: #9ca3af;
   background: rgba(255, 255, 255, 0.05);
-  padding: 2px 6px;
   border-radius: 4px;
+
+  padding: 4px 12px;
+  border-radius: 6px;
+  font-family: 'Courier New', monospace;
+  font-size: 13px;
+  color: #a78bfa;
+  border: 1px solid rgba(167, 139, 250, 0.3);
 }
 
 .history-icon {
@@ -185,7 +192,10 @@
 
 .commit-author,
 .commit-stats {
-  font-size: 10px;
+  font-size: 13px;
+  margin: 6px 0;
+  opacity: 0.8;
+  color: #d1d5db;
 }
 
 .changed-files {
@@ -227,9 +237,32 @@
   }
 
   .history-dropdown {
-    width: 90vw;
+    /* width: 90vw;
     right: auto;
     left: 50%;
-    transform: translateX(-50%);
+    transform: translateX(-50%); */
+
+    position: fixed !important;
+    width: 95vw;
+    left: 2.5vw;
+    right: 2.5vw;
+    bottom: 60px;
+    max-height: 70vh;
+  }
+  .commit-message {
+    font-size: 15px;
+    line-height: 1.6;
+    margin: 12px 0;
+    color: #e5e7eb;
+    font-style: italic;
+  }
+  .version-badge {
+    font-size: 14px;
+  }
+  .commit-section {
+    padding: 12px;
+  }
+  .commit-hash-item, .commit-body, .commit-meta {
+    font-size: 11px;
   }
 }

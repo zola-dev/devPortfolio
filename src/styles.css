@@ -102,18 +102,6 @@ body {
   box-shadow: 0 4px 12px rgba(139, 92, 246, 0.3);
 }
 
-.version-label {
-  font-size: 12px;
-  opacity: 0.9;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-}
-
-.version-number {
-  font-size: 16px;
-  font-weight: 700;
-}
-
 /* Commit Section */
 .commit-section {
   background: rgba(139, 92, 246, 0.1);
@@ -135,31 +123,6 @@ body {
   font-size: 18px;
 }
 
-.commit-hash {
-  background: rgba(255, 255, 255, 0.1);
-  padding: 4px 12px;
-  border-radius: 6px;
-  font-family: 'Courier New', monospace;
-  font-size: 13px;
-  color: #a78bfa;
-  border: 1px solid rgba(167, 139, 250, 0.3);
-}
-
-.commit-message {
-  font-size: 15px;
-  line-height: 1.6;
-  margin: 12px 0;
-  color: #e5e7eb;
-  font-style: italic;
-}
-
-.commit-author,
-.commit-date {
-  font-size: 13px;
-  margin: 6px 0;
-  opacity: 0.8;
-  color: #d1d5db;
-}
 
 /* Update Message (fallback) */
 .update-message {
@@ -184,20 +147,6 @@ body {
   font-weight: 700;
 }
 
-/* Responsive Design */
-@media (max-width: 640px) {
-  .version-badge {
-    font-size: 14px;
-  }
-  
-  .commit-section {
-    padding: 12px;
-  }
-  
-  .commit-message {
-    font-size: 14px;
-  }
-}
 
 /* Animation */
 @keyframes slideIn {
