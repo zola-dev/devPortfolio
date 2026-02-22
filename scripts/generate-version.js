@@ -25,7 +25,6 @@ function execGitCommand(command) {
     return null;
   }
 }
-
 function getGitInfo() {
   const hash = execGitCommand('git rev-parse HEAD');
   const shortHash = execGitCommand('git rev-parse --short HEAD');

@@ -1,27 +1,40 @@
 {
-  "version": "0.0.19",
-  "buildDate": "2026-02-22T21:44:36.948Z",
+  "version": "0.0.20",
+  "buildDate": "2026-02-22T21:45:27.001Z",
   "environment": "development",
   "commit": {
-    "hash": "d4bb2db5be847a280cd5dba57ab2d58281ef9b07",
-    "shortHash": "d4bb2db",
-    "message": "version-display: testing canCheckUpdates",
+    "hash": "41e44c0f15ff81eff3dfd138e90a431afc375803",
+    "shortHash": "41e44c0",
+    "message": "testing canCheckUpdates added node-env to deploy",
     "body": "-test",
     "author": "Milos",
     "email": "miloslazoviczola@gmail.com",
-    "date": "2026-02-22T22:38:38+01:00",
+    "date": "2026-02-22T22:45:20+01:00",
     "branch": "master",
     "tag": "buld",
-    "totalCommits": 75,
+    "totalCommits": 76,
     "changedFiles": [
       "package.json",
-      "public/version.json",
-      "src/app/components/version-display/version-display.html"
+      "public/version.json"
     ],
-    "stats": "3 files changed, 27 insertions(+), 25 deletions(-)",
+    "stats": "2 files changed, 27 insertions(+), 27 deletions(-)",
     "coAuthors": []
   },
   "history": [
+    {
+      "hash": "41e44c0f15ff81eff3dfd138e90a431afc375803",
+      "shortHash": "41e44c0",
+      "message": "testing canCheckUpdates added node-env to deploy",
+      "body": "-test",
+      "author": "Milos",
+      "email": "miloslazoviczola@gmail.com",
+      "date": "2026-02-22T22:45:20+01:00",
+      "stats": "2 files changed, 27 insertions(+), 27 deletions(-)",
+      "changedFiles": [
+        "package.json",
+        "public/version.json"
+      ]
+    },
     {
       "hash": "d4bb2db5be847a280cd5dba57ab2d58281ef9b07",
       "shortHash": "d4bb2db",
@@ -154,20 +167,6 @@
         "package.json",
         "scripts/build-commit.js",
         "scripts/post-build-commit.js",
-        "src/app/components/version-display/version-display.ts"
-      ]
-    },
-    {
-      "hash": "4f5b3e67cacf5409ef668d9493c4d31d3cd98f50",
-      "shortHash": "4f5b3e6",
-      "message": "refactor: improve VersionDisplay null and empty checks",
-      "body": "-html\n-ts\n-test",
-      "author": "Milos",
-      "email": "miloslazoviczola@gmail.com",
-      "date": "2026-02-22T21:14:14+01:00",
-      "stats": "2 files changed, 6 insertions(+), 7 deletions(-)",
-      "changedFiles": [
-        "src/app/components/version-display/version-display.html",
         "src/app/components/version-display/version-display.ts"
       ]
     }
