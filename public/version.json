@@ -1,26 +1,42 @@
 {
-  "version": "0.0.20",
-  "buildDate": "2026-02-22T21:45:27.001Z",
+  "version": "0.0.21",
+  "buildDate": "2026-02-22T21:47:02.135Z",
   "environment": "development",
   "commit": {
-    "hash": "41e44c0f15ff81eff3dfd138e90a431afc375803",
-    "shortHash": "41e44c0",
-    "message": "testing canCheckUpdates added node-env to deploy",
-    "body": "-test",
+    "hash": "bb76a9919ffd30a850c59fab170d49c21cf9b6bf",
+    "shortHash": "bb76a99",
+    "message": "test",
+    "body": null,
     "author": "Milos",
     "email": "miloslazoviczola@gmail.com",
-    "date": "2026-02-22T22:45:20+01:00",
+    "date": "2026-02-22T22:46:57+01:00",
     "branch": "master",
     "tag": "buld",
-    "totalCommits": 76,
+    "totalCommits": 77,
     "changedFiles": [
       "package.json",
-      "public/version.json"
+      "public/version.json",
+      "scripts/generate-version.js"
     ],
-    "stats": "2 files changed, 27 insertions(+), 27 deletions(-)",
+    "stats": "3 files changed, 24 insertions(+), 26 deletions(-)",
     "coAuthors": []
   },
   "history": [
+    {
+      "hash": "bb76a9919ffd30a850c59fab170d49c21cf9b6bf",
+      "shortHash": "bb76a99",
+      "message": "test",
+      "body": null,
+      "author": "Milos",
+      "email": "miloslazoviczola@gmail.com",
+      "date": "2026-02-22T22:46:57+01:00",
+      "stats": "3 files changed, 24 insertions(+), 26 deletions(-)",
+      "changedFiles": [
+        "package.json",
+        "public/version.json",
+        "scripts/generate-version.js"
+      ]
+    },
     {
       "hash": "41e44c0f15ff81eff3dfd138e90a431afc375803",
       "shortHash": "41e44c0",
@@ -152,22 +168,6 @@
       "stats": "1 file changed, 3 insertions(+), 3 deletions(-)",
       "changedFiles": [
         "scripts/build-commit.js"
-      ]
-    },
-    {
-      "hash": "ecc13097bcae16bbaf34f70c1c666f7d7df60662",
-      "shortHash": "ecc1309",
-      "message": "chore: add deploy script to package.json",
-      "body": null,
-      "author": "Milos",
-      "email": "miloslazoviczola@gmail.com",
-      "date": "2026-02-22T21:22:24+01:00",
-      "stats": "4 files changed, 238 insertions(+), 237 deletions(-)",
-      "changedFiles": [
-        "package.json",
-        "scripts/build-commit.js",
-        "scripts/post-build-commit.js",
-        "src/app/components/version-display/version-display.ts"
       ]
     }
   ]

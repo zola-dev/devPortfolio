@@ -102,8 +102,8 @@ function generateVersionJson() {
   const packageJsonPath = path.join(process.cwd(), 'package.json');
   const packageJson = JSON.parse(fs.readFileSync(packageJsonPath, 'utf-8'));
   const gitInfo = getGitInfo();
-  const isProduction = process.env.NODE_ENV === 'production' || process.argv.includes('--production');
-
+  // const isProduction = process.env.NODE_ENV === 'production' || process.argv.includes('--production');
+  const isProduction = true;
   const versionInfo = {
     version: packageJson.version || '1.0.0',
     buildDate: new Date().toISOString(),
