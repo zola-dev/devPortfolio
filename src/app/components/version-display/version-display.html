@@ -41,7 +41,7 @@
                 <span class="commit-stats">{{ commit.stats }}</span>
               }
             </div>
-            @if (commit.changedFiles?.length) {
+            @if (commit.changedFiles.length) {
               <details class="changed-files">
                 <summary>{{ commit.changedFiles.length }} files changed</summary>
                 <ul>

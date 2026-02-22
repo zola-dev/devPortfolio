@@ -1,29 +1,86 @@
 {
-  "version": "0.0.8",
-  "buildDate": "2026-02-22T18:01:34.624Z",
+  "version": "0.0.10",
+  "buildDate": "2026-02-22T20:35:55.577Z",
   "environment": "development",
   "commit": {
-    "hash": "15d96b8e0f41a5da18871aa9eaeab4e6c78463cc",
-    "shortHash": "15d96b8",
-    "message": "feat: add optional description prompt to commit script",
+    "hash": "ecc13097bcae16bbaf34f70c1c666f7d7df60662",
+    "shortHash": "ecc1309",
+    "message": "chore: add deploy script to package.json",
     "body": null,
     "author": "Milos",
     "email": "miloslazoviczola@gmail.com",
-    "date": "2026-02-21T18:32:49+01:00",
+    "date": "2026-02-22T21:22:24+01:00",
     "branch": "master",
     "tag": null,
-    "totalCommits": 63,
+    "totalCommits": 67,
     "changedFiles": [
       "package.json",
-      "public/version.json",
-      "scripts/bump-version.js",
-      "scripts/generate-version.js",
-      "scripts/post-build-commit.js"
+      "scripts/build-commit.js",
+      "scripts/post-build-commit.js",
+      "src/app/components/version-display/version-display.ts"
     ],
-    "stats": "5 files changed, 97 insertions(+), 94 deletions(-)",
+    "stats": "4 files changed, 238 insertions(+), 237 deletions(-)",
     "coAuthors": []
   },
   "history": [
+    {
+      "hash": "ecc13097bcae16bbaf34f70c1c666f7d7df60662",
+      "shortHash": "ecc1309",
+      "message": "chore: add deploy script to package.json",
+      "body": null,
+      "author": "Milos",
+      "email": "miloslazoviczola@gmail.com",
+      "date": "2026-02-22T21:22:24+01:00",
+      "stats": "4 files changed, 238 insertions(+), 237 deletions(-)",
+      "changedFiles": [
+        "package.json",
+        "scripts/build-commit.js",
+        "scripts/post-build-commit.js",
+        "src/app/components/version-display/version-display.ts"
+      ]
+    },
+    {
+      "hash": "4f5b3e67cacf5409ef668d9493c4d31d3cd98f50",
+      "shortHash": "4f5b3e6",
+      "message": "refactor: improve VersionDisplay null and empty checks",
+      "body": "-html\n-ts\n-test",
+      "author": "Milos",
+      "email": "miloslazoviczola@gmail.com",
+      "date": "2026-02-22T21:14:14+01:00",
+      "stats": "2 files changed, 6 insertions(+), 7 deletions(-)",
+      "changedFiles": [
+        "src/app/components/version-display/version-display.html",
+        "src/app/components/version-display/version-display.ts"
+      ]
+    },
+    {
+      "hash": "80e4500a080acbc5db9e0da50fb0a619f0cd3d65",
+      "shortHash": "80e4500",
+      "message": "refactor update-app: cleanup",
+      "body": null,
+      "author": "Milos",
+      "email": "miloslazoviczola@gmail.com",
+      "date": "2026-02-22T21:04:38+01:00",
+      "stats": "3 files changed, 85 insertions(+), 100 deletions(-)",
+      "changedFiles": [
+        "package.json",
+        "public/version.json",
+        "src/app/core/services/update-app.ts"
+      ]
+    },
+    {
+      "hash": "1df0f492de4fde67e52b21506d2afd7dbd5b35a8",
+      "shortHash": "1df0f49",
+      "message": "refactor generate-version.js: added Description to logs && cleanup",
+      "body": null,
+      "author": "Milos",
+      "email": "miloslazoviczola@gmail.com",
+      "date": "2026-02-22T20:47:18+01:00",
+      "stats": "1 file changed, 22 insertions(+), 52 deletions(-)",
+      "changedFiles": [
+        "scripts/generate-version.js"
+      ]
+    },
     {
       "hash": "15d96b8e0f41a5da18871aa9eaeab4e6c78463cc",
       "shortHash": "15d96b8",
@@ -114,68 +171,6 @@
         "src/app/components/assistant/assistant.ts",
         "src/app/core/services/chat.ts",
         "src/app/core/services/speech.ts"
-      ]
-    },
-    {
-      "hash": "711dc306a70e2bc82bb713b2eca8c3b358b3ccc3",
-      "shortHash": "711dc30",
-      "message": "created post-build-commit.js",
-      "body": null,
-      "author": "Milos",
-      "email": "miloslazoviczola@gmail.com",
-      "date": "2026-02-21T14:29:41+01:00",
-      "stats": "6 files changed, 472 insertions(+), 120 deletions(-)",
-      "changedFiles": [
-        "package.json",
-        "public/version.json",
-        "scripts/bump-version.js",
-        "scripts/post-build-commit.js",
-        "src/app/components/assistant/assistant.html",
-        "src/app/core/models/types.ts"
-      ]
-    },
-    {
-      "hash": "588ea5464509e79efee8a92500643daf252718ac",
-      "shortHash": "588ea54",
-      "message": "refactor: separate version-display styles from global into component CSS",
-      "body": null,
-      "author": "Milos",
-      "email": "miloslazoviczola@gmail.com",
-      "date": "2026-02-21T01:29:30+01:00",
-      "stats": "3 files changed, 41 insertions(+), 59 deletions(-)",
-      "changedFiles": [
-        "src/app/components/assistant/assistant.html",
-        "src/app/components/version-display/version-display.css",
-        "src/styles.css"
-      ]
-    },
-    {
-      "hash": "a1e50ef4fe937f392c8136f3065178224a16f167",
-      "shortHash": "a1e50ef",
-      "message": "fix: version container position fixed",
-      "body": "-mobile version adjustment",
-      "author": "Milos",
-      "email": "miloslazoviczola@gmail.com",
-      "date": "2026-02-20T23:58:37+01:00",
-      "stats": "1 file changed, 1 insertion(+), 1 deletion(-)",
-      "changedFiles": [
-        "src/app/components/version-display/version-display.css"
-      ]
-    },
-    {
-      "hash": "33081286604b5d7f41bfc74a9762878939b072ec",
-      "shortHash": "3308128",
-      "message": "refactor(chat): type-safe stream parsing with unknown narrowing and never assertion",
-      "body": null,
-      "author": "Milos",
-      "email": "miloslazoviczola@gmail.com",
-      "date": "2026-02-20T13:10:21+01:00",
-      "stats": "4 files changed, 137 insertions(+), 80 deletions(-)",
-      "changedFiles": [
-        "public/version.json",
-        "src/app/components/assistant/assistant.ts",
-        "src/app/core/models/chat.ts",
-        "src/app/core/services/chat.ts"
       ]
     }
   ]

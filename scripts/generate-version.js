@@ -35,7 +35,7 @@ function getGitInfo() {
   const author = execGitCommand('git log -1 --pretty=%an');
   const authorEmail = execGitCommand('git log -1 --pretty=%ae');
   const date = execGitCommand('git log -1 --pretty=%cI');
-  const tag = execGitCommand('git describe --tags --abbrev=0 2>/dev/null');
+  const tag = execGitCommand('git describe --tags --abbrev=0');
   const totalCommits = execGitCommand('git rev-list --count HEAD');
   const changedFiles = execGitCommand('git diff-tree --no-commit-id -r --name-only HEAD');
   const stats = execGitCommand('git diff-tree --no-commit-id -r --shortstat HEAD');
