@@ -1,27 +1,42 @@
 {
-  "version": "0.0.23",
-  "buildDate": "2026-02-22T21:54:00.175Z",
+  "version": "0.0.25",
+  "buildDate": "2026-02-22T22:04:22.110Z",
   "environment": "production",
   "commit": {
-    "hash": "d00f55d3ff734e7262b42ccfb893cbf853a89197",
-    "shortHash": "d00f55d",
-    "message": "isProduction ficed, canCheckUpdates showing swall message",
+    "hash": "317169dd6c21e605ddda05ed200970231bfdb086",
+    "shortHash": "317169d",
+    "message": "version-display: added link to devPortfolio",
     "body": null,
     "author": "Milos",
     "email": "miloslazoviczola@gmail.com",
-    "date": "2026-02-22T22:53:54+01:00",
+    "date": "2026-02-22T23:02:36+01:00",
     "branch": "master",
     "tag": "buld",
-    "totalCommits": 79,
+    "totalCommits": 80,
     "changedFiles": [
       "package.json",
       "public/version.json",
-      "src/app/components/version-display/version-display.html"
+      "src/app/components/version-display/version-display.css"
     ],
-    "stats": "3 files changed, 26 insertions(+), 24 deletions(-)",
+    "stats": "3 files changed, 35 insertions(+), 27 deletions(-)",
     "coAuthors": []
   },
   "history": [
+    {
+      "hash": "317169dd6c21e605ddda05ed200970231bfdb086",
+      "shortHash": "317169d",
+      "message": "version-display: added link to devPortfolio",
+      "body": null,
+      "author": "Milos",
+      "email": "miloslazoviczola@gmail.com",
+      "date": "2026-02-22T23:02:36+01:00",
+      "stats": "3 files changed, 35 insertions(+), 27 deletions(-)",
+      "changedFiles": [
+        "package.json",
+        "public/version.json",
+        "src/app/components/version-display/version-display.css"
+      ]
+    },
     {
       "hash": "d00f55d3ff734e7262b42ccfb893cbf853a89197",
       "shortHash": "d00f55d",
@@ -154,21 +169,6 @@
         "package.json",
         "public/version.json",
         "src/app/components/version-display/version-display.html"
-      ]
-    },
-    {
-      "hash": "f9ea40ace409021daade02d366cb3353256c9833",
-      "shortHash": "f9ea40a",
-      "message": "testing desc",
-      "body": null,
-      "author": "Milos",
-      "email": "miloslazoviczola@gmail.com",
-      "date": "2026-02-22T21:50:16+01:00",
-      "stats": "3 files changed, 42 insertions(+), 45 deletions(-)",
-      "changedFiles": [
-        "package.json",
-        "public/version.json",
-        "scripts/generate-version.js"
       ]
     }
   ]
