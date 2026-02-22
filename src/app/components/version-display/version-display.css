@@ -34,6 +34,7 @@
   border-radius: 4px;
   white-space: nowrap;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  z-index: 100;
 }
 
 .version-info {

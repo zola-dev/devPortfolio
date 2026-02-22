@@ -1,27 +1,42 @@
 {
-  "version": "0.0.30",
-  "buildDate": "2026-02-22T22:49:01.096Z",
+  "version": "0.0.31",
+  "buildDate": "2026-02-22T22:53:02.647Z",
   "environment": "production",
   "commit": {
-    "hash": "50f2e43c4f6bdaafafd37ceb94fc1f050708e7c2",
-    "shortHash": "50f2e43",
+    "hash": "d08a2ee9ccec38c8703ec2c277ac61b62168a885",
+    "shortHash": "d08a2ee",
     "message": "fix: version-display mobile layout",
     "body": null,
     "author": "Milos",
     "email": "miloslazoviczola@gmail.com",
-    "date": "2026-02-22T23:48:57+01:00",
+    "date": "2026-02-22T23:52:58+01:00",
     "branch": "master",
     "tag": "buld",
-    "totalCommits": 85,
+    "totalCommits": 86,
     "changedFiles": [
       "package.json",
       "public/version.json",
       "src/app/components/version-display/version-display.css"
     ],
-    "stats": "3 files changed, 27 insertions(+), 24 deletions(-)",
+    "stats": "3 files changed, 26 insertions(+), 29 deletions(-)",
     "coAuthors": []
   },
   "history": [
+    {
+      "hash": "d08a2ee9ccec38c8703ec2c277ac61b62168a885",
+      "shortHash": "d08a2ee",
+      "message": "fix: version-display mobile layout",
+      "body": null,
+      "author": "Milos",
+      "email": "miloslazoviczola@gmail.com",
+      "date": "2026-02-22T23:52:58+01:00",
+      "stats": "3 files changed, 26 insertions(+), 29 deletions(-)",
+      "changedFiles": [
+        "package.json",
+        "public/version.json",
+        "src/app/components/version-display/version-display.css"
+      ]
+    },
     {
       "hash": "50f2e43c4f6bdaafafd37ceb94fc1f050708e7c2",
       "shortHash": "50f2e43",
@@ -157,20 +172,6 @@
         "package.json",
         "public/version.json",
         "scripts/generate-version.js"
-      ]
-    },
-    {
-      "hash": "41e44c0f15ff81eff3dfd138e90a431afc375803",
-      "shortHash": "41e44c0",
-      "message": "testing canCheckUpdates added node-env to deploy",
-      "body": "-test",
-      "author": "Milos",
-      "email": "miloslazoviczola@gmail.com",
-      "date": "2026-02-22T22:45:20+01:00",
-      "stats": "2 files changed, 27 insertions(+), 27 deletions(-)",
-      "changedFiles": [
-        "package.json",
-        "public/version.json"
       ]
     }
   ]
