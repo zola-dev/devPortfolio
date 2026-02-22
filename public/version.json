@@ -1,28 +1,42 @@
 {
-  "version": "0.0.11",
-  "buildDate": "2026-02-22T20:49:10.271Z",
+  "version": "0.0.12",
+  "buildDate": "2026-02-22T20:50:20.216Z",
   "environment": "development",
   "commit": {
-    "hash": "dac5431d1d3df3bfa62a9ab5b6edd51cacf95ba8",
-    "shortHash": "dac5431",
-    "message": "fix: remove redundant optional chain and fix Windows git tag command",
+    "hash": "f9ea40ace409021daade02d366cb3353256c9833",
+    "shortHash": "f9ea40a",
+    "message": "testing desc",
     "body": null,
     "author": "Milos",
     "email": "miloslazoviczola@gmail.com",
-    "date": "2026-02-22T21:49:05+01:00",
+    "date": "2026-02-22T21:50:16+01:00",
     "branch": "master",
     "tag": "buld",
-    "totalCommits": 69,
+    "totalCommits": 70,
     "changedFiles": [
       "package.json",
       "public/version.json",
-      "scripts/generate-version.js",
-      "src/app/components/version-display/version-display.html"
+      "scripts/generate-version.js"
     ],
-    "stats": "4 files changed, 72 insertions(+), 77 deletions(-)",
+    "stats": "3 files changed, 42 insertions(+), 45 deletions(-)",
     "coAuthors": []
   },
   "history": [
+    {
+      "hash": "f9ea40ace409021daade02d366cb3353256c9833",
+      "shortHash": "f9ea40a",
+      "message": "testing desc",
+      "body": null,
+      "author": "Milos",
+      "email": "miloslazoviczola@gmail.com",
+      "date": "2026-02-22T21:50:16+01:00",
+      "stats": "3 files changed, 42 insertions(+), 45 deletions(-)",
+      "changedFiles": [
+        "package.json",
+        "public/version.json",
+        "scripts/generate-version.js"
+      ]
+    },
     {
       "hash": "dac5431d1d3df3bfa62a9ab5b6edd51cacf95ba8",
       "shortHash": "dac5431",
@@ -156,19 +170,6 @@
         "public/version.json",
         "src/app/components/background-music/background-music.css",
         "src/app/components/background-music/background-music.ts"
-      ]
-    },
-    {
-      "hash": "9e649206972ac96cba7dc12bbbc5e8705cd2b34e",
-      "shortHash": "9e64920",
-      "message": "refactored scripts order of execution",
-      "body": null,
-      "author": "Milos",
-      "email": "miloslazoviczola@gmail.com",
-      "date": "2026-02-21T17:47:42+01:00",
-      "stats": "1 file changed, 3 insertions(+), 3 deletions(-)",
-      "changedFiles": [
-        "package.json"
       ]
     }
   ]
