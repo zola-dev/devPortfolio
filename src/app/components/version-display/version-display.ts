@@ -27,7 +27,7 @@ export class VersionDisplay implements OnInit {
     this.commitHash.set(versionInfo.commit?.shortHash || '');
     this.canCheckUpdates.set(versionInfo.environment === 'production');
     
-    if (versionInfo.history && versionInfo.history.length > 0) {
+    if (versionInfo.history && versionInfo.history.length) {
       this.commitHistory.set(versionInfo.history);
       this.hasHistory.set(true);
     }

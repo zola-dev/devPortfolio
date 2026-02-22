@@ -6,13 +6,12 @@
       <span class="commit-hash">{{ commitHash() }}</span>
     }
     @if (hasHistory()) {
-      <span class="history-icon" (click)="toggleHistory($event)">📜</span>
+      <span class="history-icon" (click)="toggleHistory($event)">&#128220;</span>
     }
   </div>
-  
+
   @if (canCheckUpdates()) {
     <div class="update-hint">
-      <span class="hint-icon">🔄</span>
       <span class="hint-text">Click to check for updates</span>
     </div>
   }
@@ -22,9 +21,9 @@
     <div class="history-dropdown" (click)="$event.stopPropagation()">
       <div class="history-header">
         <h4>Commit History</h4>
-        <button (click)="toggleHistory($event)">✕</button>
+        <button (click)="toggleHistory($event)">&#10005;</button>
       </div>
-      
+
       <div class="history-list">
         @for (commit of commitHistory(); track commit.hash) {
           <div class="commit-item">
