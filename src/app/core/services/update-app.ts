@@ -11,12 +11,12 @@ import { Version } from './version';
 export class UpdateApp {
   private swUpdate = inject(SwUpdate);
   private version = inject(Version);
-/**
- * Initializes the service worker update lifecycle.
- * Checks for updates immediately on startup, then polls every 6 hours.
- * Listens for new version events and prompts the user to update.
- * Also handles unrecoverable service worker states by prompting a reload.
- */
+  /**
+   * Initializes the service worker update lifecycle.
+   * Checks for updates immediately on startup, then polls every 6 hours.
+   * Listens for new version events and prompts the user to update.
+   * Also handles unrecoverable service worker states by prompting a reload.
+   */
   async execute() {
     if (!this.swUpdate.isEnabled) {
       console.log('Service Worker is NOT enabled');
@@ -28,16 +28,14 @@ export class UpdateApp {
     this.checkForUpdates();
 
     this.swUpdate.versionUpdates
-      .pipe(
-        filter((evt): evt is VersionReadyEvent => evt.type === 'VERSION_READY')
-      )
+      .pipe(filter((evt): evt is VersionReadyEvent => evt.type === 'VERSION_READY'))
       .subscribe(async (event) => {
         console.log('New version available!', event);
         const versionInfo = await this.version.getVersionInfo();
         this.showUpdatePrompt(versionInfo);
       });
 
-    this.swUpdate.unrecoverable.subscribe(event => {
+    this.swUpdate.unrecoverable.subscribe((event) => {
       console.error('App is in unrecoverable state:', event.reason);
       this.showUnrecoverableError();
     });
@@ -46,12 +44,12 @@ export class UpdateApp {
   private checkForUpdates() {
     if (!this.swUpdate.isEnabled) return;
 
-    this.swUpdate.checkForUpdate().then(updateAvailable => {
+    this.swUpdate.checkForUpdate().then((updateAvailable) => {
       console.log(updateAvailable ? 'Update found!' : 'App is up to date');
     });
 
     timer(6 * 60 * 60 * 1000, 6 * 60 * 60 * 1000).subscribe(() => {
-      this.swUpdate.checkForUpdate().catch(err => {
+      this.swUpdate.checkForUpdate().catch((err) => {
         console.error('Error checking for updates:', err);
       });
     });
@@ -62,36 +60,44 @@ export class UpdateApp {
 
     const commit = versionInfo.commit;
     const commitMessage = commit?.message || 'New features and improvements';
-    const commitHash = commit?.hash ? 
-      `<code class="commit-hash">${commit.hash.substring(0, 7)}</code>` : '';
+    const commitHash = commit?.hash
+      ? `<code class="commit-hash">${commit.hash.substring(0, 7)}</code>`
+      : '';
     const commitAuthor = commit?.author || 'Developer';
-    const commitDate = commit?.date ? 
-      new Date(commit.date).toLocaleDateString('en-US', {
-        year: 'numeric',
-        month: 'long',
-        day: 'numeric',
-        hour: '2-digit',
-        minute: '2-digit'
-      }) : '';
+    const commitDate = commit?.date
+      ? new Date(commit.date).toLocaleDateString('en-US', {
+          year: 'numeric',
+          month: 'long',
+          day: 'numeric',
+          hour: '2-digit',
+          minute: '2-digit',
+        })
+      : '';
 
-    const bodyHtml = commit?.body ? 
-      `<p class="commit-body">${commit.body.replace(/\n/g, '<br>')}</p>` : '';
+    const bodyHtml = commit?.body
+      ? `<p class="commit-body">${commit.body.replace(/\n/g, '<br>')}</p>`
+      : '';
 
-    const statsHtml = commit?.stats ? 
-      `<p class="commit-stats">📊 ${commit.stats}</p>` : '';
+    const statsHtml = commit?.stats ? `<p class="commit-stats">📊 ${commit.stats}</p>` : '';
 
-    const tagHtml = commit?.tag ? 
-      `<span class="commit-tag">🏷️ ${commit.tag}</span>` : '';
+    const tagHtml = commit?.tag ? `<span class="commit-tag">🏷️ ${commit.tag}</span>` : '';
 
-    const changedFilesHtml = commit?.changedFiles?.length ? 
-      `<details class="changed-files">
+    const changedFilesHtml = commit?.changedFiles?.length
+      ? `<details class="changed-files">
         <summary>📁 ${commit.changedFiles.length} files changed</summary>
         <ul>
-          ${commit.changedFiles.slice(0, 5).map((f: string) => `<li>${f}</li>`).join('')}
-          ${commit.changedFiles.length > 5 ? 
-            `<li>...and ${commit.changedFiles.length - 5} more</li>` : ''}
+          ${commit.changedFiles
+            .slice(0, 5)
+            .map((f: string) => `<li>${f}</li>`)
+            .join('')}
+          ${
+            commit.changedFiles.length > 5
+              ? `<li>...and ${commit.changedFiles.length - 5} more</li>`
+              : ''
+          }
         </ul>
-      </details>` : '';
+      </details>`
+      : '';
 
     let timerIntervalId: ReturnType<typeof setInterval> | undefined;
     const result = await Swal.fire({
@@ -104,7 +110,9 @@ export class UpdateApp {
             ${tagHtml}
           </div>
           
-          ${commitHash ? `
+          ${
+            commitHash
+              ? `
             <div class="commit-section">
               <div class="commit-header">
                 <span class="commit-icon">📝</span>
@@ -117,9 +125,11 @@ export class UpdateApp {
               ${commitAuthor ? `<p class="commit-author">👤 ${commitAuthor}</p>` : ''}
               ${commitDate ? `<p class="commit-date">📅 ${commitDate}</p>` : ''}
             </div>
-          ` : `
+          `
+              : `
             <p class="update-message">${commitMessage}</p>
-          `}
+          `
+          }
           
           <div class="update-timer">
             Updating in <b></b> seconds...
@@ -140,7 +150,7 @@ export class UpdateApp {
       customClass: {
         popup: 'pwa-update-popup',
         confirmButton: 'pwa-confirm-btn',
-        cancelButton: 'pwa-cancel-btn'
+        cancelButton: 'pwa-cancel-btn',
       },
       didOpen: () => {
         const content = Swal.getHtmlContainer();
@@ -159,7 +169,7 @@ export class UpdateApp {
           clearInterval(timerIntervalId);
           timerIntervalId = undefined;
         }
-      }
+      },
     });
 
     if (result.isConfirmed || result.dismiss === Swal.DismissReason.timer) {
@@ -185,27 +195,30 @@ export class UpdateApp {
       iconColor: '#8b5cf6',
       didOpen: () => {
         Swal.showLoading();
-      }
+      },
     });
 
-    this.swUpdate.activateUpdate().then(() => {
-      timer(2000)
-        .pipe(take(1))
-        .subscribe(() => {
-          const timestamp = new Date().getTime();
-          const newUrl = `${window.location.origin}${window.location.pathname}?updated=${timestamp}`;
-          window.location.href = newUrl;
+    this.swUpdate
+      .activateUpdate()
+      .then(() => {
+        timer(2000)
+          .pipe(take(1))
+          .subscribe(() => {
+            const timestamp = new Date().getTime();
+            const newUrl = `${window.location.origin}${window.location.pathname}?updated=${timestamp}`;
+            window.location.href = newUrl;
+          });
+      })
+      .catch((err) => {
+        console.error('Error activating update:', err);
+        Swal.fire({
+          title: 'Update Failed',
+          text: 'Unable to update the app. Please refresh manually.',
+          icon: 'error',
+          background: '#1f2937',
+          color: '#ffffff',
         });
-    }).catch(err => {
-      console.error('Error activating update:', err);
-      Swal.fire({
-        title: 'Update Failed',
-        text: 'Unable to update the app. Please refresh manually.',
-        icon: 'error',
-        background: '#1f2937',
-        color: '#ffffff'
       });
-    });
   }
 
   private showUnrecoverableError() {
@@ -217,7 +230,7 @@ export class UpdateApp {
       allowOutsideClick: false,
       background: '#1f2937',
       color: '#ffffff',
-      iconColor: '#f59e0b'
+      iconColor: '#f59e0b',
     }).then((result) => {
       if (result.isConfirmed) {
         window.location.reload();
@@ -238,14 +251,14 @@ export class UpdateApp {
       const updateAvailable = await this.swUpdate.checkForUpdate();
       if (!updateAvailable) {
         Swal.fire({
-          title: '✨ You\'re Up to Date!',
+          title: "✨ You're Up to Date!",
           text: 'No updates available at this time.',
           icon: 'success',
           timer: 2000,
           showConfirmButton: false,
           background: '#1f2937',
           color: '#ffffff',
-          iconColor: '#10b981'
+          iconColor: '#10b981',
         });
       }
       return updateAvailable;

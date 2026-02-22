@@ -1,27 +1,42 @@
 {
-  "version": "0.0.14",
-  "buildDate": "2026-02-22T21:13:16.207Z",
+  "version": "0.0.15",
+  "buildDate": "2026-02-22T21:17:14.947Z",
   "environment": "development",
   "commit": {
-    "hash": "63d6ff86af8e6397f07b935d760bb769d0845e1d",
-    "shortHash": "63d6ff8",
-    "message": "version-display: toggleHistory fix",
+    "hash": "5cf2b123c97f2be1fa84a77bfb866c845538ae5b",
+    "shortHash": "5cf2b12",
+    "message": "revert: restore working update-app",
     "body": null,
     "author": "Milos",
     "email": "miloslazoviczola@gmail.com",
-    "date": "2026-02-22T22:13:12+01:00",
+    "date": "2026-02-22T22:17:10+01:00",
     "branch": "master",
     "tag": "buld",
-    "totalCommits": 71,
+    "totalCommits": 72,
     "changedFiles": [
       "package.json",
       "public/version.json",
-      "src/app/components/version-display/version-display.html"
+      "src/app/core/services/update-app.ts"
     ],
-    "stats": "3 files changed, 32 insertions(+), 30 deletions(-)",
+    "stats": "3 files changed, 101 insertions(+), 82 deletions(-)",
     "coAuthors": []
   },
   "history": [
+    {
+      "hash": "5cf2b123c97f2be1fa84a77bfb866c845538ae5b",
+      "shortHash": "5cf2b12",
+      "message": "revert: restore working update-app",
+      "body": null,
+      "author": "Milos",
+      "email": "miloslazoviczola@gmail.com",
+      "date": "2026-02-22T22:17:10+01:00",
+      "stats": "3 files changed, 101 insertions(+), 82 deletions(-)",
+      "changedFiles": [
+        "package.json",
+        "public/version.json",
+        "src/app/core/services/update-app.ts"
+      ]
+    },
     {
       "hash": "63d6ff86af8e6397f07b935d760bb769d0845e1d",
       "shortHash": "63d6ff8",
@@ -154,21 +169,6 @@
         "scripts/bump-version.js",
         "scripts/generate-version.js",
         "scripts/post-build-commit.js"
-      ]
-    },
-    {
-      "hash": "5233d90bc623a820d84f9cb209da34702c5f0303",
-      "shortHash": "5233d90",
-      "message": "fix: prevent youtube player reset on mobile",
-      "body": null,
-      "author": "Milos",
-      "email": "miloslazoviczola@gmail.com",
-      "date": "2026-02-21T18:16:48+01:00",
-      "stats": "3 files changed, 30 insertions(+), 24 deletions(-)",
-      "changedFiles": [
-        "package.json",
-        "public/version.json",
-        "src/app/components/background-music/background-music.ts"
       ]
     }
   ]
