@@ -1,27 +1,42 @@
 {
-  "version": "0.0.26",
-  "buildDate": "2026-02-22T22:04:50.768Z",
+  "version": "0.0.27",
+  "buildDate": "2026-02-22T22:15:23.397Z",
   "environment": "production",
   "commit": {
-    "hash": "147e1debe5b4611058fb422c10a056f18fd93005",
-    "shortHash": "147e1de",
-    "message": "testing link to github",
-    "body": "-testing",
+    "hash": "db011728ed64aa9feb4c77499b13a8ef87f3899c",
+    "shortHash": "db01172",
+    "message": "moved canCheckUpdates under version-number",
+    "body": null,
     "author": "Milos",
     "email": "miloslazoviczola@gmail.com",
-    "date": "2026-02-22T23:04:46+01:00",
+    "date": "2026-02-22T23:15:19+01:00",
     "branch": "master",
     "tag": "buld",
-    "totalCommits": 81,
+    "totalCommits": 82,
     "changedFiles": [
       "package.json",
       "public/version.json",
       "src/app/components/version-display/version-display.html"
     ],
-    "stats": "3 files changed, 26 insertions(+), 26 deletions(-)",
+    "stats": "3 files changed, 44 insertions(+), 30 deletions(-)",
     "coAuthors": []
   },
   "history": [
+    {
+      "hash": "db011728ed64aa9feb4c77499b13a8ef87f3899c",
+      "shortHash": "db01172",
+      "message": "moved canCheckUpdates under version-number",
+      "body": null,
+      "author": "Milos",
+      "email": "miloslazoviczola@gmail.com",
+      "date": "2026-02-22T23:15:19+01:00",
+      "stats": "3 files changed, 44 insertions(+), 30 deletions(-)",
+      "changedFiles": [
+        "package.json",
+        "public/version.json",
+        "src/app/components/version-display/version-display.html"
+      ]
+    },
     {
       "hash": "147e1debe5b4611058fb422c10a056f18fd93005",
       "shortHash": "147e1de",
@@ -150,21 +165,6 @@
       "email": "miloslazoviczola@gmail.com",
       "date": "2026-02-22T22:21:50+01:00",
       "stats": "3 files changed, 98 insertions(+), 85 deletions(-)",
-      "changedFiles": [
-        "package.json",
-        "public/version.json",
-        "src/app/core/services/update-app.ts"
-      ]
-    },
-    {
-      "hash": "5cf2b123c97f2be1fa84a77bfb866c845538ae5b",
-      "shortHash": "5cf2b12",
-      "message": "revert: restore working update-app",
-      "body": null,
-      "author": "Milos",
-      "email": "miloslazoviczola@gmail.com",
-      "date": "2026-02-22T22:17:10+01:00",
-      "stats": "3 files changed, 101 insertions(+), 82 deletions(-)",
       "changedFiles": [
         "package.json",
         "public/version.json",
