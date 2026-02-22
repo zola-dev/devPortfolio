@@ -8,7 +8,6 @@
   position: fixed;
   bottom: 0;
   right: 0;
-  z-index: 999;
 }
 
 .version-container.clickable {
@@ -228,13 +227,12 @@
   }
 
   .history-dropdown {
-    position: fixed !important;
+    position: absolute;
     width: 95vw;
     left: 2.5vw;
     right: 2.5vw;
     bottom: 60px;
     max-height: 70vh;
-    z-index: 9999;
   }
 
   .commit-message {
