@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 /**
- * postbuild.js
+ * build.js
  * After a successful build:
  *  1. Shows git status + diff summary
  *  2. Stages all changes
@@ -112,7 +112,7 @@ async function main() {
   // Commit message (subject)
   let commitMessage = '';
   while (!commitMessage.trim()) {
-    commitMessage = await ask(rl, c('Commit subject: ', 'bright'));
+    commitMessage = await ask(rl, c('Commit message: ', 'bright'));
     if (!commitMessage.trim()) {
       log('   Message cannot be empty.', 'yellow');
     }
@@ -131,7 +131,7 @@ async function main() {
   // Confirm
   const branch = getCurrentBranch();
   log(`\n   Branch     : ${c(branch, 'cyan')}`, 'reset');
-  log(`   Subject    : ${c(commitMessage.trim(), 'green')}`, 'reset');
+  log(`   Message    : ${c(commitMessage.trim(), 'green')}`, 'reset');
   if (description) {
     log(`   Description: ${c(description, 'green')}`, 'reset');
   }
