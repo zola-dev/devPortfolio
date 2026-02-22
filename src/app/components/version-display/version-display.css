@@ -133,6 +133,15 @@
   width: 24px;
   height: 24px;
 }
+.history-header a {
+  color: #8b5cf6;
+  text-decoration: none;
+  font-size: 0.85em;
+}
+
+.history-header a:hover {
+  text-decoration: underline;
+}
 
 .history-list {
   max-height: 450px;

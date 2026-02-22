@@ -1,27 +1,42 @@
 {
-  "version": "0.0.22",
-  "buildDate": "2026-02-22T21:51:23.538Z",
+  "version": "0.0.23",
+  "buildDate": "2026-02-22T21:54:00.175Z",
   "environment": "production",
   "commit": {
-    "hash": "34878bd816b6f54f2b8b51dfff084eeebf4015dd",
-    "shortHash": "34878bd",
-    "message": "testing isProduction",
+    "hash": "d00f55d3ff734e7262b42ccfb893cbf853a89197",
+    "shortHash": "d00f55d",
+    "message": "isProduction ficed, canCheckUpdates showing swall message",
     "body": null,
     "author": "Milos",
     "email": "miloslazoviczola@gmail.com",
-    "date": "2026-02-22T22:51:19+01:00",
+    "date": "2026-02-22T22:53:54+01:00",
     "branch": "master",
     "tag": "buld",
-    "totalCommits": 78,
+    "totalCommits": 79,
     "changedFiles": [
       "package.json",
       "public/version.json",
-      "scripts/generate-version.js"
+      "src/app/components/version-display/version-display.html"
     ],
-    "stats": "3 files changed, 29 insertions(+), 29 deletions(-)",
+    "stats": "3 files changed, 26 insertions(+), 24 deletions(-)",
     "coAuthors": []
   },
   "history": [
+    {
+      "hash": "d00f55d3ff734e7262b42ccfb893cbf853a89197",
+      "shortHash": "d00f55d",
+      "message": "isProduction ficed, canCheckUpdates showing swall message",
+      "body": null,
+      "author": "Milos",
+      "email": "miloslazoviczola@gmail.com",
+      "date": "2026-02-22T22:53:54+01:00",
+      "stats": "3 files changed, 26 insertions(+), 24 deletions(-)",
+      "changedFiles": [
+        "package.json",
+        "public/version.json",
+        "src/app/components/version-display/version-display.html"
+      ]
+    },
     {
       "hash": "34878bd816b6f54f2b8b51dfff084eeebf4015dd",
       "shortHash": "34878bd",
@@ -154,22 +169,6 @@
         "package.json",
         "public/version.json",
         "scripts/generate-version.js"
-      ]
-    },
-    {
-      "hash": "dac5431d1d3df3bfa62a9ab5b6edd51cacf95ba8",
-      "shortHash": "dac5431",
-      "message": "fix: remove redundant optional chain and fix Windows git tag command",
-      "body": null,
-      "author": "Milos",
-      "email": "miloslazoviczola@gmail.com",
-      "date": "2026-02-22T21:49:05+01:00",
-      "stats": "4 files changed, 72 insertions(+), 77 deletions(-)",
-      "changedFiles": [
-        "package.json",
-        "public/version.json",
-        "scripts/generate-version.js",
-        "src/app/components/version-display/version-display.html"
       ]
     }
   ]
