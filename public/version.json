@@ -1,27 +1,46 @@
 {
-  "version": "0.0.6",
-  "buildDate": "2026-02-21T17:16:53.928Z",
+  "version": "0.0.8",
+  "buildDate": "2026-02-22T18:01:34.624Z",
   "environment": "development",
   "commit": {
-    "hash": "5233d90bc623a820d84f9cb209da34702c5f0303",
-    "shortHash": "5233d90",
-    "message": "fix: prevent youtube player reset on mobile",
+    "hash": "15d96b8e0f41a5da18871aa9eaeab4e6c78463cc",
+    "shortHash": "15d96b8",
+    "message": "feat: add optional description prompt to commit script",
     "body": null,
     "author": "Milos",
     "email": "miloslazoviczola@gmail.com",
-    "date": "2026-02-21T18:16:48+01:00",
+    "date": "2026-02-21T18:32:49+01:00",
     "branch": "master",
     "tag": null,
-    "totalCommits": 62,
+    "totalCommits": 63,
     "changedFiles": [
       "package.json",
       "public/version.json",
-      "src/app/components/background-music/background-music.ts"
+      "scripts/bump-version.js",
+      "scripts/generate-version.js",
+      "scripts/post-build-commit.js"
     ],
-    "stats": "3 files changed, 30 insertions(+), 24 deletions(-)",
+    "stats": "5 files changed, 97 insertions(+), 94 deletions(-)",
     "coAuthors": []
   },
   "history": [
+    {
+      "hash": "15d96b8e0f41a5da18871aa9eaeab4e6c78463cc",
+      "shortHash": "15d96b8",
+      "message": "feat: add optional description prompt to commit script",
+      "body": null,
+      "author": "Milos",
+      "email": "miloslazoviczola@gmail.com",
+      "date": "2026-02-21T18:32:49+01:00",
+      "stats": "5 files changed, 97 insertions(+), 94 deletions(-)",
+      "changedFiles": [
+        "package.json",
+        "public/version.json",
+        "scripts/bump-version.js",
+        "scripts/generate-version.js",
+        "scripts/post-build-commit.js"
+      ]
+    },
     {
       "hash": "5233d90bc623a820d84f9cb209da34702c5f0303",
       "shortHash": "5233d90",
@@ -157,20 +176,6 @@
         "src/app/components/assistant/assistant.ts",
         "src/app/core/models/chat.ts",
         "src/app/core/services/chat.ts"
-      ]
-    },
-    {
-      "hash": "a8ef9717d1aa515c9af450f084fb136209fb5a28",
-      "shortHash": "a8ef971",
-      "message": "speach.ts: fixed duck on  background music so it gets unducked",
-      "body": null,
-      "author": "Milos",
-      "email": "miloslazoviczola@gmail.com",
-      "date": "2026-02-20T12:14:11+01:00",
-      "stats": "2 files changed, 79 insertions(+), 98 deletions(-)",
-      "changedFiles": [
-        "public/version.json",
-        "src/app/core/services/speech.ts"
       ]
     }
   ]
