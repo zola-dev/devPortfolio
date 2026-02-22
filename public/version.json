@@ -1,27 +1,42 @@
 {
-  "version": "0.0.16",
-  "buildDate": "2026-02-22T21:21:55.695Z",
+  "version": "0.0.17",
+  "buildDate": "2026-02-22T21:34:12.541Z",
   "environment": "development",
   "commit": {
-    "hash": "2f6b231e8f665a5da108f70e84b5037aadd42e17",
-    "shortHash": "2f6b231",
-    "message": "testing desc",
-    "body": null,
+    "hash": "dc98ffc7d580b3be1e292532311ca762c83b2bf1",
+    "shortHash": "dc98ffc",
+    "message": "fix: use separate -m flags for commit description on Windows",
+    "body": "-testing commit desc",
     "author": "Milos",
     "email": "miloslazoviczola@gmail.com",
-    "date": "2026-02-22T22:21:50+01:00",
+    "date": "2026-02-22T22:34:08+01:00",
     "branch": "master",
     "tag": "buld",
-    "totalCommits": 73,
+    "totalCommits": 74,
     "changedFiles": [
       "package.json",
       "public/version.json",
-      "src/app/core/services/update-app.ts"
+      "scripts/build-commit.js"
     ],
-    "stats": "3 files changed, 98 insertions(+), 85 deletions(-)",
+    "stats": "3 files changed, 30 insertions(+), 54 deletions(-)",
     "coAuthors": []
   },
   "history": [
+    {
+      "hash": "dc98ffc7d580b3be1e292532311ca762c83b2bf1",
+      "shortHash": "dc98ffc",
+      "message": "fix: use separate -m flags for commit description on Windows",
+      "body": "-testing commit desc",
+      "author": "Milos",
+      "email": "miloslazoviczola@gmail.com",
+      "date": "2026-02-22T22:34:08+01:00",
+      "stats": "3 files changed, 30 insertions(+), 54 deletions(-)",
+      "changedFiles": [
+        "package.json",
+        "public/version.json",
+        "scripts/build-commit.js"
+      ]
+    },
     {
       "hash": "2f6b231e8f665a5da108f70e84b5037aadd42e17",
       "shortHash": "2f6b231",
@@ -154,19 +169,6 @@
         "package.json",
         "public/version.json",
         "src/app/core/services/update-app.ts"
-      ]
-    },
-    {
-      "hash": "1df0f492de4fde67e52b21506d2afd7dbd5b35a8",
-      "shortHash": "1df0f49",
-      "message": "refactor generate-version.js: added Description to logs && cleanup",
-      "body": null,
-      "author": "Milos",
-      "email": "miloslazoviczola@gmail.com",
-      "date": "2026-02-22T20:47:18+01:00",
-      "stats": "1 file changed, 22 insertions(+), 52 deletions(-)",
-      "changedFiles": [
-        "scripts/generate-version.js"
       ]
     }
   ]
