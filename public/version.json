@@ -1,27 +1,42 @@
 {
-  "version": "0.0.21",
-  "buildDate": "2026-02-22T21:47:02.135Z",
-  "environment": "development",
+  "version": "0.0.22",
+  "buildDate": "2026-02-22T21:51:23.538Z",
+  "environment": "production",
   "commit": {
-    "hash": "bb76a9919ffd30a850c59fab170d49c21cf9b6bf",
-    "shortHash": "bb76a99",
-    "message": "test",
+    "hash": "34878bd816b6f54f2b8b51dfff084eeebf4015dd",
+    "shortHash": "34878bd",
+    "message": "testing isProduction",
     "body": null,
     "author": "Milos",
     "email": "miloslazoviczola@gmail.com",
-    "date": "2026-02-22T22:46:57+01:00",
+    "date": "2026-02-22T22:51:19+01:00",
     "branch": "master",
     "tag": "buld",
-    "totalCommits": 77,
+    "totalCommits": 78,
     "changedFiles": [
       "package.json",
       "public/version.json",
       "scripts/generate-version.js"
     ],
-    "stats": "3 files changed, 24 insertions(+), 26 deletions(-)",
+    "stats": "3 files changed, 29 insertions(+), 29 deletions(-)",
     "coAuthors": []
   },
   "history": [
+    {
+      "hash": "34878bd816b6f54f2b8b51dfff084eeebf4015dd",
+      "shortHash": "34878bd",
+      "message": "testing isProduction",
+      "body": null,
+      "author": "Milos",
+      "email": "miloslazoviczola@gmail.com",
+      "date": "2026-02-22T22:51:19+01:00",
+      "stats": "3 files changed, 29 insertions(+), 29 deletions(-)",
+      "changedFiles": [
+        "package.json",
+        "public/version.json",
+        "scripts/generate-version.js"
+      ]
+    },
     {
       "hash": "bb76a9919ffd30a850c59fab170d49c21cf9b6bf",
       "shortHash": "bb76a99",
@@ -155,19 +170,6 @@
         "public/version.json",
         "scripts/generate-version.js",
         "src/app/components/version-display/version-display.html"
-      ]
-    },
-    {
-      "hash": "981e78d3e42d9851f46e05bbbddeb5144eb94fd8",
-      "shortHash": "981e78d",
-      "message": "build-commit.js: logs from subject -> message",
-      "body": "-testing desc",
-      "author": "Milos",
-      "email": "miloslazoviczola@gmail.com",
-      "date": "2026-02-22T21:47:14+01:00",
-      "stats": "1 file changed, 3 insertions(+), 3 deletions(-)",
-      "changedFiles": [
-        "scripts/build-commit.js"
       ]
     }
   ]
