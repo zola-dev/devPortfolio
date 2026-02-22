@@ -39,7 +39,6 @@ function getGitInfo() {
   const totalCommits = execGitCommand('git rev-list --count HEAD');
   const changedFiles = execGitCommand('git diff-tree --no-commit-id -r --name-only HEAD');
   const stats = execGitCommand('git diff-tree --no-commit-id -r --shortstat HEAD');
-
   let coAuthors = [];
   if (body) {
     const matches = body.match(/Co-authored-by: (.+) <(.+)>/g);

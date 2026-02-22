@@ -1,28 +1,57 @@
 {
-  "version": "0.0.10",
-  "buildDate": "2026-02-22T20:35:55.577Z",
+  "version": "0.0.11",
+  "buildDate": "2026-02-22T20:49:10.271Z",
   "environment": "development",
   "commit": {
-    "hash": "ecc13097bcae16bbaf34f70c1c666f7d7df60662",
-    "shortHash": "ecc1309",
-    "message": "chore: add deploy script to package.json",
+    "hash": "dac5431d1d3df3bfa62a9ab5b6edd51cacf95ba8",
+    "shortHash": "dac5431",
+    "message": "fix: remove redundant optional chain and fix Windows git tag command",
     "body": null,
     "author": "Milos",
     "email": "miloslazoviczola@gmail.com",
-    "date": "2026-02-22T21:22:24+01:00",
+    "date": "2026-02-22T21:49:05+01:00",
     "branch": "master",
-    "tag": null,
-    "totalCommits": 67,
+    "tag": "buld",
+    "totalCommits": 69,
     "changedFiles": [
       "package.json",
-      "scripts/build-commit.js",
-      "scripts/post-build-commit.js",
-      "src/app/components/version-display/version-display.ts"
+      "public/version.json",
+      "scripts/generate-version.js",
+      "src/app/components/version-display/version-display.html"
     ],
-    "stats": "4 files changed, 238 insertions(+), 237 deletions(-)",
+    "stats": "4 files changed, 72 insertions(+), 77 deletions(-)",
     "coAuthors": []
   },
   "history": [
+    {
+      "hash": "dac5431d1d3df3bfa62a9ab5b6edd51cacf95ba8",
+      "shortHash": "dac5431",
+      "message": "fix: remove redundant optional chain and fix Windows git tag command",
+      "body": null,
+      "author": "Milos",
+      "email": "miloslazoviczola@gmail.com",
+      "date": "2026-02-22T21:49:05+01:00",
+      "stats": "4 files changed, 72 insertions(+), 77 deletions(-)",
+      "changedFiles": [
+        "package.json",
+        "public/version.json",
+        "scripts/generate-version.js",
+        "src/app/components/version-display/version-display.html"
+      ]
+    },
+    {
+      "hash": "981e78d3e42d9851f46e05bbbddeb5144eb94fd8",
+      "shortHash": "981e78d",
+      "message": "build-commit.js: logs from subject -> message",
+      "body": "-testing desc",
+      "author": "Milos",
+      "email": "miloslazoviczola@gmail.com",
+      "date": "2026-02-22T21:47:14+01:00",
+      "stats": "1 file changed, 3 insertions(+), 3 deletions(-)",
+      "changedFiles": [
+        "scripts/build-commit.js"
+      ]
+    },
     {
       "hash": "ecc13097bcae16bbaf34f70c1c666f7d7df60662",
       "shortHash": "ecc1309",
@@ -140,37 +169,6 @@
       "stats": "1 file changed, 3 insertions(+), 3 deletions(-)",
       "changedFiles": [
         "package.json"
-      ]
-    },
-    {
-      "hash": "5f9e3185607f6c3ee44e7234e6fdf6752a5ef5e2",
-      "shortHash": "5f9e318",
-      "message": "removed tags",
-      "body": null,
-      "author": "Milos",
-      "email": "miloslazoviczola@gmail.com",
-      "date": "2026-02-21T16:02:14+01:00",
-      "stats": "2 files changed, 29 insertions(+), 26 deletions(-)",
-      "changedFiles": [
-        "package.json",
-        "public/version.json"
-      ]
-    },
-    {
-      "hash": "2b78a464d06ba0221ad4de9f2d00a11d8f076a6a",
-      "shortHash": "2b78a46",
-      "message": "moved init chat to chatService",
-      "body": null,
-      "author": "Milos",
-      "email": "miloslazoviczola@gmail.com",
-      "date": "2026-02-21T15:50:21+01:00",
-      "stats": "5 files changed, 183 insertions(+), 309 deletions(-)",
-      "changedFiles": [
-        "package.json",
-        "public/version.json",
-        "src/app/components/assistant/assistant.ts",
-        "src/app/core/services/chat.ts",
-        "src/app/core/services/speech.ts"
       ]
     }
   ]
