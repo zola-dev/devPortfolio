@@ -8,6 +8,7 @@
   position: fixed;
   bottom: 0;
   right: 0;
+  z-index: 999;
 }
 
 .version-container.clickable {
@@ -233,6 +234,7 @@
     right: 2.5vw;
     bottom: 60px;
     max-height: 70vh;
+    z-index: 9999;
   }
 
   .commit-message {
