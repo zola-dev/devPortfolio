@@ -1,16 +1,6 @@
 #!/usr/bin/env node
 
-/**
- * build.js
- * After a successful build:
- *  1. Shows git status + diff summary
- *  2. Stages all changes
- *  3. Prompts for commit message, description, and optional tags
- *  4. Commits locally
- *  5. Asks whether to push to remote origin (current branch)
- */
-
-const { execSync, spawnSync } = require('child_process');
+const { execSync } = require('child_process');
 const readline = require('readline');
 
 const colors = {
@@ -109,7 +99,6 @@ async function main() {
     output: process.stdout
   });
 
-  // Commit message (subject)
   let commitMessage = '';
   while (!commitMessage.trim()) {
     commitMessage = await ask(rl, c('Commit message: ', 'bright'));
@@ -118,17 +107,14 @@ async function main() {
     }
   }
 
-  // Optional description
   const descriptionInput = await ask(rl, c('Description (optional): ', 'bright'));
   const description = descriptionInput.trim();
 
-  // Optional tags
   const tagsInput = await ask(rl, c('Tags (optional, space-separated, e.g. v1.0.0 release): ', 'bright'));
   const tags = tagsInput.trim()
     ? tagsInput.trim().split(/\s+/).filter(Boolean)
     : [];
 
-  // Confirm
   const branch = getCurrentBranch();
   log(`\n   Branch     : ${c(branch, 'cyan')}`, 'reset');
   log(`   Message    : ${c(commitMessage.trim(), 'green')}`, 'reset');
@@ -146,7 +132,6 @@ async function main() {
     process.exit(0);
   }
 
-  // Stage all
   log('\nStaging all changes...', 'blue');
   const stageResult = exec('git add -A');
   if (stageResult === null) {
@@ -155,17 +140,14 @@ async function main() {
     process.exit(1);
   }
 
-  // Build full commit message (subject + blank line + description if provided)
   const subject = commitMessage.trim().replace(/"/g, '\\"');
-  let fullMessage = subject;
-  if (description) {
-    const desc = description.replace(/"/g, '\\"');
-    fullMessage = `${subject}\n\n${desc}`;
-  }
+  const desc = description ? description.replace(/"/g, '\\"') : '';
 
-  // Commit
   log('Committing...', 'blue');
-  const commitResult = exec(`git commit -m "${fullMessage}"`);
+  const commitResult = description
+    ? exec(`git commit -m "${subject}" -m "${desc}"`)
+    : exec(`git commit -m "${subject}"`);
+
   if (commitResult === null) {
     log('Commit failed.', 'red');
     rl.close();
@@ -175,7 +157,6 @@ async function main() {
   const shortHash = exec('git rev-parse --short HEAD') || '';
   log(`\nCommitted locally! ${c(shortHash, 'yellow')}`, 'green');
 
-  // Tags
   if (tags.length > 0) {
     log('\nCreating tags...', 'blue');
     for (const tag of tags) {
@@ -188,7 +169,6 @@ async function main() {
     }
   }
 
-  // Push
   if (!hasRemote()) {
     log('\nNo remote "origin" found — skipping push.\n', 'dim');
     rl.close();
@@ -200,7 +180,6 @@ async function main() {
   if (pushAnswer.trim().toLowerCase() === 'y') {
     log(`\nPushing to origin/${branch}...`, 'blue');
 
-    // Push branch
     const pushResult = exec(`git push origin ${branch}`);
     if (pushResult === null) {
       log('Push failed. Check your remote and try manually: git push origin ' + branch, 'red');
@@ -208,7 +187,6 @@ async function main() {
       log(`Pushed to origin/${branch}!`, 'green');
     }
 
-    // Push tags if any
     if (tags.length > 0) {
       log('Pushing tags...', 'blue');
       const tagPush = exec('git push origin --tags');
