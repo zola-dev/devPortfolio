@@ -9,6 +9,18 @@
   bottom: 0;
   right: 0;
 }
+
+.version-container.clickable {
+  cursor: pointer;
+}
+
+.version-container.clickable:hover {
+  background: rgba(139, 92, 246, 0.2);
+  border-color: rgba(139, 92, 246, 0.4);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(139, 92, 246, 0.3);
+}
+
 .version-container.clickable:hover::after {
   content: 'Check for updates';
   position: absolute;
@@ -22,16 +34,6 @@
   border-radius: 4px;
   white-space: nowrap;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-}
-.version-container.clickable {
-  cursor: pointer;
-}
-
-.version-container.clickable:hover {
-  background: rgba(139, 92, 246, 0.2);
-  border-color: rgba(139, 92, 246, 0.4);
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(139, 92, 246, 0.3);
 }
 
 .version-info {
@@ -56,15 +58,13 @@
 }
 
 .commit-hash {
-  background: rgba(255, 255, 255, 0.05);
-  border-radius: 4px;
-
   padding: 4px 12px;
   border-radius: 6px;
   font-family: 'Courier New', monospace;
   font-size: 13px;
   color: #a78bfa;
   border: 1px solid rgba(167, 139, 250, 0.3);
+  background: rgba(255, 255, 255, 0.05);
 }
 
 .history-icon {
@@ -75,34 +75,6 @@
 
 .history-icon:hover {
   transform: scale(1.2);
-}
-
-.update-hint {
-  display: flex;
-  align-items: center;
-  gap: 4px;
-  font-size: 11px;
-  color: #9ca3af;
-  opacity: 0;
-  transition: opacity 0.3s ease;
-}
-
-.version-container.clickable:hover .update-hint {
-  opacity: 1;
-}
-
-.hint-icon {
-  font-size: 12px;
-  animation: rotate 2s linear infinite;
-}
-
-@keyframes rotate {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
-}
-
-.hint-text {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
 }
 
 /* History Dropdown */
@@ -146,6 +118,7 @@
   width: 24px;
   height: 24px;
 }
+
 .history-header a {
   color: #8b5cf6;
   text-decoration: none;
@@ -244,26 +217,16 @@
   padding: 2px 0;
 }
 
-/* Responsive */
 @media (max-width: 640px) {
   .version-container {
     padding: 6px 12px;
   }
-  
+
   .version-number {
     font-size: 12px;
   }
-  
-  .hint-text {
-    display: none;
-  }
 
   .history-dropdown {
-    /* width: 90vw;
-    right: auto;
-    left: 50%;
-    transform: translateX(-50%); */
-
     position: fixed !important;
     width: 95vw;
     left: 2.5vw;
@@ -271,6 +234,7 @@
     bottom: 60px;
     max-height: 70vh;
   }
+
   .commit-message {
     font-size: 15px;
     line-height: 1.6;
@@ -278,12 +242,7 @@
     color: #e5e7eb;
     font-style: italic;
   }
-  .version-badge {
-    font-size: 14px;
-  }
-  .commit-section {
-    padding: 12px;
-  }
+
   .commit-hash-item, .commit-body, .commit-meta {
     font-size: 11px;
   }
