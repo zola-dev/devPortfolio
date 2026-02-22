@@ -22,7 +22,6 @@ function execGitCommand(command) {
   try {
     return execSync(command, { encoding: 'utf-8' }).trim();
   } catch (error) {
-    console.warn(`Warning: Git command failed: ${command}`);
     return null;
   }
 }
@@ -31,19 +30,16 @@ function getGitInfo() {
   const hash = execGitCommand('git rev-parse HEAD');
   const shortHash = execGitCommand('git rev-parse --short HEAD');
   const branch = execGitCommand('git rev-parse --abbrev-ref HEAD');
-  
   const message = execGitCommand('git log -1 --pretty=%s');
   const body = execGitCommand('git log -1 --pretty=%b');
   const author = execGitCommand('git log -1 --pretty=%an');
   const authorEmail = execGitCommand('git log -1 --pretty=%ae');
   const date = execGitCommand('git log -1 --pretty=%cI');
-  
   const tag = execGitCommand('git describe --tags --abbrev=0 2>/dev/null');
   const totalCommits = execGitCommand('git rev-list --count HEAD');
-  
   const changedFiles = execGitCommand('git diff-tree --no-commit-id -r --name-only HEAD');
   const stats = execGitCommand('git diff-tree --no-commit-id -r --shortstat HEAD');
-  
+
   let coAuthors = [];
   if (body) {
     const matches = body.match(/Co-authored-by: (.+) <(.+)>/g);
@@ -73,36 +69,23 @@ function getGitInfo() {
 }
 
 function getCommitHistory(count = 10) {
-  // Koristimo jedinstveni separator koji neće biti u commit porukama
   const COMMIT_SEP = '---COMMIT_SEP---';
   const FIELD_SEP = '---FIELD_SEP---';
-
-  // %s = subject (prva linija), %b = body, %an = author name, %ae = email, %cI = date
-  // Ne mešamo body sa ostalim poljima - koristimo poseban format
   const format = `%H${FIELD_SEP}%h${FIELD_SEP}%s${FIELD_SEP}%an${FIELD_SEP}%ae${FIELD_SEP}%cI${FIELD_SEP}%b${COMMIT_SEP}`;
 
-  const raw = execGitCommand(
-    `git log -${count} --pretty=format:"${format}"`
-  );
-
+  const raw = execGitCommand(`git log -${count} --pretty=format:"${format}"`);
   if (!raw) return [];
 
-  // Split po commit separatoru
-  const commits = raw
-    .split(COMMIT_SEP)
-    .map(s => s.trim())
-    .filter(Boolean);
+  const commits = raw.split(COMMIT_SEP).map(s => s.trim()).filter(Boolean);
 
   return commits.map(commitRaw => {
     const [hash, shortHash, subject, author, email, date, ...bodyParts] = commitRaw.split(FIELD_SEP);
     const body = bodyParts.join(FIELD_SEP).trim() || null;
     if (!hash || !shortHash) return null;
-    const statsRaw = execGitCommand(
-      `git diff-tree --no-commit-id -r --shortstat ${hash}`
-    );
-    const filesRaw = execGitCommand(
-      `git diff-tree --no-commit-id -r --name-only ${hash}`
-    );
+
+    const statsRaw = execGitCommand(`git diff-tree --no-commit-id -r --shortstat ${hash}`);
+    const filesRaw = execGitCommand(`git diff-tree --no-commit-id -r --name-only ${hash}`);
+
     return {
       hash: hash.trim(),
       shortHash: shortHash.trim(),
@@ -116,14 +99,13 @@ function getCommitHistory(count = 10) {
     };
   }).filter(Boolean);
 }
+
 function generateVersionJson() {
-  log('\n Generating version.json...', 'cyan');
-  log('═══════════════════════════════════════', 'cyan');
   const packageJsonPath = path.join(process.cwd(), 'package.json');
   const packageJson = JSON.parse(fs.readFileSync(packageJsonPath, 'utf-8'));
-  log(' Reading Git information...', 'blue');
   const gitInfo = getGitInfo();
   const isProduction = process.env.NODE_ENV === 'production' || process.argv.includes('--production');
+
   const versionInfo = {
     version: packageJson.version || '1.0.0',
     buildDate: new Date().toISOString(),
@@ -153,47 +135,35 @@ function generateVersionJson() {
   const outputPath = path.join(process.cwd(), 'public');
   if (!fs.existsSync(outputPath)) {
     fs.mkdirSync(outputPath, { recursive: true });
-    log('Created public directory', 'yellow');
   }
 
   const versionFilePath = path.join(outputPath, 'version.json');
-  fs.writeFileSync(
-    versionFilePath,
-    JSON.stringify(versionInfo, null, 2),
-    'utf-8'
-  );
+  fs.writeFileSync(versionFilePath, JSON.stringify(versionInfo, null, 2), 'utf-8');
 
   log('\nversion.json generated successfully!', 'green');
-  log('═══════════════════════════════════════', 'cyan');
+  log('=======================================', 'cyan');
   log(`Location: ${versionFilePath}`, 'blue');
   log(`Version: ${colors.bright}${versionInfo.version}${colors.reset}`, 'reset');
   log(`Environment: ${colors.bright}${versionInfo.environment}${colors.reset}`, 'reset');
-  
+
   if (versionInfo.commit) {
     log('\nCommit Information:', 'magenta');
     log(`   Hash: ${versionInfo.commit.shortHash}`, 'reset');
     log(`   Branch: ${versionInfo.commit.branch}`, 'reset');
     log(`   Author: ${versionInfo.commit.author}`, 'reset');
     log(`   Message: "${versionInfo.commit.message}"`, 'reset');
+    if (versionInfo.commit.body) {
+      log(`   Description: "${versionInfo.commit.body}"`, 'reset');
+    }
     log(`   Date: ${new Date(versionInfo.commit.date).toLocaleString('en-US')}`, 'reset');
-    if (versionInfo.commit.tag) {
-      log(`   Tag: ${versionInfo.commit.tag}`, 'reset');
-    }
-    if (versionInfo.commit.totalCommits) {
-      log(`   Total Commits: ${versionInfo.commit.totalCommits}`, 'reset');
-    }
-    if (versionInfo.commit.stats) {
-      log(`   Stats: ${versionInfo.commit.stats}`, 'reset');
-    }
-    if (versionInfo.commit.changedFiles.length > 0) {
-      log(`   Changed Files: ${versionInfo.commit.changedFiles.length}`, 'reset');
-    }
-    if (versionInfo.commit.coAuthors.length > 0) {
-      log(`   Co-Authors: ${versionInfo.commit.coAuthors.length}`, 'reset');
-    }
+    if (versionInfo.commit.tag) log(`   Tag: ${versionInfo.commit.tag}`, 'reset');
+    if (versionInfo.commit.totalCommits) log(`   Total Commits: ${versionInfo.commit.totalCommits}`, 'reset');
+    if (versionInfo.commit.stats) log(`   Stats: ${versionInfo.commit.stats}`, 'reset');
+    if (versionInfo.commit.changedFiles.length > 0) log(`   Changed Files: ${versionInfo.commit.changedFiles.length}`, 'reset');
+    if (versionInfo.commit.coAuthors.length > 0) log(`   Co-Authors: ${versionInfo.commit.coAuthors.length}`, 'reset');
   }
-  
-  log('═══════════════════════════════════════\n', 'cyan');
+
+  log('=======================================\n', 'cyan');
 
   return versionInfo;
 }
