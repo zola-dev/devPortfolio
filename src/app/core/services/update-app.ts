@@ -28,8 +28,11 @@ export class UpdateApp {
     this.checkForUpdates();
 
     this.swUpdate.versionUpdates
-      .pipe(filter((evt): evt is VersionReadyEvent => evt.type === 'VERSION_READY'))
+      .pipe(
+        filter((evt): evt is VersionReadyEvent => evt.type === 'VERSION_READY')
+      )
       .subscribe(async (event) => {
+        console.log('New version available!', event);
         const versionInfo = await this.version.getVersionInfo();
         this.showUpdatePrompt(versionInfo);
       });
@@ -43,55 +46,56 @@ export class UpdateApp {
   private checkForUpdates() {
     if (!this.swUpdate.isEnabled) return;
 
-    this.swUpdate.checkForUpdate();
+    this.swUpdate.checkForUpdate().then(updateAvailable => {
+      console.log(updateAvailable ? 'Update found!' : 'App is up to date');
+    });
 
     timer(6 * 60 * 60 * 1000, 6 * 60 * 60 * 1000).subscribe(() => {
-      this.swUpdate.checkForUpdate().catch(() => {});
+      this.swUpdate.checkForUpdate().catch(err => {
+        console.error('Error checking for updates:', err);
+      });
     });
   }
 
   private async showUpdatePrompt(versionInfo: any) {
     const randomDelay = Math.floor(Math.random() * (20 - 5 + 1) + 15) * 1000;
+
     const commit = versionInfo.commit;
-
     const commitMessage = commit?.message || 'New features and improvements';
-    const commitHash = commit?.hash
-      ? `<code class="commit-hash">${commit.hash.substring(0, 7)}</code>`
-      : '';
-    const commitAuthor = commit?.author || '';
-    const commitDate = commit?.date
-      ? new Date(commit.date).toLocaleDateString('en-US', {
-          year: 'numeric', month: 'long', day: 'numeric',
-          hour: '2-digit', minute: '2-digit'
-        })
-      : '';
+    const commitHash = commit?.hash ? 
+      `<code class="commit-hash">${commit.hash.substring(0, 7)}</code>` : '';
+    const commitAuthor = commit?.author || 'Developer';
+    const commitDate = commit?.date ? 
+      new Date(commit.date).toLocaleDateString('en-US', {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric',
+        hour: '2-digit',
+        minute: '2-digit'
+      }) : '';
 
-    const bodyHtml = commit?.body
-      ? `<p class="commit-body">${commit.body.replace(/\n/g, '<br>')}</p>`
-      : '';
+    const bodyHtml = commit?.body ? 
+      `<p class="commit-body">${commit.body.replace(/\n/g, '<br>')}</p>` : '';
 
-    const statsHtml = commit?.stats
-      ? `<p class="commit-stats">${commit.stats}</p>`
-      : '';
+    const statsHtml = commit?.stats ? 
+      `<p class="commit-stats">📊 ${commit.stats}</p>` : '';
 
-    const tagHtml = commit?.tag
-      ? `<span class="commit-tag">${commit.tag}</span>`
-      : '';
+    const tagHtml = commit?.tag ? 
+      `<span class="commit-tag">🏷️ ${commit.tag}</span>` : '';
 
-    const changedFilesHtml = commit?.changedFiles?.length
-      ? `<details class="changed-files">
-          <summary>${commit.changedFiles.length} files changed</summary>
-          <ul>
-            ${commit.changedFiles.slice(0, 5).map((f: string) => `<li>${f}</li>`).join('')}
-            ${commit.changedFiles.length > 5 ? `<li>...and ${commit.changedFiles.length - 5} more</li>` : ''}
-          </ul>
-        </details>`
-      : '';
+    const changedFilesHtml = commit?.changedFiles?.length ? 
+      `<details class="changed-files">
+        <summary>📁 ${commit.changedFiles.length} files changed</summary>
+        <ul>
+          ${commit.changedFiles.slice(0, 5).map((f: string) => `<li>${f}</li>`).join('')}
+          ${commit.changedFiles.length > 5 ? 
+            `<li>...and ${commit.changedFiles.length - 5} more</li>` : ''}
+        </ul>
+      </details>` : '';
 
     let timerIntervalId: ReturnType<typeof setInterval> | undefined;
-
     const result = await Swal.fire({
-      title: 'Update Available',
+      title: '🚀 Update Available!',
       html: `
         <div class="update-info">
           <div class="version-badge">
@@ -110,13 +114,13 @@ export class UpdateApp {
               ${bodyHtml}
               ${changedFilesHtml}
               ${statsHtml}
-              ${commitAuthor ? `<p class="commit-author">${commitAuthor}</p>` : ''}
-              ${commitDate ? `<p class="commit-date">${commitDate}</p>` : ''}
+              ${commitAuthor ? `<p class="commit-author">👤 ${commitAuthor}</p>` : ''}
+              ${commitDate ? `<p class="commit-date">📅 ${commitDate}</p>` : ''}
             </div>
           ` : `
             <p class="update-message">${commitMessage}</p>
           `}
-
+          
           <div class="update-timer">
             Updating in <b></b> seconds...
           </div>
@@ -127,8 +131,8 @@ export class UpdateApp {
       timerProgressBar: true,
       showConfirmButton: true,
       showCancelButton: true,
-      confirmButtonText: 'Update Now',
-      cancelButtonText: 'Later',
+      confirmButtonText: '✨ Update Now',
+      cancelButtonText: '⏰ Later',
       allowOutsideClick: false,
       background: '#1f2937',
       color: '#ffffff',
@@ -161,15 +165,17 @@ export class UpdateApp {
     if (result.isConfirmed || result.dismiss === Swal.DismissReason.timer) {
       this.activateUpdate();
     } else if (result.dismiss === Swal.DismissReason.cancel) {
-      timer(60 * 60 * 1000).pipe(take(1)).subscribe(() => {
-        this.swUpdate.checkForUpdate();
-      });
+      timer(60 * 60 * 1000)
+        .pipe(take(1))
+        .subscribe(() => {
+          this.swUpdate.checkForUpdate();
+        });
     }
   }
 
   private activateUpdate() {
     Swal.fire({
-      title: 'Updating...',
+      title: '⚡ Updating...',
       html: 'Please wait while we update the app...',
       icon: 'info',
       allowOutsideClick: false,
@@ -177,15 +183,21 @@ export class UpdateApp {
       background: '#1f2937',
       color: '#ffffff',
       iconColor: '#8b5cf6',
-      didOpen: () => Swal.showLoading()
+      didOpen: () => {
+        Swal.showLoading();
+      }
     });
 
     this.swUpdate.activateUpdate().then(() => {
-      timer(2000).pipe(take(1)).subscribe(() => {
-        const timestamp = new Date().getTime();
-        window.location.href = `${window.location.origin}${window.location.pathname}?updated=${timestamp}`;
-      });
-    }).catch(() => {
+      timer(2000)
+        .pipe(take(1))
+        .subscribe(() => {
+          const timestamp = new Date().getTime();
+          const newUrl = `${window.location.origin}${window.location.pathname}?updated=${timestamp}`;
+          window.location.href = newUrl;
+        });
+    }).catch(err => {
+      console.error('Error activating update:', err);
       Swal.fire({
         title: 'Update Failed',
         text: 'Unable to update the app. Please refresh manually.',
@@ -207,18 +219,26 @@ export class UpdateApp {
       color: '#ffffff',
       iconColor: '#f59e0b'
     }).then((result) => {
-      if (result.isConfirmed) window.location.reload();
+      if (result.isConfirmed) {
+        window.location.reload();
+      }
     });
   }
 
+  /**
+   * Manually check for updates (call from UI)
+   */
   async checkForUpdate() {
-    if (!this.swUpdate.isEnabled) return false;
+    if (!this.swUpdate.isEnabled) {
+      console.warn('Service Worker is not enabled');
+      return false;
+    }
 
     try {
       const updateAvailable = await this.swUpdate.checkForUpdate();
       if (!updateAvailable) {
         Swal.fire({
-          title: 'You\'re Up to Date!',
+          title: '✨ You\'re Up to Date!',
           text: 'No updates available at this time.',
           icon: 'success',
           timer: 2000,

@@ -1,27 +1,42 @@
 {
-  "version": "0.0.12",
-  "buildDate": "2026-02-22T20:50:20.216Z",
+  "version": "0.0.14",
+  "buildDate": "2026-02-22T21:13:16.207Z",
   "environment": "development",
   "commit": {
-    "hash": "f9ea40ace409021daade02d366cb3353256c9833",
-    "shortHash": "f9ea40a",
-    "message": "testing desc",
+    "hash": "63d6ff86af8e6397f07b935d760bb769d0845e1d",
+    "shortHash": "63d6ff8",
+    "message": "version-display: toggleHistory fix",
     "body": null,
     "author": "Milos",
     "email": "miloslazoviczola@gmail.com",
-    "date": "2026-02-22T21:50:16+01:00",
+    "date": "2026-02-22T22:13:12+01:00",
     "branch": "master",
     "tag": "buld",
-    "totalCommits": 70,
+    "totalCommits": 71,
     "changedFiles": [
       "package.json",
       "public/version.json",
-      "scripts/generate-version.js"
+      "src/app/components/version-display/version-display.html"
     ],
-    "stats": "3 files changed, 42 insertions(+), 45 deletions(-)",
+    "stats": "3 files changed, 32 insertions(+), 30 deletions(-)",
     "coAuthors": []
   },
   "history": [
+    {
+      "hash": "63d6ff86af8e6397f07b935d760bb769d0845e1d",
+      "shortHash": "63d6ff8",
+      "message": "version-display: toggleHistory fix",
+      "body": null,
+      "author": "Milos",
+      "email": "miloslazoviczola@gmail.com",
+      "date": "2026-02-22T22:13:12+01:00",
+      "stats": "3 files changed, 32 insertions(+), 30 deletions(-)",
+      "changedFiles": [
+        "package.json",
+        "public/version.json",
+        "src/app/components/version-display/version-display.html"
+      ]
+    },
     {
       "hash": "f9ea40ace409021daade02d366cb3353256c9833",
       "shortHash": "f9ea40a",
@@ -153,22 +168,6 @@
       "changedFiles": [
         "package.json",
         "public/version.json",
-        "src/app/components/background-music/background-music.ts"
-      ]
-    },
-    {
-      "hash": "aed1c8c08015742c6e56760340a86fc41f49276a",
-      "shortHash": "aed1c8c",
-      "message": "fix: prevent youtube player reset on mobile",
-      "body": null,
-      "author": "Milos",
-      "email": "miloslazoviczola@gmail.com",
-      "date": "2026-02-21T18:15:47+01:00",
-      "stats": "4 files changed, 43 insertions(+), 45 deletions(-)",
-      "changedFiles": [
-        "package.json",
-        "public/version.json",
-        "src/app/components/background-music/background-music.css",
         "src/app/components/background-music/background-music.ts"
       ]
     }
