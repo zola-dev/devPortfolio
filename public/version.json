@@ -1,27 +1,42 @@
 {
-  "version": "0.0.17",
-  "buildDate": "2026-02-22T21:34:12.541Z",
+  "version": "0.0.19",
+  "buildDate": "2026-02-22T21:44:36.948Z",
   "environment": "development",
   "commit": {
-    "hash": "dc98ffc7d580b3be1e292532311ca762c83b2bf1",
-    "shortHash": "dc98ffc",
-    "message": "fix: use separate -m flags for commit description on Windows",
-    "body": "-testing commit desc",
+    "hash": "d4bb2db5be847a280cd5dba57ab2d58281ef9b07",
+    "shortHash": "d4bb2db",
+    "message": "version-display: testing canCheckUpdates",
+    "body": "-test",
     "author": "Milos",
     "email": "miloslazoviczola@gmail.com",
-    "date": "2026-02-22T22:34:08+01:00",
+    "date": "2026-02-22T22:38:38+01:00",
     "branch": "master",
     "tag": "buld",
-    "totalCommits": 74,
+    "totalCommits": 75,
     "changedFiles": [
       "package.json",
       "public/version.json",
-      "scripts/build-commit.js"
+      "src/app/components/version-display/version-display.html"
     ],
-    "stats": "3 files changed, 30 insertions(+), 54 deletions(-)",
+    "stats": "3 files changed, 27 insertions(+), 25 deletions(-)",
     "coAuthors": []
   },
   "history": [
+    {
+      "hash": "d4bb2db5be847a280cd5dba57ab2d58281ef9b07",
+      "shortHash": "d4bb2db",
+      "message": "version-display: testing canCheckUpdates",
+      "body": "-test",
+      "author": "Milos",
+      "email": "miloslazoviczola@gmail.com",
+      "date": "2026-02-22T22:38:38+01:00",
+      "stats": "3 files changed, 27 insertions(+), 25 deletions(-)",
+      "changedFiles": [
+        "package.json",
+        "public/version.json",
+        "src/app/components/version-display/version-display.html"
+      ]
+    },
     {
       "hash": "dc98ffc7d580b3be1e292532311ca762c83b2bf1",
       "shortHash": "dc98ffc",
@@ -154,21 +169,6 @@
       "changedFiles": [
         "src/app/components/version-display/version-display.html",
         "src/app/components/version-display/version-display.ts"
-      ]
-    },
-    {
-      "hash": "80e4500a080acbc5db9e0da50fb0a619f0cd3d65",
-      "shortHash": "80e4500",
-      "message": "refactor update-app: cleanup",
-      "body": null,
-      "author": "Milos",
-      "email": "miloslazoviczola@gmail.com",
-      "date": "2026-02-22T21:04:38+01:00",
-      "stats": "3 files changed, 85 insertions(+), 100 deletions(-)",
-      "changedFiles": [
-        "package.json",
-        "public/version.json",
-        "src/app/core/services/update-app.ts"
       ]
     }
   ]
