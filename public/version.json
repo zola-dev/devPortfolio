@@ -1,27 +1,42 @@
 {
-  "version": "0.0.25",
-  "buildDate": "2026-02-22T22:04:22.110Z",
+  "version": "0.0.26",
+  "buildDate": "2026-02-22T22:04:50.768Z",
   "environment": "production",
   "commit": {
-    "hash": "317169dd6c21e605ddda05ed200970231bfdb086",
-    "shortHash": "317169d",
-    "message": "version-display: added link to devPortfolio",
-    "body": null,
+    "hash": "147e1debe5b4611058fb422c10a056f18fd93005",
+    "shortHash": "147e1de",
+    "message": "testing link to github",
+    "body": "-testing",
     "author": "Milos",
     "email": "miloslazoviczola@gmail.com",
-    "date": "2026-02-22T23:02:36+01:00",
+    "date": "2026-02-22T23:04:46+01:00",
     "branch": "master",
     "tag": "buld",
-    "totalCommits": 80,
+    "totalCommits": 81,
     "changedFiles": [
       "package.json",
       "public/version.json",
-      "src/app/components/version-display/version-display.css"
+      "src/app/components/version-display/version-display.html"
     ],
-    "stats": "3 files changed, 35 insertions(+), 27 deletions(-)",
+    "stats": "3 files changed, 26 insertions(+), 26 deletions(-)",
     "coAuthors": []
   },
   "history": [
+    {
+      "hash": "147e1debe5b4611058fb422c10a056f18fd93005",
+      "shortHash": "147e1de",
+      "message": "testing link to github",
+      "body": "-testing",
+      "author": "Milos",
+      "email": "miloslazoviczola@gmail.com",
+      "date": "2026-02-22T23:04:46+01:00",
+      "stats": "3 files changed, 26 insertions(+), 26 deletions(-)",
+      "changedFiles": [
+        "package.json",
+        "public/version.json",
+        "src/app/components/version-display/version-display.html"
+      ]
+    },
     {
       "hash": "317169dd6c21e605ddda05ed200970231bfdb086",
       "shortHash": "317169d",
@@ -154,21 +169,6 @@
         "package.json",
         "public/version.json",
         "src/app/core/services/update-app.ts"
-      ]
-    },
-    {
-      "hash": "63d6ff86af8e6397f07b935d760bb769d0845e1d",
-      "shortHash": "63d6ff8",
-      "message": "version-display: toggleHistory fix",
-      "body": null,
-      "author": "Milos",
-      "email": "miloslazoviczola@gmail.com",
-      "date": "2026-02-22T22:13:12+01:00",
-      "stats": "3 files changed, 32 insertions(+), 30 deletions(-)",
-      "changedFiles": [
-        "package.json",
-        "public/version.json",
-        "src/app/components/version-display/version-display.html"
       ]
     }
   ]

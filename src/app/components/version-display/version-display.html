@@ -8,23 +8,37 @@
     @if (hasHistory()) {
       <span class="history-icon" (click)="toggleHistory($event)">📜</span>
     }
+    @if (canCheckUpdates()) {
+      <div class="update-hint">
+        <span class="hint-icon">🔄</span>
+        <span class="hint-text">Click to check for updates</span>
+      </div>
+    }
   </div>
-  
+  <!--   
   @if (canCheckUpdates()) {
     <div class="update-hint">
       <span class="hint-icon">🔄</span>
       <span class="hint-text">Click to check for updates</span>
     </div>
-  }
+  } -->
 
   <!-- History Dropdown -->
   @if (showHistory()) {
     <div class="history-dropdown" (click)="$event.stopPropagation()">
       <div class="history-header">
-        <h4>Last 10 Commits</h4><span><a href="https://github.com/zola-dev/devPortfolio" target="_blank" rel="noopener noreferrer">github</a></span>
+        <h4>
+          Last 10 Commits —
+          <a
+            href="https://github.com/zola-dev/devPortfolio/commits/master"
+            target="_blank"
+            rel="noopener noreferrer"
+            >View Full History ↗</a
+          >
+        </h4>
         <button (click)="toggleHistory($event)">✕</button>
       </div>
-      
+
       <div class="history-list">
         @for (commit of commitHistory(); track commit.hash) {
           <div class="commit-item">
