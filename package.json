@@ -1,6 +1,6 @@
 {
   "name": "dev-portfolio",
-  "version": "0.0.31",
+  "version": "0.0.33",
   "scripts": {
     "ng": "ng",
     "start": "node --max-old-space-size=8192 ./node_modules/@angular/cli/bin/ng serve",

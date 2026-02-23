@@ -4,7 +4,7 @@
   border: 1px solid rgba(139, 92, 246, 0.2);
   border-radius: 8px;
   font-family: 'Courier New', monospace;
-  transition: all 0.3s ease;
+  /* transition: all 0.3s ease; */
   position: fixed;
   bottom: 0;
   right: 0;
@@ -17,7 +17,7 @@
 .version-container.clickable:hover {
   background: rgba(139, 92, 246, 0.2);
   border-color: rgba(139, 92, 246, 0.4);
-  transform: translateY(-2px);
+  /* transform: translateY(-2px); */
   box-shadow: 0 4px 12px rgba(139, 92, 246, 0.3);
 }
 
@@ -228,9 +228,10 @@
   }
 
   .history-dropdown {
-    position: absolute;
+    position: fixed !important;
     width: 95vw;
-    left: 2.5vw;
+    left: 50%;
+    transform: translateX(-50%);
     right: 2.5vw;
     bottom: 60px;
     max-height: 70vh;
