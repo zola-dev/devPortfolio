@@ -1,27 +1,57 @@
 {
-  "version": "0.0.31",
-  "buildDate": "2026-02-22T22:53:02.647Z",
+  "version": "0.0.33",
+  "buildDate": "2026-02-23T00:06:25.208Z",
   "environment": "production",
   "commit": {
-    "hash": "d08a2ee9ccec38c8703ec2c277ac61b62168a885",
-    "shortHash": "d08a2ee",
-    "message": "fix: version-display mobile layout",
+    "hash": "d2b0c94fcefa481904cae390e34416037780c740",
+    "shortHash": "d2b0c94",
+    "message": "fix: version-display mobile layout for commit history",
     "body": null,
     "author": "Milos",
     "email": "miloslazoviczola@gmail.com",
-    "date": "2026-02-22T23:52:58+01:00",
+    "date": "2026-02-23T01:06:20+01:00",
     "branch": "master",
     "tag": "buld",
-    "totalCommits": 86,
+    "totalCommits": 88,
     "changedFiles": [
       "package.json",
-      "public/version.json",
-      "src/app/components/version-display/version-display.css"
+      "src/app/components/version-display/version-display.css",
+      "src/app/components/version-display/version-display.html"
     ],
-    "stats": "3 files changed, 26 insertions(+), 29 deletions(-)",
+    "stats": "3 files changed, 8 insertions(+), 7 deletions(-)",
     "coAuthors": []
   },
   "history": [
+    {
+      "hash": "d2b0c94fcefa481904cae390e34416037780c740",
+      "shortHash": "d2b0c94",
+      "message": "fix: version-display mobile layout for commit history",
+      "body": null,
+      "author": "Milos",
+      "email": "miloslazoviczola@gmail.com",
+      "date": "2026-02-23T01:06:20+01:00",
+      "stats": "3 files changed, 8 insertions(+), 7 deletions(-)",
+      "changedFiles": [
+        "package.json",
+        "src/app/components/version-display/version-display.css",
+        "src/app/components/version-display/version-display.html"
+      ]
+    },
+    {
+      "hash": "c262eb31fa615958e01c273ea1046aa17f24a5a6",
+      "shortHash": "c262eb3",
+      "message": "added new scripts for build without commit",
+      "body": null,
+      "author": "Milos",
+      "email": "miloslazoviczola@gmail.com",
+      "date": "2026-02-23T00:22:17+01:00",
+      "stats": "3 files changed, 25 insertions(+), 21 deletions(-)",
+      "changedFiles": [
+        "package.json",
+        "public/version.json",
+        "src/app/components/version-display/version-display.css"
+      ]
+    },
     {
       "hash": "d08a2ee9ccec38c8703ec2c277ac61b62168a885",
       "shortHash": "d08a2ee",
@@ -142,36 +172,6 @@
         "package.json",
         "public/version.json",
         "src/app/components/version-display/version-display.html"
-      ]
-    },
-    {
-      "hash": "34878bd816b6f54f2b8b51dfff084eeebf4015dd",
-      "shortHash": "34878bd",
-      "message": "testing isProduction",
-      "body": null,
-      "author": "Milos",
-      "email": "miloslazoviczola@gmail.com",
-      "date": "2026-02-22T22:51:19+01:00",
-      "stats": "3 files changed, 29 insertions(+), 29 deletions(-)",
-      "changedFiles": [
-        "package.json",
-        "public/version.json",
-        "scripts/generate-version.js"
-      ]
-    },
-    {
-      "hash": "bb76a9919ffd30a850c59fab170d49c21cf9b6bf",
-      "shortHash": "bb76a99",
-      "message": "test",
-      "body": null,
-      "author": "Milos",
-      "email": "miloslazoviczola@gmail.com",
-      "date": "2026-02-22T22:46:57+01:00",
-      "stats": "3 files changed, 24 insertions(+), 26 deletions(-)",
-      "changedFiles": [
-        "package.json",
-        "public/version.json",
-        "scripts/generate-version.js"
       ]
     }
   ]

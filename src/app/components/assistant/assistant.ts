@@ -62,7 +62,7 @@ export class AssistantComponent implements OnInit, OnDestroy {
     });
   }
   ngOnInit() {
-    this.chatService.init(this.autoSpeak());
+    this.initChat();
     this.parser.setMarkers([{ start: '[LANG:', end: ']', singleUse: true }]);
     this.parser
       .stream()
@@ -86,25 +86,25 @@ export class AssistantComponent implements OnInit, OnDestroy {
     this.speechService.destroySpeechSession();
     this.parser.reset();
   }
-  // private initChat(): void {
-  //   const WELCOME_MESSAGES = [
-  //     "Hi 👋 I'm Milos Lazovic's AI assistant. I can walk you through his projects, skills, experience, education. What would you like to explore?",
-  //     "Welcome! I'm Milos Lazovic's AI assistant. 📋 Ask me about Milos's projects, tech stack, work history.",
-  //     "Hey there! I'm Milos Lazovic's AI assistant. 😊 I'm here to guide you through Milos's projects, skills, experience, and education. What would you like to check out first?",
-  //     "Hello! I'm Milos Lazovic's AI assistant. ✨ Curious about Milos's work? I can show you his projects, tech stack, experience, or education background.",
-  //     "Welcome aboard 👋 I'm Milos Lazovic's AI assistant. Ask me anything about Milos's projects, technologies, professional experience, or education.",
-  //     "Hi! I'm Milos Lazovic's AI assistant. 💼 I can help you explore Milos's portfolio — from projects and skills to experience and education.",
-  //     "Hey! I'm Milos Lazovic's AI assistant. 🚀 Want a quick overview of Milos's projects, tech stack, or career journey? Just ask!",
-  //     "Hello and welcome 🙂 I'm Milos Lazovic's AI assistant. I'm your guide to Milos's work, skills, and professional background. What would you like to learn more about?",
-  //     "Hi there! I'm Milos Lazovic's AI assistant. 📋 I can walk you through Milos's projects, frontend and backend skills, experience timeline, or education details.",
-  //     "Nice to meet you 👋 I'm Milos Lazovic's AI assistant. Ask me about Milos's portfolio, technologies he uses, or his experience and education — I'm happy to help!"
-  //   ] as const satisfies readonly string[];
-  //   const randomMessage = WELCOME_MESSAGES[Math.floor(Math.random() * WELCOME_MESSAGES.length)];
-  //   this.chatService.addMessage('assistant', randomMessage);
-  //   if (this.autoSpeak()) {
-  //     this.speechService.speak(randomMessage);
-  //   }
-  // }
+  private initChat(): void {
+    const WELCOME_MESSAGES = [
+      "Hi 👋 I'm Milos Lazovic's AI assistant. I can walk you through his projects, skills, experience, education. What would you like to explore?",
+      "Welcome! I'm Milos Lazovic's AI assistant. 📋 Ask me about Milos's projects, tech stack, work history.",
+      "Hey there! I'm Milos Lazovic's AI assistant. 😊 I'm here to guide you through Milos's projects, skills, experience, and education. What would you like to check out first?",
+      "Hello! I'm Milos Lazovic's AI assistant. ✨ Curious about Milos's work? I can show you his projects, tech stack, experience, or education background.",
+      "Welcome aboard 👋 I'm Milos Lazovic's AI assistant. Ask me anything about Milos's projects, technologies, professional experience, or education.",
+      "Hi! I'm Milos Lazovic's AI assistant. 💼 I can help you explore Milos's portfolio — from projects and skills to experience and education.",
+      "Hey! I'm Milos Lazovic's AI assistant. 🚀 Want a quick overview of Milos's projects, tech stack, or career journey? Just ask!",
+      "Hello and welcome 🙂 I'm Milos Lazovic's AI assistant. I'm your guide to Milos's work, skills, and professional background. What would you like to learn more about?",
+      "Hi there! I'm Milos Lazovic's AI assistant. 📋 I can walk you through Milos's projects, frontend and backend skills, experience timeline, or education details.",
+      "Nice to meet you 👋 I'm Milos Lazovic's AI assistant. Ask me about Milos's portfolio, technologies he uses, or his experience and education — I'm happy to help!"
+    ] as const satisfies readonly string[];
+    const randomMessage = WELCOME_MESSAGES[Math.floor(Math.random() * WELCOME_MESSAGES.length)];
+    this.chatService.addMessage('assistant', randomMessage);
+    if (this.autoSpeak()) {
+      this.speechService.speak(randomMessage);
+    }
+  }
   sendMessage(): void {
     const message = this.userInput().trim();
     if (!message || this.isLoading()) return;
@@ -181,7 +181,7 @@ export class AssistantComponent implements OnInit, OnDestroy {
     this.chatService.reset();
     this.userInput.set('');
     this.speechService.stop();
-    this.chatService.init(this.autoSpeak());
+    this.initChat();
   }
   toggleAutoSpeak(): void {
     this.autoSpeak.update((v) => !v);

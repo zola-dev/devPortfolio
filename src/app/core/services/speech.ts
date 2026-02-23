@@ -6,22 +6,26 @@ import { Chat } from '../../core/services/chat';
   providedIn: 'root'
 })
 export class Speech {
-  //  SIGNALS 
+  
+  // ========== SIGNALS ==========
   private isSpeakingSignal = signal<boolean>(false);
   readonly isSpeaking = this.isSpeakingSignal.asReadonly();
-  //  STREAMING QUEUE 
+
+  // ========== STREAMING QUEUE ==========
   private sentenceQueue$ = new Subject<string>();
   private stopQueue$ = new Subject<void>();
   private currentBuffer = '';
   private isStreaming = false;
-  //  CONFIG 
+  
+  // ========== CONFIG ==========
   private synthesis: SpeechSynthesis;
+  
   // Voice settings
   private defaultVoice: SpeechSynthesisVoice | null = null;
   private currentLanguage: string = 'en-US';
-  private rate = 1.1;      // speed (0.1 - 10)
-  private pitch = 1.1;     // tone (0 - 2)
-  private volume = 1.0;    // (0 - 1)
+  private rate = 1.1;      // Brzina (0.1 - 10)
+  private pitch = 1.1;     // Ton (0 - 2)
+  private volume = 1.0;    // Glasnoća (0 - 1)
   public speechSessionId: number | null = null;
   private readonly SESSION_KEY = 'speechSessionId';
   private chatService = inject(Chat);
@@ -33,44 +37,46 @@ export class Speech {
     console.log('✅ SpeechService initialized');
   }
   
-  // private logAvailableLanguages(): void {
-  //   if (this.synthesis.getVoices().length === 0) {
-  //     this.synthesis.onvoiceschanged = () => {
-  //       this.doLogLanguages();
-  //     };
-  //   } else {
-  //     this.doLogLanguages();
-  //   }
-  // }
+  private logAvailableLanguages(): void {
+    if (this.synthesis.getVoices().length === 0) {
+      this.synthesis.onvoiceschanged = () => {
+        this.doLogLanguages();
+      };
+    } else {
+      this.doLogLanguages();
+    }
+  }
   
-  // private doLogLanguages(): void {
-  //   const voices = this.synthesis.getVoices();
-  //   const languages = new Set<string>();
+  private doLogLanguages(): void {
+    const voices = this.synthesis.getVoices();
+    const languages = new Set<string>();
     
-  //   voices.forEach(voice => {
-  //     languages.add(voice.lang);
-  //   });
+    voices.forEach(voice => {
+      languages.add(voice.lang);
+    });
     
-  //   console.log('Available speech languages:', Array.from(languages).sort());
-  //   console.log('Example voices per language:');
+    console.log('🗣️ Available speech languages:', Array.from(languages).sort());
+    console.log('📝 Example voices per language:');
     
-  //   const languageMap = new Map<string, string[]>();
-  //   voices.forEach(voice => {
-  //     if (!languageMap.has(voice.lang)) {
-  //       languageMap.set(voice.lang, []);
-  //     }
-  //     languageMap.get(voice.lang)!.push(voice.name);
-  //   });
+    const languageMap = new Map<string, string[]>();
+    voices.forEach(voice => {
+      if (!languageMap.has(voice.lang)) {
+        languageMap.set(voice.lang, []);
+      }
+      languageMap.get(voice.lang)!.push(voice.name);
+    });
     
-  //   // Log first 2 voices per language
-  //   languageMap.forEach((names, lang) => {
-  //     console.log(`  ${lang}: ${names.slice(0, 2).join(', ')}${names.length > 2 ? '...' : ''}`);
-  //   });
-  // }
+    // Log first 2 voices per language
+    languageMap.forEach((names, lang) => {
+      console.log(`  ${lang}: ${names.slice(0, 2).join(', ')}${names.length > 2 ? '...' : ''}`);
+    });
+  }
   
   setLanguage(lang: string): void {
     this.currentLanguage = lang;
-    console.log(`Language changed to: ${lang}`);
+    console.log(`🗣️ Language changed to: ${lang}`);
+    
+    // Update voice to match language
     this.selectVoiceForLanguage(lang);
   }
   
@@ -92,9 +98,9 @@ export class Speech {
       
       if (similarVoice) {
         this.defaultVoice = similarVoice;
-        console.log(`Selected fallback voice for ${baseLang}: ${similarVoice.name}`);
+        console.log(`🎤 Selected fallback voice for ${baseLang}: ${similarVoice.name}`);
       } else {
-        console.warn(`No voice found for language: ${lang}, keeping current voice`);
+        console.warn(`⚠️ No voice found for language: ${lang}, keeping current voice`);
         this.updateSpeechSessionLanguages();
       }
     }
@@ -109,7 +115,7 @@ export class Speech {
         // Sentence finished, automatically moves to next
       },
       error: (err) => {
-        console.error('Speech queue error:', err);
+        console.error('❌ Speech queue error:', err);
         this.isSpeakingSignal.set(false);
       },
       complete: () => {
@@ -121,48 +127,63 @@ export class Speech {
 
   private sanitizeForSpeech(text: string): string {
     let cleaned = text;
+    
     // Remove markdown bold/italic
     cleaned = cleaned.replace(/(\*\*|__)(.*?)\1/g, '$2');
     cleaned = cleaned.replace(/(\*|_)(.*?)\1/g, '$2');
+    
     // Remove markdown headers
     cleaned = cleaned.replace(/^#{1,6}\s+/gm, '');
+    
     // Remove links but keep text [text](url) -> text
     cleaned = cleaned.replace(/\[([^\]]+)\]\([^\)]+\)/g, '$1');
+    
     // Remove URLs
     cleaned = cleaned.replace(/https?:\/\/[^\s]+/g, '');
+    
     // Remove emojis
     cleaned = cleaned.replace(/[\u{1F300}-\u{1F9FF}\u{2600}-\u{26FF}\u{2700}-\u{27BF}]/gu, '');
+    
     // Remove special symbols
     cleaned = cleaned.replace(/[•·→←↑↓✓✗✔✘★☆♠♣♥♦]/g, '');
+    
     // Replace multiple punctuation
     cleaned = cleaned.replace(/\.{2,}/g, '.');
     cleaned = cleaned.replace(/!{2,}/g, '!');
     cleaned = cleaned.replace(/\?{2,}/g, '?');
+    
     // Replace multiple spaces
     cleaned = cleaned.replace(/\s+/g, ' ');
+    
     return cleaned.trim();
   }
 
   private speakAsync(text: string): Promise<void> {
     return new Promise((resolve, reject) => {
+      // const cleanedText = this.sanitizeForSpeech(text);
       let cleanedText = this.cleanTextForSpeech(text);
       cleanedText = this.sanitizeForSpeech(cleanedText);
+      
       if (!cleanedText.trim()) {
         resolve();
         return;
       }
+      
       const utterance = new SpeechSynthesisUtterance(cleanedText);
+      
       if (this.defaultVoice) {
         utterance.voice = this.defaultVoice;
       }
       utterance.rate = this.rate;
       utterance.pitch = this.pitch;
       utterance.volume = this.volume;
-      utterance.lang = this.currentLanguage;
+      utterance.lang = this.currentLanguage; // 🔥 Use dynamic language
+      
       utterance.onstart = () => {
         this.isSpeakingSignal.set(true);
         console.log(`🔊 Speaking (${this.currentLanguage}): "${cleanedText.substring(0, 50)}..."`);
       };
+      
       utterance.onend = () => {
         console.log('✅ Sentence finished');
         // When streaming has finished (no more chunks, buffer empty),
@@ -172,58 +193,80 @@ export class Speech {
         }
         resolve();
       };
+      
       utterance.onerror = (event) => {
-        console.error('Speech error:', event);
+        console.error('❌ Speech error:', event);
         reject(event);
       };
+      
       this.synthesis.speak(utterance);
     });
   }
+  
   startStreaming(): void {
     this.stop();
+    
     this.isStreaming = true;
     this.currentBuffer = '';
     this.isSpeakingSignal.set(false);
+    
     this.stopQueue$ = new Subject<void>();
     this.setupStreamingQueue();
-    console.log('Streaming speech started');
+    
+    console.log('🎙️ Streaming speech started');
   }
+  
   addChunk(chunk: string): void {
     if (!this.isStreaming) return;
+    
     this.currentBuffer += chunk;
+    
     const sentences = this.extractCompleteSentences();
+    
     sentences.forEach(sentence => {
       if (sentence.trim()) {
         this.sentenceQueue$.next(sentence);
       }
     });
   }
+  
   private extractCompleteSentences(): string[] {
     const sentencePattern = /[.!?,]\s+|\n/g;
+    
     const sentences: string[] = [];
     let lastIndex = 0;
     let match;
+    
     while ((match = sentencePattern.exec(this.currentBuffer)) !== null) {
       const endIndex = match.index + match[0].length;
       const sentence = this.currentBuffer.substring(lastIndex, endIndex).trim();
+      
       if (sentence) {
         sentences.push(sentence);
       }
+      
       lastIndex = endIndex;
     }
+    
     this.currentBuffer = this.currentBuffer.substring(lastIndex);
+    
     return sentences;
   }
+  
   finishStreaming(): void {
     this.isStreaming = false;
+    
     if (this.currentBuffer.trim()) {
       this.sentenceQueue$.next(this.currentBuffer);
       this.currentBuffer = '';
     }
-    console.log('Streaming speech finished');
+    
+    console.log('🎬 Streaming speech finished');
   }
+  
   private loadVoices(): void {
     const voices = this.synthesis.getVoices();
+    
     if (voices.length === 0) {
       this.synthesis.onvoiceschanged = () => {
         this.selectDefaultVoice();
@@ -232,14 +275,17 @@ export class Speech {
       this.selectDefaultVoice();
     }
   }
+  
   private selectDefaultVoice(): void {
     const voices = this.synthesis.getVoices();
+    
     const preferredVoices = [
       'Google US English',        // Female
       'Samantha',                 // macOS Female
       'Microsoft Zira - English (United States)', // Female
       'Alex'                      // macOS Male (fallback)
     ];
+    
     for (const preferred of preferredVoices) {
       const voice = voices.find(v => v.name === preferred);
       if (voice) {
@@ -248,105 +294,134 @@ export class Speech {
         return;
       }
     }
+    
     const englishVoice = voices.find(v => v.lang.startsWith('en'));
     if (englishVoice) {
       this.defaultVoice = englishVoice;
       console.log(`🎤 Selected fallback voice: ${englishVoice.name}`);
     }
   }
+  
   speak(text: string): Promise<void> {
     return new Promise((resolve, reject) => {
       this.stop();
+      
       const cleanedText = this.sanitizeForSpeech(text);
+      // let cleanedText = this.cleanTextForSpeech(text);
+      // cleanedText = this.sanitizeForSpeech(cleanedText);
+      
       if (!cleanedText.trim()) {
         resolve();
         return;
       }
+      
       const utterance = new SpeechSynthesisUtterance(cleanedText);
+      
       if (this.defaultVoice) {
         utterance.voice = this.defaultVoice;
       }
       utterance.rate = this.rate;
       utterance.pitch = this.pitch;
       utterance.volume = this.volume;
-      utterance.lang = this.currentLanguage;
+      utterance.lang = this.currentLanguage; // 🔥 Use dynamic language
+      
       utterance.onstart = () => {
         this.isSpeakingSignal.set(true);
-        console.log(`Started speaking (${this.currentLanguage})`);
+        console.log(`🔊 Started speaking (${this.currentLanguage})`);
       };
+      
       utterance.onend = () => {
         this.isSpeakingSignal.set(false);
-        console.log('Finished speaking');
+        console.log('✅ Finished speaking');
         resolve();
-      }; 
+      };
+      
       utterance.onerror = (event) => {
         this.isSpeakingSignal.set(false);
-        console.error('Speech error:', event);
+        console.error('❌ Speech error:', event);
         reject(event);
       };
+      
       this.synthesis.speak(utterance);
     });
   }
+  
   stop(): void {
     this.isStreaming = false;
     this.currentBuffer = '';
+    
     this.stopQueue$.next();
+    
     if (this.synthesis.speaking || this.synthesis.pending) {
       this.synthesis.cancel();
+      
       setTimeout(() => {
         this.synthesis.cancel();
       }, 0);
     }
+    
     this.isSpeakingSignal.set(false);
-    console.log('Speech stopped & queue cleared');
+    console.log('⏹️ Speech stopped & queue cleared');
   }
+
   pause(): void {
     if (this.synthesis.speaking && !this.synthesis.paused) {
       this.synthesis.pause();
-      console.log('Speech paused');
+      console.log('⏸️ Speech paused');
     }
   }
+  
   resume(): void {
     if (this.synthesis.paused) {
       this.synthesis.resume();
-      console.log('Speech resumed');
+      console.log('▶️ Speech resumed');
     }
   }
+  
   getVoices(): SpeechSynthesisVoice[] {
     return this.synthesis.getVoices();
   }
+  
   setVoice(voiceName: string): void {
     const voices = this.getVoices();
     const voice = voices.find(v => v.name === voiceName);
     if (voice) {
       this.defaultVoice = voice;
-      console.log(`Voice changed to: ${voice.name}`);
+      console.log(`🎤 Voice changed to: ${voice.name}`);
     }
   }
+  
   setRate(rate: number): void {
     this.rate = Math.max(0.1, Math.min(10, rate));
   }
+  
   setPitch(pitch: number): void {
     this.pitch = Math.max(0, Math.min(2, pitch));
   }
+  
   setVolume(volume: number): void {
     this.volume = Math.max(0, Math.min(1, volume));
   }
   logAvailableVoices(): void {
     const log = () => {
       const voices = this.synthesis.getVoices();
+  
       if (!voices.length) {
         console.warn('⚠️ No voices available');
         return;
       }
-      console.group(`Available voices (${voices.length})`);
+  
+      console.group(`🗣️ Available voices (${voices.length})`);
+  
       voices.forEach((v, i) => {
         console.log(
           `${i + 1}. ${v.name} | lang=${v.lang} | default=${v.default}`
         );
       });
+  
       console.groupEnd();
     };
+  
     if (this.synthesis.getVoices().length === 0) {
       this.synthesis.onvoiceschanged = log;
     } else {
@@ -357,11 +432,14 @@ export class Speech {
     return new Promise(resolve => {
       const collect = () => {
         const voices = this.synthesis.getVoices();
+  
         const langs = Array.from(
           new Set(voices.map(v => v.lang).filter(Boolean))
         );
+  
         resolve(langs);
       };
+  
       if (this.synthesis.getVoices().length === 0) {
         this.synthesis.onvoiceschanged = collect;
       } else {
@@ -371,22 +449,27 @@ export class Speech {
   }
   async initSpeechSession(): Promise<void> {
     if (this.speechSessionId) return;
+  
     const cached = localStorage.getItem(this.SESSION_KEY);
     if (cached) {
       this.speechSessionId = +cached;
       return;
     }
+  
     const languages = await this.getAvailableLanguages();
+  
     this.chatService.createSpeechSession(languages)
       .subscribe((id:any) => {
         this.speechSessionId = id;
         localStorage.setItem(this.SESSION_KEY, String(id));
-        console.log('Speech session created:', id);
+        console.log('🆔 Speech session created:', id);
       });
   }
   async updateSpeechSessionLanguages(): Promise<void> {
     if (!this.speechSessionId) return;
+  
     const languages = await this.getAvailableLanguages();
+  
     this.chatService.updateSpeechSession(
       this.speechSessionId,
       languages
@@ -396,22 +479,28 @@ export class Speech {
   }
   destroySpeechSession(): void {
     if (!this.speechSessionId) return;
+  
     this.chatService.deleteSpeechSession(this.speechSessionId)
       .subscribe(() => {
         console.log('🧹 Speech session deleted');
       });
+  
     localStorage.removeItem(this.SESSION_KEY);
     this.speechSessionId = null;
   }
+
     private cleanTextForSpeech(text: string): string {
       let cleaned = text;
+  
       // Remove HTML tags (backup safety)
       cleaned = cleaned.replace(/<[^>]*>/g, '');
+  
       // Format phone numbers for natural speech
       // +381603382202 → "plus 3 8 1, 6 0 3, 3 8 2, 2 0 2"
       cleaned = cleaned.replace(/(\+?\d{10,})/g, (match) => {
         return this.formatPhoneForSpeech(match);
       });
+  
       // Format email addresses for natural speech
       // milos_lazovic@outlook.com → "milos lazovic at outlook dot com"
       cleaned = cleaned.replace(/([a-zA-Z0-9._-]+)@([a-zA-Z0-9.-]+\.[a-zA-Z]{2,})/g, 
@@ -421,19 +510,24 @@ export class Speech {
           return `${formattedUser} at ${formattedDomain}`;
         }
       );
+  
       return cleaned;
     }
+  
     private formatPhoneForSpeech(phone: string): string {
       // Remove + sign and format as groups
       const digits = phone.replace(/\+/g, 'plus ');
+      
       // Split into groups of 3 digits with pauses
       // Example: +381603382202 → "plus 3 8 1, 6 0 3, 3 8 2, 2 0 2"
       const digitArray = digits.replace(/plus\s*/g, '').split('');
       const groups: string[] = [];
+      
       for (let i = 0; i < digitArray.length; i += 3) {
         const group = digitArray.slice(i, i + 3).join(' ');
         groups.push(group);
       }
+      
       const hasPlus = phone.startsWith('+');
       return (hasPlus ? 'plus ' : '') + groups.join(', ');
     }
