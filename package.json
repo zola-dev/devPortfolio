@@ -1,6 +1,6 @@
 {
   "name": "dev-portfolio",
-  "version": "0.0.35",
+  "version": "0.0.37",
   "scripts": {
     "ng": "ng",
     "start": "node --max-old-space-size=8192 ./node_modules/@angular/cli/bin/ng serve",
@@ -8,6 +8,7 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
+    "test:once": "vitest run",
     "bDev": "npm run build --configuration development --watch",
     "rebDev": "npm run clean && npm run bDev",
     "bProd": "npm run build -- --configuration production",
@@ -20,7 +21,7 @@
     "serve:prod": "ng serve --configuration production",
     "httpC": "http-server dist/browser -p 4200 -S -C C:/Certbot/live/area36000.com/fullchain.pem -K C:/Certbot/live/area36000.com/privkey.pem -c-1",
     "http": "http-server dist/browser -p 4200 -c-1",
-    "deploy": "set NODE_ENV=production && npm run rebProd"
+    "deploy": "npm run test:once && npm run rebProd"
   },
   "overrides": {
     "hono": "^4.11.7",

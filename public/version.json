@@ -1,33 +1,42 @@
 {
-  "version": "0.0.34",
-  "buildDate": "2026-02-23T00:14:12.757Z",
+  "version": "0.0.35",
+  "buildDate": "2026-02-23T00:31:36.550Z",
   "environment": "production",
   "commit": {
-    "hash": "eec2e2103574ed5beb93c1ca30d08542139688e2",
-    "shortHash": "eec2e21",
-    "message": "version-display: Last 10 Commits fix",
+    "hash": "ca4a04c866d5721601b47107f4418759ce6191d4",
+    "shortHash": "ca4a04c",
+    "message": "README.md: update",
     "body": null,
     "author": "Milos",
     "email": "miloslazoviczola@gmail.com",
-    "date": "2026-02-23T01:14:06+01:00",
+    "date": "2026-02-23T01:31:32+01:00",
     "branch": "master",
     "tag": "buld",
-    "totalCommits": 89,
+    "totalCommits": 90,
     "changedFiles": [
+      "README.md",
       "package.json",
-      "public/version.json",
-      "src/app/components/assistant/assistant.ts",
-      "src/app/components/background-music/background-music.ts",
-      "src/app/components/version-display/version-display.html",
-      "src/app/core/services/chat.ts",
-      "src/app/core/services/speech.ts",
-      "src/app/core/services/update-app.ts",
-      "src/styles.css"
+      "public/version.json"
     ],
-    "stats": "9 files changed, 439 insertions(+), 267 deletions(-)",
+    "stats": "3 files changed, 76 insertions(+), 85 deletions(-)",
     "coAuthors": []
   },
   "history": [
+    {
+      "hash": "ca4a04c866d5721601b47107f4418759ce6191d4",
+      "shortHash": "ca4a04c",
+      "message": "README.md: update",
+      "body": null,
+      "author": "Milos",
+      "email": "miloslazoviczola@gmail.com",
+      "date": "2026-02-23T01:31:32+01:00",
+      "stats": "3 files changed, 76 insertions(+), 85 deletions(-)",
+      "changedFiles": [
+        "README.md",
+        "package.json",
+        "public/version.json"
+      ]
+    },
     {
       "hash": "eec2e2103574ed5beb93c1ca30d08542139688e2",
       "shortHash": "eec2e21",
@@ -169,21 +178,6 @@
         "package.json",
         "public/version.json",
         "src/app/components/version-display/version-display.html"
-      ]
-    },
-    {
-      "hash": "317169dd6c21e605ddda05ed200970231bfdb086",
-      "shortHash": "317169d",
-      "message": "version-display: added link to devPortfolio",
-      "body": null,
-      "author": "Milos",
-      "email": "miloslazoviczola@gmail.com",
-      "date": "2026-02-22T23:02:36+01:00",
-      "stats": "3 files changed, 35 insertions(+), 27 deletions(-)",
-      "changedFiles": [
-        "package.json",
-        "public/version.json",
-        "src/app/components/version-display/version-display.css"
       ]
     }
   ]
