@@ -7,6 +7,7 @@ Personal AI-powered portfolio built with Angular 21 + Signals. Features an inter
 
 ## Features
 - AI Assistant
+- Streaming chat responses (real-time token by token)
 - PWA with auto-update notifications
 - Background music player
 - Commit history viewer
