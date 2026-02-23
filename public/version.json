@@ -1,27 +1,54 @@
 {
-  "version": "0.0.33",
-  "buildDate": "2026-02-23T00:06:25.208Z",
+  "version": "0.0.34",
+  "buildDate": "2026-02-23T00:14:12.757Z",
   "environment": "production",
   "commit": {
-    "hash": "d2b0c94fcefa481904cae390e34416037780c740",
-    "shortHash": "d2b0c94",
-    "message": "fix: version-display mobile layout for commit history",
+    "hash": "eec2e2103574ed5beb93c1ca30d08542139688e2",
+    "shortHash": "eec2e21",
+    "message": "version-display: Last 10 Commits fix",
     "body": null,
     "author": "Milos",
     "email": "miloslazoviczola@gmail.com",
-    "date": "2026-02-23T01:06:20+01:00",
+    "date": "2026-02-23T01:14:06+01:00",
     "branch": "master",
     "tag": "buld",
-    "totalCommits": 88,
+    "totalCommits": 89,
     "changedFiles": [
       "package.json",
-      "src/app/components/version-display/version-display.css",
-      "src/app/components/version-display/version-display.html"
+      "public/version.json",
+      "src/app/components/assistant/assistant.ts",
+      "src/app/components/background-music/background-music.ts",
+      "src/app/components/version-display/version-display.html",
+      "src/app/core/services/chat.ts",
+      "src/app/core/services/speech.ts",
+      "src/app/core/services/update-app.ts",
+      "src/styles.css"
     ],
-    "stats": "3 files changed, 8 insertions(+), 7 deletions(-)",
+    "stats": "9 files changed, 439 insertions(+), 267 deletions(-)",
     "coAuthors": []
   },
   "history": [
+    {
+      "hash": "eec2e2103574ed5beb93c1ca30d08542139688e2",
+      "shortHash": "eec2e21",
+      "message": "version-display: Last 10 Commits fix",
+      "body": null,
+      "author": "Milos",
+      "email": "miloslazoviczola@gmail.com",
+      "date": "2026-02-23T01:14:06+01:00",
+      "stats": "9 files changed, 439 insertions(+), 267 deletions(-)",
+      "changedFiles": [
+        "package.json",
+        "public/version.json",
+        "src/app/components/assistant/assistant.ts",
+        "src/app/components/background-music/background-music.ts",
+        "src/app/components/version-display/version-display.html",
+        "src/app/core/services/chat.ts",
+        "src/app/core/services/speech.ts",
+        "src/app/core/services/update-app.ts",
+        "src/styles.css"
+      ]
+    },
     {
       "hash": "d2b0c94fcefa481904cae390e34416037780c740",
       "shortHash": "d2b0c94",
@@ -157,21 +184,6 @@
         "package.json",
         "public/version.json",
         "src/app/components/version-display/version-display.css"
-      ]
-    },
-    {
-      "hash": "d00f55d3ff734e7262b42ccfb893cbf853a89197",
-      "shortHash": "d00f55d",
-      "message": "isProduction ficed, canCheckUpdates showing swall message",
-      "body": null,
-      "author": "Milos",
-      "email": "miloslazoviczola@gmail.com",
-      "date": "2026-02-22T22:53:54+01:00",
-      "stats": "3 files changed, 26 insertions(+), 24 deletions(-)",
-      "changedFiles": [
-        "package.json",
-        "public/version.json",
-        "src/app/components/version-display/version-display.html"
       ]
     }
   ]
