@@ -1,29 +1,52 @@
 {
-  "version": "0.0.44",
-  "buildDate": "2026-02-24T22:07:55.370Z",
+  "version": "0.0.45",
+  "buildDate": "2026-02-24T22:22:28.863Z",
   "environment": "production",
   "commit": {
-    "hash": "4318ec48565243c01ac8c3bc72dcb92ec35c6ee5",
-    "shortHash": "4318ec4",
-    "message": "perf: defer version display until browser idle and enable named chunks in development build",
+    "hash": "493d34d135da8c9151c5e810d9a6c35956dec2df",
+    "shortHash": "493d34d",
+    "message": "refactor: extract commit history dropdown into lazy-loaded component",
     "body": null,
     "author": "Milos",
     "email": "miloslazoviczola@gmail.com",
-    "date": "2026-02-24T23:07:50+01:00",
+    "date": "2026-02-24T23:22:21+01:00",
     "branch": "master",
     "tag": "buld",
-    "totalCommits": 99,
+    "totalCommits": 100,
     "changedFiles": [
-      "angular.json",
       "package.json",
       "public/version.json",
-      "src/app/components/assistant/assistant.html",
-      "src/app/components/assistant/assistant.ts"
+      "src/app/components/commit-history/commit-history.css",
+      "src/app/components/commit-history/commit-history.html",
+      "src/app/components/commit-history/commit-history.spec.ts",
+      "src/app/components/commit-history/commit-history.ts",
+      "src/app/components/version-display/version-display.html",
+      "src/app/components/version-display/version-display.ts"
     ],
-    "stats": "5 files changed, 31 insertions(+), 41 deletions(-)",
+    "stats": "8 files changed, 311 insertions(+), 101 deletions(-)",
     "coAuthors": []
   },
   "history": [
+    {
+      "hash": "493d34d135da8c9151c5e810d9a6c35956dec2df",
+      "shortHash": "493d34d",
+      "message": "refactor: extract commit history dropdown into lazy-loaded component",
+      "body": null,
+      "author": "Milos",
+      "email": "miloslazoviczola@gmail.com",
+      "date": "2026-02-24T23:22:21+01:00",
+      "stats": "8 files changed, 311 insertions(+), 101 deletions(-)",
+      "changedFiles": [
+        "package.json",
+        "public/version.json",
+        "src/app/components/commit-history/commit-history.css",
+        "src/app/components/commit-history/commit-history.html",
+        "src/app/components/commit-history/commit-history.spec.ts",
+        "src/app/components/commit-history/commit-history.ts",
+        "src/app/components/version-display/version-display.html",
+        "src/app/components/version-display/version-display.ts"
+      ]
+    },
     {
       "hash": "4318ec48565243c01ac8c3bc72dcb92ec35c6ee5",
       "shortHash": "4318ec4",
@@ -171,21 +194,6 @@
       "stats": "1 file changed, 1 insertion(+)",
       "changedFiles": [
         "README.md"
-      ]
-    },
-    {
-      "hash": "ca4a04c866d5721601b47107f4418759ce6191d4",
-      "shortHash": "ca4a04c",
-      "message": "README.md: update",
-      "body": null,
-      "author": "Milos",
-      "email": "miloslazoviczola@gmail.com",
-      "date": "2026-02-23T01:31:32+01:00",
-      "stats": "3 files changed, 76 insertions(+), 85 deletions(-)",
-      "changedFiles": [
-        "README.md",
-        "package.json",
-        "public/version.json"
       ]
     }
   ]
