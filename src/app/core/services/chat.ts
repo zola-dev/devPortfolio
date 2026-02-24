@@ -317,4 +317,22 @@ export class Chat {
 
     return result;
   }
+    /**
+   * returns random welcome message
+   */
+  getWelcomeMessage(): string {
+    const WELCOME_MESSAGES = [
+      "Hi 👋 I'm Milos Lazovic's AI assistant. I can walk you through his projects, skills, experience, education. What would you like to explore?",
+      "Welcome! I'm Milos Lazovic's AI assistant. 📋 Ask me about Milos's projects, tech stack, work history.",
+      "Hey there! I'm Milos Lazovic's AI assistant. 😊 I'm here to guide you through Milos's projects, skills, experience, and education. What would you like to check out first?",
+      "Hello! I'm Milos Lazovic's AI assistant. ✨ Curious about Milos's work? I can show you his projects, tech stack, experience, or education background.",
+      "Welcome aboard 👋 I'm Milos Lazovic's AI assistant. Ask me anything about Milos's projects, technologies, professional experience, or education.",
+      "Hi! I'm Milos Lazovic's AI assistant. 💼 I can help you explore Milos's portfolio — from projects and skills to experience and education.",
+      "Hey! I'm Milos Lazovic's AI assistant. 🚀 Want a quick overview of Milos's projects, tech stack, or career journey? Just ask!",
+      "Hello and welcome 🙂 I'm Milos Lazovic's AI assistant. I'm your guide to Milos's work, skills, and professional background. What would you like to learn more about?",
+      "Hi there! I'm Milos Lazovic's AI assistant. 📋 I can walk you through Milos's projects, frontend and backend skills, experience timeline, or education details.",
+      "Nice to meet you 👋 I'm Milos Lazovic's AI assistant. Ask me about Milos's portfolio, technologies he uses, or his experience and education — I'm happy to help!"
+    ] as const satisfies readonly string[];
+    return WELCOME_MESSAGES[Math.floor(Math.random() * WELCOME_MESSAGES.length)];
+  }
 }

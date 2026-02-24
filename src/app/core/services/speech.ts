@@ -38,40 +38,40 @@ export class Speech {
     console.log('✅ SpeechService initialized');
   }
   
-  private logAvailableLanguages(): void {
-    if (this.synthesis.getVoices().length === 0) {
-      this.synthesis.onvoiceschanged = () => {
-        this.doLogLanguages();
-      };
-    } else {
-      this.doLogLanguages();
-    }
-  }
+  // private logAvailableLanguages(): void {
+  //   if (this.synthesis.getVoices().length === 0) {
+  //     this.synthesis.onvoiceschanged = () => {
+  //       this.doLogLanguages();
+  //     };
+  //   } else {
+  //     this.doLogLanguages();
+  //   }
+  // }
   
-  private doLogLanguages(): void {
-    const voices = this.synthesis.getVoices();
-    const languages = new Set<string>();
+  // private doLogLanguages(): void {
+  //   const voices = this.synthesis.getVoices();
+  //   const languages = new Set<string>();
     
-    voices.forEach(voice => {
-      languages.add(voice.lang);
-    });
+  //   voices.forEach(voice => {
+  //     languages.add(voice.lang);
+  //   });
     
-    console.log('🗣️ Available speech languages:', Array.from(languages).sort());
-    console.log('📝 Example voices per language:');
+  //   console.log('🗣️ Available speech languages:', Array.from(languages).sort());
+  //   console.log('📝 Example voices per language:');
     
-    const languageMap = new Map<string, string[]>();
-    voices.forEach(voice => {
-      if (!languageMap.has(voice.lang)) {
-        languageMap.set(voice.lang, []);
-      }
-      languageMap.get(voice.lang)!.push(voice.name);
-    });
+  //   const languageMap = new Map<string, string[]>();
+  //   voices.forEach(voice => {
+  //     if (!languageMap.has(voice.lang)) {
+  //       languageMap.set(voice.lang, []);
+  //     }
+  //     languageMap.get(voice.lang)!.push(voice.name);
+  //   });
     
-    // Log first 2 voices per language
-    languageMap.forEach((names, lang) => {
-      console.log(`  ${lang}: ${names.slice(0, 2).join(', ')}${names.length > 2 ? '...' : ''}`);
-    });
-  }
+  //   // Log first 2 voices per language
+  //   languageMap.forEach((names, lang) => {
+  //     console.log(`  ${lang}: ${names.slice(0, 2).join(', ')}${names.length > 2 ? '...' : ''}`);
+  //   });
+  // }
   
   setLanguage(lang: string): void {
     this.currentLanguage = lang;

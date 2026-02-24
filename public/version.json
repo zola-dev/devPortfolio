@@ -1,31 +1,65 @@
 {
-  "version": "0.0.38",
-  "buildDate": "2026-02-24T19:36:10.388Z",
+  "version": "0.0.39",
+  "buildDate": "2026-02-24T20:36:11.464Z",
   "environment": "production",
   "commit": {
-    "hash": "fdfb4eacd7c26d0588bc61047078b8aed4766dd6",
-    "shortHash": "fdfb4ea",
-    "message": "feat: shared UserInteraction service for music and speech autoplay",
+    "hash": "b435a7220df01a5d88057c4b68d71d5926cf0dd4",
+    "shortHash": "b435a72",
+    "message": "feat: add lazy-loaded settings component with music and speech toggles, responsive title on mobile",
     "body": null,
     "author": "Milos",
     "email": "miloslazoviczola@gmail.com",
-    "date": "2026-02-24T20:35:58+01:00",
+    "date": "2026-02-24T21:36:06+01:00",
     "branch": "master",
     "tag": "buld",
-    "totalCommits": 93,
+    "totalCommits": 95,
     "changedFiles": [
       "package.json",
-      "public/version.json",
+      "src/app/components/assistant/assistant.html",
       "src/app/components/assistant/assistant.ts",
-      "src/app/components/background-music/background-music.ts",
-      "src/app/core/services/background-music.ts",
-      "src/app/core/services/user-interaction.spec.ts",
-      "src/app/core/services/user-interaction.ts"
+      "src/app/components/settings/settings.css",
+      "src/app/components/settings/settings.html",
+      "src/app/components/settings/settings.spec.ts",
+      "src/app/components/settings/settings.ts",
+      "src/app/core/services/speech.ts"
     ],
-    "stats": "7 files changed, 102 insertions(+), 69 deletions(-)",
+    "stats": "8 files changed, 131 insertions(+), 24 deletions(-)",
     "coAuthors": []
   },
   "history": [
+    {
+      "hash": "b435a7220df01a5d88057c4b68d71d5926cf0dd4",
+      "shortHash": "b435a72",
+      "message": "feat: add lazy-loaded settings component with music and speech toggles, responsive title on mobile",
+      "body": null,
+      "author": "Milos",
+      "email": "miloslazoviczola@gmail.com",
+      "date": "2026-02-24T21:36:06+01:00",
+      "stats": "8 files changed, 131 insertions(+), 24 deletions(-)",
+      "changedFiles": [
+        "package.json",
+        "src/app/components/assistant/assistant.html",
+        "src/app/components/assistant/assistant.ts",
+        "src/app/components/settings/settings.css",
+        "src/app/components/settings/settings.html",
+        "src/app/components/settings/settings.spec.ts",
+        "src/app/components/settings/settings.ts",
+        "src/app/core/services/speech.ts"
+      ]
+    },
+    {
+      "hash": "1b2202eb12d1abf99cc3683521a57c7868a9c4de",
+      "shortHash": "1b2202e",
+      "message": "commit version",
+      "body": null,
+      "author": "Milos",
+      "email": "miloslazoviczola@gmail.com",
+      "date": "2026-02-24T20:38:42+01:00",
+      "stats": "1 file changed, 33 insertions(+), 29 deletions(-)",
+      "changedFiles": [
+        "public/version.json"
+      ]
+    },
     {
       "hash": "fdfb4eacd7c26d0588bc61047078b8aed4766dd6",
       "shortHash": "fdfb4ea",
@@ -155,37 +189,6 @@
         "package.json",
         "public/version.json",
         "src/app/components/version-display/version-display.css"
-      ]
-    },
-    {
-      "hash": "50f2e43c4f6bdaafafd37ceb94fc1f050708e7c2",
-      "shortHash": "50f2e43",
-      "message": "fix: version-display mobile layout",
-      "body": null,
-      "author": "Milos",
-      "email": "miloslazoviczola@gmail.com",
-      "date": "2026-02-22T23:48:57+01:00",
-      "stats": "3 files changed, 27 insertions(+), 24 deletions(-)",
-      "changedFiles": [
-        "package.json",
-        "public/version.json",
-        "src/app/components/version-display/version-display.css"
-      ]
-    },
-    {
-      "hash": "3ff74310256916ace72bd22f3bcba9561bd757aa",
-      "shortHash": "3ff7431",
-      "message": "refactor: replace update-hint div with CSS ::after hover tooltip",
-      "body": null,
-      "author": "Milos",
-      "email": "miloslazoviczola@gmail.com",
-      "date": "2026-02-22T23:37:27+01:00",
-      "stats": "4 files changed, 44 insertions(+), 89 deletions(-)",
-      "changedFiles": [
-        "package.json",
-        "public/version.json",
-        "src/app/components/version-display/version-display.css",
-        "src/app/components/version-display/version-display.html"
       ]
     }
   ]
