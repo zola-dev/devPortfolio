@@ -1,32 +1,40 @@
 {
-  "version": "0.0.45",
-  "buildDate": "2026-02-24T22:22:28.863Z",
+  "version": "0.0.46",
+  "buildDate": "2026-02-24T22:25:22.008Z",
   "environment": "production",
   "commit": {
-    "hash": "493d34d135da8c9151c5e810d9a6c35956dec2df",
-    "shortHash": "493d34d",
-    "message": "refactor: extract commit history dropdown into lazy-loaded component",
+    "hash": "e552c95cff2ebd9674d39d5d2db9fa8649cb88e0",
+    "shortHash": "e552c95",
+    "message": "verion update test",
     "body": null,
     "author": "Milos",
     "email": "miloslazoviczola@gmail.com",
-    "date": "2026-02-24T23:22:21+01:00",
+    "date": "2026-02-24T23:25:17+01:00",
     "branch": "master",
     "tag": "buld",
-    "totalCommits": 100,
+    "totalCommits": 101,
     "changedFiles": [
       "package.json",
-      "public/version.json",
-      "src/app/components/commit-history/commit-history.css",
-      "src/app/components/commit-history/commit-history.html",
-      "src/app/components/commit-history/commit-history.spec.ts",
-      "src/app/components/commit-history/commit-history.ts",
-      "src/app/components/version-display/version-display.html",
-      "src/app/components/version-display/version-display.ts"
+      "public/version.json"
     ],
-    "stats": "8 files changed, 311 insertions(+), 101 deletions(-)",
+    "stats": "2 files changed, 35 insertions(+), 27 deletions(-)",
     "coAuthors": []
   },
   "history": [
+    {
+      "hash": "e552c95cff2ebd9674d39d5d2db9fa8649cb88e0",
+      "shortHash": "e552c95",
+      "message": "verion update test",
+      "body": null,
+      "author": "Milos",
+      "email": "miloslazoviczola@gmail.com",
+      "date": "2026-02-24T23:25:17+01:00",
+      "stats": "2 files changed, 35 insertions(+), 27 deletions(-)",
+      "changedFiles": [
+        "package.json",
+        "public/version.json"
+      ]
+    },
     {
       "hash": "493d34d135da8c9151c5e810d9a6c35956dec2df",
       "shortHash": "493d34d",
@@ -181,19 +189,6 @@
         "src/app/core/services/update-app.spec.ts",
         "src/test-setup.ts",
         "vitest.config.ts"
-      ]
-    },
-    {
-      "hash": "da4ad7f5ae37d61087dc600b0df5096b02eede89",
-      "shortHash": "da4ad7f",
-      "message": "Update README.md",
-      "body": null,
-      "author": "zola-dev",
-      "email": "54513655+zola-dev@users.noreply.github.com",
-      "date": "2026-02-23T01:34:24+01:00",
-      "stats": "1 file changed, 1 insertion(+)",
-      "changedFiles": [
-        "README.md"
       ]
     }
   ]

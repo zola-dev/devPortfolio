@@ -11,9 +11,11 @@
   </div>
 
   @defer (when showHistory()) {
-    <app-commit-history
-      [commits]="commitHistory()"
-      (closed)="toggleHistory()"
-    />
+    @if (showHistory()) {
+      <app-commit-history
+        [commits]="commitHistory()"
+        (closed)="toggleHistory()"
+      />
+    }
   }
 </div>
