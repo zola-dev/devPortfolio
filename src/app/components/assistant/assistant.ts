@@ -167,12 +167,6 @@ export class AssistantComponent implements OnInit, OnDestroy {
       el.scrollTop = el.scrollHeight;
     }
   }
-  resetChat(): void {
-    this.chatService.reset();
-    this.userInput.set('');
-    this.speechService.stop();
-    this.initChat();
-  }
   speakMessage(message: ChatMessage): void {
     if (this.isSpeaking()) {
       this.speechService.stop();

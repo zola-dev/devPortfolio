@@ -63,6 +63,7 @@
               "serviceWorker": "ngsw-config.json"
             },
             "development": {
+              "namedChunks": true,
               "optimization": false,
               "extractLicenses": false,
               "sourceMap": true
