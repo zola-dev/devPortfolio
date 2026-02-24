@@ -1,29 +1,44 @@
 {
-  "version": "0.0.41",
-  "buildDate": "2026-02-24T21:15:42.261Z",
+  "version": "0.0.42",
+  "buildDate": "2026-02-24T21:46:34.711Z",
   "environment": "production",
   "commit": {
-    "hash": "80c54e4f35ed59099c1920d75998fcc6045d405d",
-    "shortHash": "80c54e4",
-    "message": "refactor: move welcome messages to Chat service",
+    "hash": "9f3e3e77b62f8cdc018c6c4682e28057acf618aa",
+    "shortHash": "9f3e3e7",
+    "message": "perf: add placeholder for lazy-loaded settings component",
     "body": null,
     "author": "Milos",
     "email": "miloslazoviczola@gmail.com",
-    "date": "2026-02-24T22:02:46+01:00",
+    "date": "2026-02-24T22:46:30+01:00",
     "branch": "master",
     "tag": "buld",
-    "totalCommits": 96,
+    "totalCommits": 97,
     "changedFiles": [
       "package.json",
       "public/version.json",
-      "src/app/components/assistant/assistant.ts",
-      "src/app/core/services/chat.ts",
-      "src/app/core/services/speech.ts"
+      "src/app/components/assistant/assistant.html",
+      "src/app/components/assistant/assistant.ts"
     ],
-    "stats": "5 files changed, 106 insertions(+), 100 deletions(-)",
+    "stats": "4 files changed, 42 insertions(+), 33 deletions(-)",
     "coAuthors": []
   },
   "history": [
+    {
+      "hash": "9f3e3e77b62f8cdc018c6c4682e28057acf618aa",
+      "shortHash": "9f3e3e7",
+      "message": "perf: add placeholder for lazy-loaded settings component",
+      "body": null,
+      "author": "Milos",
+      "email": "miloslazoviczola@gmail.com",
+      "date": "2026-02-24T22:46:30+01:00",
+      "stats": "4 files changed, 42 insertions(+), 33 deletions(-)",
+      "changedFiles": [
+        "package.json",
+        "public/version.json",
+        "src/app/components/assistant/assistant.html",
+        "src/app/components/assistant/assistant.ts"
+      ]
+    },
     {
       "hash": "80c54e4f35ed59099c1920d75998fcc6045d405d",
       "shortHash": "80c54e4",
@@ -173,21 +188,6 @@
         "package.json",
         "src/app/components/version-display/version-display.css",
         "src/app/components/version-display/version-display.html"
-      ]
-    },
-    {
-      "hash": "c262eb31fa615958e01c273ea1046aa17f24a5a6",
-      "shortHash": "c262eb3",
-      "message": "added new scripts for build without commit",
-      "body": null,
-      "author": "Milos",
-      "email": "miloslazoviczola@gmail.com",
-      "date": "2026-02-23T00:22:17+01:00",
-      "stats": "3 files changed, 25 insertions(+), 21 deletions(-)",
-      "changedFiles": [
-        "package.json",
-        "public/version.json",
-        "src/app/components/version-display/version-display.css"
       ]
     }
   ]

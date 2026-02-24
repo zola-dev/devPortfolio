@@ -13,6 +13,7 @@ import { BackgroundMusic as BackgroundMusicService } from '../../core/services/b
 import { timer } from 'rxjs';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { UserInteraction } from '../../core/services/user-interaction';
+import { Speech } from '../../core/services/speech';
 @Component({
   selector: 'app-background-music',
   standalone: true,
@@ -24,6 +25,7 @@ export class BackgroundMusic implements OnInit, OnDestroy {
   private readonly musicService = inject(BackgroundMusicService);
   private readonly destroyRef = inject(DestroyRef);
   private readonly userInteraction = inject(UserInteraction);
+  private readonly speechService = inject(Speech);
   readonly videoId = 'jfKfPfyJRdk';
   readonly playerConfig = {
     autoplay: 1,
@@ -44,6 +46,13 @@ export class BackgroundMusic implements OnInit, OnDestroy {
       const interacted = this.userInteraction.hasInteracted();
       if (ready && interacted) {
         this.musicService.play();
+      }
+    });
+    effect(() => {
+      if (this.speechService.isSpeaking()) {
+        this.musicService.duck();
+      } else {
+        this.musicService.unduck();
       }
     });
   }

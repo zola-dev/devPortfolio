@@ -19,7 +19,6 @@ import Swal from 'sweetalert2';
 import { Chat } from '../../core/services/chat';
 import { Speech } from '../../core/services/speech';
 import { StreamParser } from '../../core/services/stream-parser';
-import { BackgroundMusic as BackgroundMusicService } from '../../core/services/background-music';
 
 import { BackgroundMusic } from '../background-music/background-music';
 import { VersionDisplay } from '../version-display/version-display';
@@ -41,7 +40,6 @@ export class AssistantComponent implements OnInit, OnDestroy {
   private chatService = inject(Chat);
   private speechService = inject(Speech);
   private parser = inject(StreamParser);
-  private backgroundMusicService = inject(BackgroundMusicService);
   protected  userInteraction = inject(UserInteraction);
   private currentMessageState = signal<{
     languageSet: boolean;
@@ -56,18 +54,8 @@ export class AssistantComponent implements OnInit, OnDestroy {
   isLoading = this.chatService.isLoading;
   hasMessages = this.chatService.hasMessages;
   isSpeaking = this.speechService.isSpeaking;
-  musicPlaying = this.backgroundMusicService.isPlaying;
-  musicDucked = this.backgroundMusicService.isDucked;
   autoSpeak = this.speechService.autoSpeak;
   constructor() {
-    effect(() => {
-      const speaking = this.isSpeaking();
-      if (speaking) {
-        this.backgroundMusicService.duck(); 
-      } else {
-        this.backgroundMusicService.unduck();
-      }
-    });
     effect(() => {
       if (this.userInteraction.hasInteracted()) {
         this.autoSpeak.set(true);
