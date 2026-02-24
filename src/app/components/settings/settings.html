@@ -1,0 +1,50 @@
+<div class="relative">
+    <!-- Gear icon button -->
+    <button
+      (click)="toggle()"
+      class="w-10 h-10 rounded-full bg-gray-800/70 border border-purple-500/40 flex items-center justify-center text-purple-300 hover:text-white hover:bg-purple-700/50 transition-all hover:scale-110 shadow-lg"
+    >
+      ⚙️
+    </button>
+  
+    <!-- Dropdown panel -->
+    @if (isOpen()) {
+      <div class="absolute right-0 top-12 w-64 bg-gray-900 border border-purple-500/40 rounded-2xl shadow-2xl shadow-purple-500/30 p-4 z-50 flex flex-col gap-3 animate-fadeIn">
+        <p class="text-purple-300 text-xs font-semibold uppercase tracking-widest mb-1">Settings</p>
+  
+        <!-- Auto-Speak toggle -->
+        <div class="flex items-center justify-between">
+          <span class="text-sm text-gray-200">🔊 Auto-Speak</span>
+          <button
+            (click)="toggleAutoSpeak()"
+            [class.bg-purple-600]="autoSpeak()"
+            [class.bg-gray-700]="!autoSpeak()"
+            class="w-12 h-6 rounded-full transition-all relative shadow-inner overflow-hidden shrink-0"
+          >
+            <span
+              [class.translate-x-6]="autoSpeak()"
+              [class.translate-x-1]="!autoSpeak()"
+              class="absolute top-1 left-0 w-4 h-4 bg-white rounded-full shadow transition-transform" 
+            ></span>
+          </button>
+        </div>
+  
+        <!-- Music toggle -->
+        <div class="flex items-center justify-between">
+          <span class="text-sm text-gray-200">🎵 Background Music</span>
+          <button
+            (click)="toggleMusic()"
+            [class.bg-purple-600]="musicPlaying()"
+            [class.bg-gray-700]="!musicPlaying()"
+            class="w-12 h-6 rounded-full transition-all relative shadow-inner overflow-hidden shrink-0"
+          >
+            <span
+              [class.translate-x-6]="musicPlaying()"
+              [class.translate-x-1]="!musicPlaying()"
+              class="absolute top-1 left-0 w-4 h-4 bg-white rounded-full shadow transition-transform"
+            ></span>
+          </button>
+        </div>
+      </div>
+    }
+  </div>

@@ -10,6 +10,7 @@ export class Speech {
   // ========== SIGNALS ==========
   private isSpeakingSignal = signal<boolean>(false);
   readonly isSpeaking = this.isSpeakingSignal.asReadonly();
+  readonly autoSpeak = signal<boolean>(false);
 
   // ========== STREAMING QUEUE ==========
   private sentenceQueue$ = new Subject<string>();
@@ -530,5 +531,11 @@ export class Speech {
       
       const hasPlus = phone.startsWith('+');
       return (hasPlus ? 'plus ' : '') + groups.join(', ');
+    }
+    toggleAutoSpeak(): void {
+      this.autoSpeak.update((v) => !v);
+      if (!this.autoSpeak()) {
+        this.stop();
+      }
     }
 }

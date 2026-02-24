@@ -11,21 +11,27 @@ import {
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { Chat } from '../../core/services/chat';
+
 import { ChatMessage } from '../../core/models/chat';
-import { Speech } from '../../core/services/speech';
+
 import Swal from 'sweetalert2';
+
+import { Chat } from '../../core/services/chat';
+import { Speech } from '../../core/services/speech';
 import { StreamParser } from '../../core/services/stream-parser';
 import { BackgroundMusic as BackgroundMusicService } from '../../core/services/background-music';
+
 import { BackgroundMusic } from '../background-music/background-music';
 import { VersionDisplay } from '../version-display/version-display';
+import { SettingsComponent } from '../settings/settings';
+
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { DestroyRef } from '@angular/core';
 import { UserInteraction } from '../../core/services/user-interaction';
 @Component({
   selector: 'app-assistant',
   standalone: true,
-  imports: [CommonModule, FormsModule, BackgroundMusic, VersionDisplay],
+  imports: [CommonModule, FormsModule, BackgroundMusic, VersionDisplay, SettingsComponent],
   templateUrl: './assistant.html',
   styleUrls: ['./assistant.css'],
 })
@@ -46,13 +52,13 @@ export class AssistantComponent implements OnInit, OnDestroy {
   });
   private destroyRef = inject(DestroyRef);
   userInput = signal<string>('');
-  autoSpeak = signal<boolean>(false);
   messages = this.chatService.visibleMessages;
   isLoading = this.chatService.isLoading;
   hasMessages = this.chatService.hasMessages;
   isSpeaking = this.speechService.isSpeaking;
   musicPlaying = this.backgroundMusicService.isPlaying;
   musicDucked = this.backgroundMusicService.isDucked;
+  autoSpeak = this.speechService.autoSpeak;
   constructor() {
     effect(() => {
       const speaking = this.isSpeaking();
@@ -190,14 +196,6 @@ export class AssistantComponent implements OnInit, OnDestroy {
     this.userInput.set('');
     this.speechService.stop();
     this.initChat();
-  }
-  toggleAutoSpeak(): void {
-    this.autoSpeak.update((v) => !v);
-    if (!this.autoSpeak()) {
-      this.speechService.stop();
-    } else if (this.userInteraction.hasInteracted()) {
-      this.speechService.initSpeechSession();
-    }
   }
   speakMessage(message: ChatMessage): void {
     if (this.isSpeaking()) {
