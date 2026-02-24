@@ -1,28 +1,46 @@
 {
-  "version": "0.0.43",
-  "buildDate": "2026-02-24T21:58:37.781Z",
+  "version": "0.0.44",
+  "buildDate": "2026-02-24T22:07:55.370Z",
   "environment": "production",
   "commit": {
-    "hash": "e09b8f34fe60bde19aad9692a09f4b64700a280c",
-    "shortHash": "e09b8f3",
-    "message": "refactor: move ducking logic to BackgroundMusic component for true lazy loading",
+    "hash": "4318ec48565243c01ac8c3bc72dcb92ec35c6ee5",
+    "shortHash": "4318ec4",
+    "message": "perf: defer version display until browser idle and enable named chunks in development build",
     "body": null,
     "author": "Milos",
     "email": "miloslazoviczola@gmail.com",
-    "date": "2026-02-24T22:58:30+01:00",
+    "date": "2026-02-24T23:07:50+01:00",
     "branch": "master",
     "tag": "buld",
-    "totalCommits": 98,
+    "totalCommits": 99,
     "changedFiles": [
+      "angular.json",
       "package.json",
       "public/version.json",
-      "src/app/components/assistant/assistant.ts",
-      "src/app/components/background-music/background-music.ts"
+      "src/app/components/assistant/assistant.html",
+      "src/app/components/assistant/assistant.ts"
     ],
-    "stats": "4 files changed, 36 insertions(+), 39 deletions(-)",
+    "stats": "5 files changed, 31 insertions(+), 41 deletions(-)",
     "coAuthors": []
   },
   "history": [
+    {
+      "hash": "4318ec48565243c01ac8c3bc72dcb92ec35c6ee5",
+      "shortHash": "4318ec4",
+      "message": "perf: defer version display until browser idle and enable named chunks in development build",
+      "body": null,
+      "author": "Milos",
+      "email": "miloslazoviczola@gmail.com",
+      "date": "2026-02-24T23:07:50+01:00",
+      "stats": "5 files changed, 31 insertions(+), 41 deletions(-)",
+      "changedFiles": [
+        "angular.json",
+        "package.json",
+        "public/version.json",
+        "src/app/components/assistant/assistant.html",
+        "src/app/components/assistant/assistant.ts"
+      ]
+    },
     {
       "hash": "e09b8f34fe60bde19aad9692a09f4b64700a280c",
       "shortHash": "e09b8f3",
@@ -168,27 +186,6 @@
         "README.md",
         "package.json",
         "public/version.json"
-      ]
-    },
-    {
-      "hash": "eec2e2103574ed5beb93c1ca30d08542139688e2",
-      "shortHash": "eec2e21",
-      "message": "version-display: Last 10 Commits fix",
-      "body": null,
-      "author": "Milos",
-      "email": "miloslazoviczola@gmail.com",
-      "date": "2026-02-23T01:14:06+01:00",
-      "stats": "9 files changed, 439 insertions(+), 267 deletions(-)",
-      "changedFiles": [
-        "package.json",
-        "public/version.json",
-        "src/app/components/assistant/assistant.ts",
-        "src/app/components/background-music/background-music.ts",
-        "src/app/components/version-display/version-display.html",
-        "src/app/core/services/chat.ts",
-        "src/app/core/services/speech.ts",
-        "src/app/core/services/update-app.ts",
-        "src/styles.css"
       ]
     }
   ]

@@ -1,0 +1,48 @@
+<div class="history-dropdown" (click)="stopProp($event)">
+    <div class="history-header">
+      <h4>
+        Last 10 Commits —
+        <a
+          href="https://github.com/zola-dev/devPortfolio/commits/master"
+          target="_blank"
+          rel="noopener noreferrer"
+          >View Full History</a
+        >
+      </h4>
+      <button (click)="close($event)">✕</button>
+    </div>
+  
+    <div class="history-list">
+      @for (commit of commits(); track commit.hash) {
+        <div class="commit-item">
+          <div class="commit-header-item">
+            <code class="commit-hash-item">{{ commit.shortHash }}</code>
+            <span class="commit-date">{{ formatDate(commit.date) }}</span>
+          </div>
+          <p class="commit-message">{{ commit.message }}</p>
+          @if (commit.body) {
+            <p class="commit-body">{{ commit.body }}</p>
+          }
+          <div class="commit-meta">
+            <span class="commit-author">👤 {{ commit.author }}</span>
+            @if (commit.stats) {
+              <span class="commit-stats">{{ commit.stats }}</span>
+            }
+          </div>
+          @if (commit.changedFiles.length) {
+            <details class="changed-files">
+              <summary>{{ commit.changedFiles.length }} files changed</summary>
+              <ul>
+                @for (file of commit.changedFiles.slice(0, 5); track file) {
+                  <li>{{ file }}</li>
+                }
+                @if (commit.changedFiles.length > 5) {
+                  <li>...and {{ commit.changedFiles.length - 5 }} more</li>
+                }
+              </ul>
+            </details>
+          }
+        </div>
+      }
+    </div>
+  </div>

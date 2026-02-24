@@ -1,0 +1,163 @@
+/* History Dropdown */
+.history-dropdown {
+    position: absolute;
+    bottom: 100%;
+    right: 0;
+    width: 400px;
+    max-height: 500px;
+    background: #1f2937;
+    border: 1px solid #8b5cf6;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    z-index: 1000;
+    margin-bottom: 8px;
+  }
+  
+  .history-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 16px;
+    background: rgba(139, 92, 246, 0.2);
+    border-bottom: 1px solid rgba(139, 92, 246, 0.3);
+  }
+  
+  .history-header h4 {
+    margin: 0;
+    color: #e5e7eb;
+    font-size: 14px;
+  }
+  
+  .history-header button {
+    background: none;
+    border: none;
+    color: #e5e7eb;
+    font-size: 18px;
+    cursor: pointer;
+    padding: 0;
+    width: 24px;
+    height: 24px;
+  }
+  
+  .history-header a {
+    color: #8b5cf6;
+    text-decoration: none;
+    font-size: 0.85em;
+  }
+  
+  .history-header a:hover {
+    text-decoration: underline;
+  }
+  
+  .history-list {
+    max-height: 450px;
+    overflow-y: auto;
+    padding: 12px;
+  }
+  
+  .commit-item {
+    padding: 12px;
+    margin-bottom: 8px;
+    background: rgba(139, 92, 246, 0.1);
+    border-left: 3px solid #8b5cf6;
+    border-radius: 4px;
+  }
+  
+  .commit-header-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+  }
+  
+  .commit-hash-item {
+    font-size: 11px;
+    color: #a78bfa;
+    background: rgba(255, 255, 255, 0.05);
+    padding: 2px 8px;
+    border-radius: 4px;
+  }
+  
+  .commit-date {
+    font-size: 10px;
+    color: #9ca3af;
+  }
+  
+  .commit-message {
+    font-weight: 600;
+    margin: 8px 0;
+    color: #e5e7eb;
+    font-size: 13px;
+  }
+  
+  .commit-body {
+    font-size: 11px;
+    color: #9ca3af;
+    white-space: pre-wrap;
+    margin: 4px 0;
+  }
+  
+  .commit-meta {
+    display: flex;
+    gap: 12px;
+    font-size: 11px;
+    color: #9ca3af;
+    margin-top: 8px;
+  }
+  
+  .commit-author,
+  .commit-stats {
+    font-size: 13px;
+    margin: 6px 0;
+    opacity: 0.8;
+    color: #d1d5db;
+  }
+  
+  .changed-files {
+    margin-top: 8px;
+    font-size: 11px;
+    color: #9ca3af;
+  }
+  
+  .changed-files summary {
+    cursor: pointer;
+    user-select: none;
+  }
+  
+  .changed-files ul {
+    list-style: none;
+    padding-left: 12px;
+    margin: 4px 0;
+  }
+  
+  .changed-files li {
+    font-family: monospace;
+    color: #6ee7b7;
+    font-size: 10px;
+    padding: 2px 0;
+  }
+  
+  @media (max-width: 640px) {
+    .history-dropdown {
+      position: fixed !important;
+      width: 95vw;
+      left: 50%;
+      transform: translateX(-50%);
+      right: 2.5vw;
+      bottom: 60px;
+      max-height: 70vh;
+    }
+  
+    .commit-message {
+      font-size: 15px;
+      line-height: 1.6;
+      margin: 12px 0;
+      color: #e5e7eb;
+      font-style: italic;
+    }
+  
+    .commit-hash-item, .commit-body, .commit-meta {
+      font-size: 11px;
+    }
+  }
