@@ -1,32 +1,46 @@
 {
-  "version": "0.0.39",
-  "buildDate": "2026-02-24T20:36:11.464Z",
+  "version": "0.0.41",
+  "buildDate": "2026-02-24T21:15:42.261Z",
   "environment": "production",
   "commit": {
-    "hash": "b435a7220df01a5d88057c4b68d71d5926cf0dd4",
-    "shortHash": "b435a72",
-    "message": "feat: add lazy-loaded settings component with music and speech toggles, responsive title on mobile",
+    "hash": "80c54e4f35ed59099c1920d75998fcc6045d405d",
+    "shortHash": "80c54e4",
+    "message": "refactor: move welcome messages to Chat service",
     "body": null,
     "author": "Milos",
     "email": "miloslazoviczola@gmail.com",
-    "date": "2026-02-24T21:36:06+01:00",
+    "date": "2026-02-24T22:02:46+01:00",
     "branch": "master",
     "tag": "buld",
-    "totalCommits": 95,
+    "totalCommits": 96,
     "changedFiles": [
       "package.json",
-      "src/app/components/assistant/assistant.html",
+      "public/version.json",
       "src/app/components/assistant/assistant.ts",
-      "src/app/components/settings/settings.css",
-      "src/app/components/settings/settings.html",
-      "src/app/components/settings/settings.spec.ts",
-      "src/app/components/settings/settings.ts",
+      "src/app/core/services/chat.ts",
       "src/app/core/services/speech.ts"
     ],
-    "stats": "8 files changed, 131 insertions(+), 24 deletions(-)",
+    "stats": "5 files changed, 106 insertions(+), 100 deletions(-)",
     "coAuthors": []
   },
   "history": [
+    {
+      "hash": "80c54e4f35ed59099c1920d75998fcc6045d405d",
+      "shortHash": "80c54e4",
+      "message": "refactor: move welcome messages to Chat service",
+      "body": null,
+      "author": "Milos",
+      "email": "miloslazoviczola@gmail.com",
+      "date": "2026-02-24T22:02:46+01:00",
+      "stats": "5 files changed, 106 insertions(+), 100 deletions(-)",
+      "changedFiles": [
+        "package.json",
+        "public/version.json",
+        "src/app/components/assistant/assistant.ts",
+        "src/app/core/services/chat.ts",
+        "src/app/core/services/speech.ts"
+      ]
+    },
     {
       "hash": "b435a7220df01a5d88057c4b68d71d5926cf0dd4",
       "shortHash": "b435a72",
@@ -170,21 +184,6 @@
       "email": "miloslazoviczola@gmail.com",
       "date": "2026-02-23T00:22:17+01:00",
       "stats": "3 files changed, 25 insertions(+), 21 deletions(-)",
-      "changedFiles": [
-        "package.json",
-        "public/version.json",
-        "src/app/components/version-display/version-display.css"
-      ]
-    },
-    {
-      "hash": "d08a2ee9ccec38c8703ec2c277ac61b62168a885",
-      "shortHash": "d08a2ee",
-      "message": "fix: version-display mobile layout",
-      "body": null,
-      "author": "Milos",
-      "email": "miloslazoviczola@gmail.com",
-      "date": "2026-02-22T23:52:58+01:00",
-      "stats": "3 files changed, 26 insertions(+), 29 deletions(-)",
       "changedFiles": [
         "package.json",
         "public/version.json",

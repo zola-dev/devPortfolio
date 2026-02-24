@@ -42,7 +42,7 @@ export class AssistantComponent implements OnInit, OnDestroy {
   private speechService = inject(Speech);
   private parser = inject(StreamParser);
   private backgroundMusicService = inject(BackgroundMusicService);
-  private userInteraction = inject(UserInteraction);
+  protected  userInteraction = inject(UserInteraction);
   private currentMessageState = signal<{
     languageSet: boolean;
     unsupportedHandled: boolean;

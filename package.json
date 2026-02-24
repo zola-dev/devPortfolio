@@ -1,6 +1,6 @@
 {
   "name": "dev-portfolio",
-  "version": "0.0.40",
+  "version": "0.0.42",
   "scripts": {
     "ng": "ng",
     "start": "node --max-old-space-size=8192 ./node_modules/@angular/cli/bin/ng serve",
@@ -9,7 +9,7 @@
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "test:once": "vitest run",
-    "bDev": "npm run build --configuration development --watch",
+    "bDev": "ng build --configuration development --watch",
     "rebDev": "npm run clean && npm run bDev",
     "bProd": "npm run build -- --configuration production",
     "bProdNOprebuild": "ng build --configuration production",
