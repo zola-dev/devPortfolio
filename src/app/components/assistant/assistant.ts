@@ -21,6 +21,7 @@ import { BackgroundMusic } from '../background-music/background-music';
 import { VersionDisplay } from '../version-display/version-display';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { DestroyRef } from '@angular/core';
+import { UserInteraction } from '../../core/services/user-interaction';
 @Component({
   selector: 'app-assistant',
   standalone: true,
@@ -35,6 +36,7 @@ export class AssistantComponent implements OnInit, OnDestroy {
   private speechService = inject(Speech);
   private parser = inject(StreamParser);
   private backgroundMusicService = inject(BackgroundMusicService);
+  private userInteraction = inject(UserInteraction);
   private currentMessageState = signal<{
     languageSet: boolean;
     unsupportedHandled: boolean;
@@ -58,6 +60,12 @@ export class AssistantComponent implements OnInit, OnDestroy {
         this.backgroundMusicService.duck(); 
       } else {
         this.backgroundMusicService.unduck();
+      }
+    });
+    effect(() => {
+      if (this.userInteraction.hasInteracted()) {
+        this.autoSpeak.set(true);
+        this.speechService.initSpeechSession();
       }
     });
   }
@@ -187,7 +195,7 @@ export class AssistantComponent implements OnInit, OnDestroy {
     this.autoSpeak.update((v) => !v);
     if (!this.autoSpeak()) {
       this.speechService.stop();
-    } else {
+    } else if (this.userInteraction.hasInteracted()) {
       this.speechService.initSpeechSession();
     }
   }

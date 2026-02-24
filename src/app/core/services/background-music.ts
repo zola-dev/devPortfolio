@@ -39,13 +39,13 @@ export class BackgroundMusic {
    */
   play(): void {
     if (!this.player || !this.playerReady()) {
-      console.warn('🎵 Player not ready yet');
+      console.warn('Player not ready yet');
       return;
     }
     
     this.player.playVideo();
     this.isPlayingSignal.set(true);
-    console.log('🎵 Music started');
+    console.log('Music started');
   }
 
   /**
@@ -56,7 +56,7 @@ export class BackgroundMusic {
     
     this.player.pauseVideo();
     this.isPlayingSignal.set(false);
-    console.log('🎵 Music paused');
+    console.log('Music paused');
   }
 
   /**
@@ -67,7 +67,7 @@ export class BackgroundMusic {
     
     this.isDuckedSignal.set(true);
     this.setVolume(this.config.duckingVolume);
-    console.log(`🔉 Music ducked to ${this.config.duckingVolume}%`);
+    console.log(`Music ducked to ${this.config.duckingVolume}%`);
   }
 
   /**
@@ -78,7 +78,7 @@ export class BackgroundMusic {
     
     this.isDuckedSignal.set(false);
     this.setVolume(this.config.normalVolume);
-    console.log(`🔊 Music restored to ${this.config.normalVolume}%`);
+    console.log(`Music restored to ${this.config.normalVolume}%`);
   }
 
   /**

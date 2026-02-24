@@ -1,27 +1,61 @@
 {
-  "version": "0.0.35",
-  "buildDate": "2026-02-23T00:31:36.550Z",
+  "version": "0.0.37",
+  "buildDate": "2026-02-23T22:09:21.706Z",
   "environment": "production",
   "commit": {
-    "hash": "ca4a04c866d5721601b47107f4418759ce6191d4",
-    "shortHash": "ca4a04c",
-    "message": "README.md: update",
-    "body": null,
+    "hash": "85cc9be6b5abea804f326a9a4dcb88680025cfd3",
+    "shortHash": "85cc9be",
+    "message": "added test for update-app",
+    "body": "-test: cover UpdateApp checkForUpdate behavior with Vitest",
     "author": "Milos",
     "email": "miloslazoviczola@gmail.com",
-    "date": "2026-02-23T01:31:32+01:00",
+    "date": "2026-02-23T23:09:15+01:00",
     "branch": "master",
     "tag": "buld",
-    "totalCommits": 90,
+    "totalCommits": 92,
     "changedFiles": [
-      "README.md",
+      "package-lock.json",
       "package.json",
-      "public/version.json"
+      "public/version.json",
+      "src/app/core/services/update-app.spec.ts",
+      "src/test-setup.ts",
+      "vitest.config.ts"
     ],
-    "stats": "3 files changed, 76 insertions(+), 85 deletions(-)",
+    "stats": "6 files changed, 221 insertions(+), 104 deletions(-)",
     "coAuthors": []
   },
   "history": [
+    {
+      "hash": "85cc9be6b5abea804f326a9a4dcb88680025cfd3",
+      "shortHash": "85cc9be",
+      "message": "added test for update-app",
+      "body": "-test: cover UpdateApp checkForUpdate behavior with Vitest",
+      "author": "Milos",
+      "email": "miloslazoviczola@gmail.com",
+      "date": "2026-02-23T23:09:15+01:00",
+      "stats": "6 files changed, 221 insertions(+), 104 deletions(-)",
+      "changedFiles": [
+        "package-lock.json",
+        "package.json",
+        "public/version.json",
+        "src/app/core/services/update-app.spec.ts",
+        "src/test-setup.ts",
+        "vitest.config.ts"
+      ]
+    },
+    {
+      "hash": "da4ad7f5ae37d61087dc600b0df5096b02eede89",
+      "shortHash": "da4ad7f",
+      "message": "Update README.md",
+      "body": null,
+      "author": "zola-dev",
+      "email": "54513655+zola-dev@users.noreply.github.com",
+      "date": "2026-02-23T01:34:24+01:00",
+      "stats": "1 file changed, 1 insertion(+)",
+      "changedFiles": [
+        "README.md"
+      ]
+    },
     {
       "hash": "ca4a04c866d5721601b47107f4418759ce6191d4",
       "shortHash": "ca4a04c",
@@ -147,36 +181,6 @@
         "package.json",
         "public/version.json",
         "src/app/components/version-display/version-display.css",
-        "src/app/components/version-display/version-display.html"
-      ]
-    },
-    {
-      "hash": "db011728ed64aa9feb4c77499b13a8ef87f3899c",
-      "shortHash": "db01172",
-      "message": "moved canCheckUpdates under version-number",
-      "body": null,
-      "author": "Milos",
-      "email": "miloslazoviczola@gmail.com",
-      "date": "2026-02-22T23:15:19+01:00",
-      "stats": "3 files changed, 44 insertions(+), 30 deletions(-)",
-      "changedFiles": [
-        "package.json",
-        "public/version.json",
-        "src/app/components/version-display/version-display.html"
-      ]
-    },
-    {
-      "hash": "147e1debe5b4611058fb422c10a056f18fd93005",
-      "shortHash": "147e1de",
-      "message": "testing link to github",
-      "body": "-testing",
-      "author": "Milos",
-      "email": "miloslazoviczola@gmail.com",
-      "date": "2026-02-22T23:04:46+01:00",
-      "stats": "3 files changed, 26 insertions(+), 26 deletions(-)",
-      "changedFiles": [
-        "package.json",
-        "public/version.json",
         "src/app/components/version-display/version-display.html"
       ]
     }

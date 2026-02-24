@@ -12,7 +12,7 @@ import { YouTubePlayer } from '@angular/youtube-player';
 import { BackgroundMusic as BackgroundMusicService } from '../../core/services/background-music';
 import { timer } from 'rxjs';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-
+import { UserInteraction } from '../../core/services/user-interaction';
 @Component({
   selector: 'app-background-music',
   standalone: true,
@@ -23,11 +23,9 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 export class BackgroundMusic implements OnInit, OnDestroy {
   private readonly musicService = inject(BackgroundMusicService);
   private readonly destroyRef = inject(DestroyRef);
-
+  private readonly userInteraction = inject(UserInteraction);
   readonly videoId = 'jfKfPfyJRdk';
-
   readonly playerConfig = {
-    //autoplay: 0,
     autoplay: 1,
     controls: 0,
     loop: 1,
@@ -38,32 +36,16 @@ export class BackgroundMusic implements OnInit, OnDestroy {
     modestbranding: 1,
     iv_load_policy: 3,
     cc_load_policy: 0,
-    // origin: window.location.origin
   };
-
   private readonly playerReady = signal(false);
-  private readonly userInteracted = signal(false);
-
   constructor() {
     effect(() => {
       const ready = this.playerReady();
-      const interacted = this.userInteracted();
-      console.log(`[BackgroundMusic] effect triggered - playerReady: ${ready}, userInteracted: ${interacted}`);
+      const interacted = this.userInteraction.hasInteracted();
       if (ready && interacted) {
-        console.log('[BackgroundMusic] Both ready, calling play()');
         this.musicService.play();
       }
     });
-  }
-
-  @HostListener('document:click')
-  @HostListener('document:keydown')
-  @HostListener('document:touchstart')
-  onFirstInteraction(): void {
-    if (!this.userInteracted()) {
-      console.log('[BackgroundMusic] First user interaction detected');
-      this.userInteracted.set(true);
-    }
   }
 
   @HostListener('document:visibilitychange')
