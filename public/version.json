@@ -1,26 +1,42 @@
 {
-  "version": "0.0.46",
-  "buildDate": "2026-02-24T22:25:22.008Z",
+  "version": "0.0.47",
+  "buildDate": "2026-02-24T22:32:57.893Z",
   "environment": "production",
   "commit": {
-    "hash": "e552c95cff2ebd9674d39d5d2db9fa8649cb88e0",
-    "shortHash": "e552c95",
-    "message": "verion update test",
+    "hash": "3b74bc41599bba2b3412839c27799ec81920d46e",
+    "shortHash": "3b74bc4",
+    "message": "fix: add @error fallbacks to defer blocks and wrap close to fix history toggle",
     "body": null,
     "author": "Milos",
     "email": "miloslazoviczola@gmail.com",
-    "date": "2026-02-24T23:25:17+01:00",
+    "date": "2026-02-24T23:32:53+01:00",
     "branch": "master",
     "tag": "buld",
-    "totalCommits": 101,
+    "totalCommits": 102,
     "changedFiles": [
       "package.json",
-      "public/version.json"
+      "public/version.json",
+      "src/app/components/version-display/version-display.html"
     ],
-    "stats": "2 files changed, 35 insertions(+), 27 deletions(-)",
+    "stats": "3 files changed, 30 insertions(+), 33 deletions(-)",
     "coAuthors": []
   },
   "history": [
+    {
+      "hash": "3b74bc41599bba2b3412839c27799ec81920d46e",
+      "shortHash": "3b74bc4",
+      "message": "fix: add @error fallbacks to defer blocks and wrap close to fix history toggle",
+      "body": null,
+      "author": "Milos",
+      "email": "miloslazoviczola@gmail.com",
+      "date": "2026-02-24T23:32:53+01:00",
+      "stats": "3 files changed, 30 insertions(+), 33 deletions(-)",
+      "changedFiles": [
+        "package.json",
+        "public/version.json",
+        "src/app/components/version-display/version-display.html"
+      ]
+    },
     {
       "hash": "e552c95cff2ebd9674d39d5d2db9fa8649cb88e0",
       "shortHash": "e552c95",
@@ -171,24 +187,6 @@
         "src/app/core/services/background-music.ts",
         "src/app/core/services/user-interaction.spec.ts",
         "src/app/core/services/user-interaction.ts"
-      ]
-    },
-    {
-      "hash": "85cc9be6b5abea804f326a9a4dcb88680025cfd3",
-      "shortHash": "85cc9be",
-      "message": "added test for update-app",
-      "body": "-test: cover UpdateApp checkForUpdate behavior with Vitest",
-      "author": "Milos",
-      "email": "miloslazoviczola@gmail.com",
-      "date": "2026-02-23T23:09:15+01:00",
-      "stats": "6 files changed, 221 insertions(+), 104 deletions(-)",
-      "changedFiles": [
-        "package-lock.json",
-        "package.json",
-        "public/version.json",
-        "src/app/core/services/update-app.spec.ts",
-        "src/test-setup.ts",
-        "vitest.config.ts"
       ]
     }
   ]
